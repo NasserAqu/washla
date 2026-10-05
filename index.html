@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>غسله Wash</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <style>
+    :root {
+      --primary:#0d6efd;
+      --primary-strong:#0a56d4;
+      --primary-soft:#eaf3ff;
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#102033;
+      --muted:#6a7280;
+      --success:#198754;
+      --danger:#d93025;
+      --warning:#f5a623;
+      --shadow:0 8px 24px rgba(16,32,51,0.08);
+      --radius:18px;
+      --radius-sm:12px;
+      --header-height:72px;
+    }
+
+    * { box-sizing:border-box; }
+    html, body {
+      margin:0; padding:0; background:var(--bg); font-family:Tahoma, Arial, sans-serif; color:var(--text);
+      min-height:100%;
+    }
+
+    body {
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color:inherit; text-decoration:none; }
+    button, input {
+      font:inherit;
+    }
+
+    .app {
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      background:linear-gradient(180deg,#eef6ff 0%, #f5f7fb 100%);
+    }
+
+    header {
+      height:var(--header-height);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 16px;
+      background:linear-gradient(90deg, var(--primary), var(--primary-strong));
+      color:white;
+      box-shadow:0 4px 14px rgba(13,110,253,0.25);
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+
+    .logo {
+      display:flex; align-items:center; gap:8px; font-weight:800; font-size:1.1rem;
+    }
+
+    .logo .mini {
+      opacity:0.9; font-weight:700; font-size:0.95rem;
+    }
+
+    .header-actions {
+      display:flex; align-items:center; gap:8px;
+    }
+
+    .lang-switch {
+      display:flex; background:rgba(255,255,255,0.12); border-radius:999px; padding:3px; gap:4px;
+    }
+
+    .lang-switch button {
+      border:0; border-radius:999px; background:transparent; color:white; padding:7px 10px; font-weight:700; cursor:pointer;
+    }
+
+    .lang-switch button.active {
+      background:rgba(255,255,255,0.18);
+    }
+
+    .menu-btn, .icon-btn {
+      width:38px; height:38px; border-radius:10px; border:0; background:rgba(255,255,255,0.12); color:white; cursor:pointer;
+      display:flex; align-items:center; justify-content:center; font-size:1.2rem;
+    }
+
+    main {
+      flex:1; position:relative; padding:12px 12px 86px 12px; display:flex; flex-direction:column; gap:12px;
+    }
+
+    .topbar {
+      display:flex; align-items:center; justify-content:space-between; gap:8px;
+    }
+
+    .location-pill {
+      background:var(--card); border-radius:999px; padding:10px 12px; min-height:44px; display:flex; align-items:center; gap:8px; box-shadow:var(--shadow); font-size:0.8rem; color:var(--muted); flex:1;
+    }
+
+    .location-pill strong {
+      color:var(--text); font-size:0.9rem;
+    }
+
+    .view-toggle {
+      display:flex; background:var(--card); border-radius:999px; box-shadow:var(--shadow); overflow:hidden; padding:2px;
+    }
+
+    .view-toggle button {
+      border:0; background:transparent; padding:9px 12px; border-radius:999px; font-weight:700; cursor:pointer; color:var(--muted);
+    }
+
+    .view-toggle button.active {
+      background:var(--primary); color:white;
+    }
+
+    .map-shell, .list-shell {
+      background:var(--card); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
+    }
+
+    #map {
+      width:100%; height:46vh; min-height:280px; border-radius:var(--radius); overflow:hidden;
+    }
+
+    .list-shell {
+      display:none; padding:8px; gap:8px;
+    }
+
+    .list-shell.visible { display:flex; flex-direction:column; }
+
+    .shop-card {
+      display:flex; align-items:center; justify-content:space-between; gap:10px; background:#f9fbff; border:1px solid #e7edf8; border-radius:14px; padding:12px;
+    }
+
+    .shop-meta {
+      display:flex; flex-direction:column; gap:4px; min-width:0;
+    }
+
+    .shop-name {
+      font-size:1rem; font-weight:800; color:var(--text);
+    }
+
+    .shop-details {
+      font-size:0.8rem; color:var(--muted); display:flex; gap:6px; flex-wrap:wrap;
+    }
+
+    .shop-actions {
+      display:flex; flex-direction:column; gap:6px; min-width:98px;
+    }
+
+    .btn {
+      padding:10px 12px; border-radius:10px; border:0; background:var(--primary); color:white; font-weight:700; cursor:pointer; transition:all 0.2s ease;
+    }
+
+    .btn:hover { filter:brightness(0.95); }
+
+    .btn.secondary {
+      background:#edf5ff; color:var(--primary); border:1px solid #cfe2ff;
+    }
+
+    .btn.ghost {
+      background:transparent; color:var(--primary); border:1px solid #dbe7ff;
+    }
+
+    .panel {
+      position:fixed; left:12px; right:12px; bottom:12px; background:var(--card); border-radius:18px; box-shadow:0 20px 50px rgba(15,30,52,0.2); padding:14px; z-index:60; max-height:80vh; overflow:auto;
+      border:1px solid #edf1f8;
+    }
+
+    .panel.hidden { display:none; }
+
+    .panel-header {
+      display:flex; justify-content:space-between; align-items:flex-start; gap:8px;
+      margin-bottom:12px;
+    }
+
+    .panel-title {
+      font-size:1.1rem; font-weight:800;
+    }
+
+    .panel-subtitle {
+      font-size:0.8rem; color:var(--muted);
+      margin-top:4px;
+    }
+
+    .section-title {
+      display:flex; justify-content:space-between; align-items:center; gap:8px; margin:8px 0;
+      font-weight:800; font-size:0.96rem;
+    }
+
+    .items-list {
+      display:flex; flex-direction:column; gap:8px;
+    }
+
+    .item-row {
+      display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 10px; border-radius:12px; border:1px solid #edf1f5; background:#fbfcff;
+    }
+
+    .item-main {
+      display:flex; flex-direction:column; gap:3px;
+    }
+
+    .item-name {
+      font-weight:700;
+    }
+
+    .item-price {
+      font-size:0.8rem; color:var(--muted);
+    }
+
+    .quantity-box {
+      display:flex; align-items:center; gap:8px;
+    }
+
+    .qty-btn {
+      width:32px; height:32px; border-radius:8px; border:1px solid #dfe8f8; background:white; font-weight:800; cursor:pointer; color:var(--primary);
+    }
+
+    .qty-value {
+      min-width:24px; text-align:center; font-weight:800;
+    }
+
+    .schedule-box, .address-box {
+      margin-top:12px;
+    }
+
+    .field-row {
+      display:flex; gap:8px;
+      margin-top:8px;
+    }
+
+    .field-row input {
+      flex:1; width:100%; min-height:42px; border-radius:10px; border:1px solid #dfe8f8; padding:10px 12px; background:white; color:var(--text);
+    }
+
+    .error-text {
+      margin-top:8px; color:var(--danger); font-size:0.8rem; display:none;
+    }
+
+    .error-text.show { display:block; }
+
+    .totals {
+      margin-top:14px; border-top:1px solid #edf1f5; padding-top:12px; display:flex; flex-direction:column; gap:8px;
+    }
+
+    .row-line {
+      display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:0.92rem;
+    }
+
+    .row-line.total {
+      font-size:1rem; font-weight:800; padding-top:4px;
+    }
+
+    .checkout-actions {
+      display:flex; gap:8px; margin-top:8px;
+    }
+
+    .whatsapp-fab {
+      position:fixed; right:16px; bottom:94px; display:flex; align-items:center; gap:8px; background:#25d366; color:white; padding:12px 14px; border-radius:999px; box-shadow:0 14px 28px rgba(37,211,102,0.35); z-index:70;
+    }
+
+    .whatsapp-fab a {
+      color:white; font-weight:800;
+    }
+
+    .toast {
+      position:fixed; left:12px; right:12px; bottom:18px; background:var(--card); border-radius:14px; box-shadow:0 18px 46px rgba(15,30,52,0.18); border:1px solid #edf1f8; padding:12px; z-index:80;
+    }
+
+    .toast.hidden { display:none; }
+
+    .toast-row {
+      display:flex; align-items:center; justify-content:space-between; gap:8px;
+    }
+
+    .muted { color:var(--muted); }
+
+    @media (min-width: 760px) {
+      main {
+        max-width:720px; margin:0 auto; width:100%;
+      }
+      #map { height:55vh; }
+      .panel {
+        max-width:640px; left:50%; transform:translateX(-50%);
+      }
+    }
+
+    [dir="ltr"] .shop-actions { align-items:flex-end; }
+    [dir="ltr"] .whatsapp-fab { right:auto; left:16px; }
+    [dir="ltr"] .field-row { flex-direction:row; }
+    [dir="ltr"] .panel { direction:ltr; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo"><span>غسله</span><span class="mini">Wash</span></div>
+      <div class="header-actions">
+        <div class="lang-switch" aria-label="Language switcher">
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="ar" class="active">AR</button>
+        </div>
+        <button class="menu-btn" type="button" aria-label="Menu">☰</button>
+      </div>
+    </header>
+
+    <main>
+      <div class="topbar">
+        <div class="location-pill"><span>📍</span><span id="locationText">جاري تحديد الموقع...</span></div>
+        <div class="view-toggle" aria-label="View selector">
+          <button type="button" class="active" data-view="map">الخريطة</button>
+          <button type="button" data-view="list">القائمة</button>
+        </div>
+      </div>
+
+      <div id="mapWrap" class="map-shell">
+        <div id="map"></div>
+      </div>
+
+      <div id="listWrap" class="list-shell"></div>
+    </main>
+
+    <div class="whatsapp-fab">
+      <span>💬</span>
+      <a id="supportLink" href="#" target="_blank">خدمة العملاء</a>
+    </div>
+
+    <div id="orderPanel" class="panel hidden" aria-live="polite">
+      <div class="panel-header">
+        <div>
+          <div id="shopName" class="panel-title">اسم المغسلة</div>
+          <div id="shopMeta" class="panel-subtitle">تقييم • حالة</div>
+        </div>
+        <button type="button" class="btn ghost" id="closePanelBtn">إغلاق</button>
+      </div>
+
+      <div class="section-title">
+        <span id="itemsTitle">العناصر</span>
+        <span class="muted" id="itemsHint">أضف الكميات</span>
+      </div>
+      <div id="itemsList" class="items-list"></div>
+
+      <div class="schedule-box">
+        <div id="pickupLabel">تاريخ ووقت الاستلام</div>
+        <div class="field-row">
+          <input id="pickupDate" type="date" />
+          <input id="pickupTime" type="time" />
+        </div>
+        <div id="timeError" class="error-text"></div>
+      </div>
+
+      <div class="address-box">
+        <div id="addressLabel">عنوان الاستلام</div>
+        <div class="field-row">
+          <input id="addressInput" type="text" placeholder="استخدم الموقع الحالي" />
+          <button type="button" class="btn secondary" id="useLocationBtn">استخدم</button>
+        </div>
+      </div>
+
+      <div class="totals">
+        <div class="row-line">
+          <span id="laundryLabel">خدمة الغسيل</span>
+          <span id="laundrySubTotal">SAR 0.00</span>
+        </div>
+        <div class="row-line">
+          <span id="deliveryLabel">استلام وإعادة (SAR 6)</span>
+          <span id="deliveryFee">SAR 6.00</span>
+        </div>
+        <div class="row-line total">
+          <span id="totalLabel">الإجمالي</span>
+          <span id="grandTotal">SAR 0.00</span>
+        </div>
+        <div class="checkout-actions">
+          <button type="button" class="btn" id="confirmBtn" style="flex:1;">تأكيد ودفع</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast hidden" aria-live="assertive">
+      <div class="toast-row">
+        <div>
+          <strong id="toastTitle">تم إنشاء الطلب</strong>
+          <div class="muted" id="toastBody">تمت المعالجة</div>
+        </div>
+        <button type="button" class="btn secondary" id="toastClose">موافق</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    const DELIVERY_FEE = 6;
+    const MIN_SLOTS_HOURS = 8;
+    const STYLES = {
+      ar: {
+        locationDetecting: 'جاري تحديد الموقع...',
+        map: 'الخريطة',
+        list: 'القائمة',
+        support: 'خدمة العملاء',
+        select: 'اختر',
+        view: 'عرض',
+        label: 'موقع افتراضي',
+        pickup: 'تاريخ ووقت الاستلام',
+        address: 'عنوان الاستلام',
+        use: 'استخدم',
+        laundry: 'خدمة الغسيل',
+        delivery: 'استلام وإعادة (SAR 6)',
+        total: 'الإجمالي',
+        confirm: 'تأكيد ودفع',
+        close: 'إغلاق',
+        items: 'العناصر',
+        addQty: 'أضف الكميات',
+        invalidTime: 'يجب أن يكون وقت الاستلام بعد 8 ساعات على الأقل من الآن.',
+        locationFallback: 'تم استخدام الموقع الافتراضي.',
+        terms: 'سيتم فرض رسوم التوصيل الإجبارية SAR 6.',
+        orderCreated: 'تم إنشاء الطلب بنجاح',
+        orderStatus: 'الحالة: تم تأكيد الطلب',
+        closeToast: 'موافق'
+      },
+      en: {
+        locationDetecting: 'Detecting location...',
+        map: 'Map',
+        list: 'List',
+        support: 'Customer Service',
+        select: 'Select',
+        view: 'View',
+        label: 'Default location',
+        pickup: 'Pickup date & time',
+        address: 'Pickup address',
+        use: 'Use',
+        laundry: 'Laundry service',
+        delivery: 'Pickup & Return Delivery (SAR 6)',
+        total: 'Total',
+        confirm: 'Confirm & Pay',
+        close: 'Close',
+        items: 'Items',
+        addQty: 'Add quantities',
+        invalidTime: 'Pickup time must be at least 8 hours from now.',
+        locationFallback: 'Using default location.',
+        terms: 'Mandatory delivery charge SAR 6 is always applied.',
+        orderCreated: 'Order created successfully',
+        orderStatus: 'Status: Order confirmed',
+        closeToast: 'OK'
+      }
+    };
+
+    const catalog = [
+      { id:'thobe', name_ar:'ثوب', name_en:'Thobe', key:'thobe' },
+      { id:'shemagh', name_ar:'شماغ', name_en:'Shemagh', key:'shemagh' },
+      { id:'ghutra', name_ar:'غترة', name_en:'Ghutra', key:'ghutra' },
+      { id:'tshirt', name_ar:'تيشيرت', name_en:'T-shirt', key:'tshirt' },
+      { id:'pants', name_ar:'بنطال', name_en:'Pants', key:'pants' }
+    ];
+
+    const shops = [
+      { id:'shopA', name_ar:'مغسلة النور', name_en:'Al Noor Laundry', lat:24.7136, lng:46.6753, rating:4.6, open:true, prices:{ thobe:15, shemagh:8, ghutra:8, tshirt:10, pants:12 } },
+      { id:'shopB', name_ar:'رايتش كلينرز', name_en:'Riyadh Cleaners', lat:24.715, lng:46.68, rating:4.3, open:true, prices:{ thobe:14, shemagh:7, ghutra:7, tshirt:9, pants:11 } },
+      { id:'shopC', name_ar:'دزرت واش', name_en:'Desert Wash', lat:24.71, lng:46.67, rating:4.0, open:false, prices:{ thobe:16, shemagh:9, ghutra:9, tshirt:12, pants:13 } }
+    ];
+
+    const state = {
+      lang: 'ar',
+      view: 'map',
+      location: { lat:24.7136, lng:46.6753 },
+      selectedShop: null,
+      cart: {},
+      pickupDate: '',
+      pickupTime: ''
+    };
+
+    let map;
+    let userMarker;
+    let markersLayer;
+
+    function t(key) {
+      return STYLES[state.lang][key] || key;
+    }
+
+    function setLanguage(lang) {
+      state.lang = lang;
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+      const langButtons = document.querySelectorAll('[data-lang]');
+      langButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+
+      document.getElementById('locationText').textContent = t('locationDetecting');
+      document.querySelector('[data-view="map"]').textContent = t('map');
+      document.querySelector('[data-view="list"]').textContent = t('list');
+      document.getElementById('supportLink').textContent = t('support');
+      document.getElementById('closePanelBtn').textContent = t('close');
+      document.getElementById('pickupLabel').textContent = t('pickup');
+      document.getElementById('addressLabel').textContent = t('address');
+      document.getElementById('useLocationBtn').textContent = t('use');
+      document.getElementById('laundryLabel').textContent = t('laundry');
+      document.getElementById('deliveryLabel').textContent = t('delivery');
+      document.getElementById('totalLabel').textContent = t('total');
+      document.getElementById('confirmBtn').textContent = t('confirm');
+      document.getElementById('itemsTitle').textContent = t('items');
+      document.getElementById('itemsHint').textContent = t('addQty');
+      document.getElementById('toastClose').textContent = t('closeToast');
+
+      if (state.selectedShop) renderShopPanel(state.selectedShop);
+      renderShopList();
+      updateSupportLink();
+    }
+
+    function formatMoney(value) {
+      return `SAR ${Number(value).toFixed(2)}`;
+    }
+
+    function distanceMeters(lat1, lon1, lat2, lon2) {
+      const R = 6371000;
+      const dLat = ((lat2 - lat1) * Math.PI) / 180;
+      const dLon = ((lon2 - lon1) * Math.PI) / 180;
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos((lat1*Math.PI)/180) * Math.cos((lat2*Math.PI)/180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    function localizeName(obj) {
+      return state.lang === 'ar' ? obj.name_ar : obj.name_en;
+    }
+
+    function initMap() {
+      map = L.map('map', { zoomControl:true }).setView([24.7136, 46.6753], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19 }).addTo(map);
+      markersLayer = L.layerGroup().addTo(map);
+      renderMarkers();
+    }
+
+    function renderMarkers() {
+      if (!map || !markersLayer) return;
+      markersLayer.clearLayers();
+
+      if (userMarker) map.removeLayer(userMarker);
+
+      userMarker = L.circleMarker([state.location.lat, state.location.lng], {
+        radius:8,
+        color:'#ff8c00',
+        fillColor:'#ff8c00',
+        fillOpacity:0.9
+      }).addTo(markersLayer);
+      userMarker.bindPopup(state.lang === 'ar' ? 'موقعك الحالي' : 'Your location');
+
+      shops.forEach(shop => {
+        const m = L.marker([shop.lat, shop.lng]).addTo(markersLayer);
+        const text = `${localizeName(shop)}<br>${(distanceMeters(state.location.lat, state.location.lng, shop.lat, shop.lng) / 1000).toFixed(2)} km`;
+        m.bindPopup(text);
+        m.on('click', () => openShopPanel(shop));
+      });
+
+      const bounds = shops.map(shop => [shop.lat, shop.lng]);
+      bounds.push([state.location.lat, state.location.lng]);
+      map.fitBounds(bounds, { padding:[28,28] });
+    }
+
+    function detectLocation() {
+      const fallback = () => {
+        state.location = { lat:24.7136, lng:46.6753 };
+        document.getElementById('locationText').textContent = `${t('locationFallback')} ${state.location.lat.toFixed(4)}, ${state.location.lng.toFixed(4)}`;
+        renderMarkers();
+        renderShopList();
+      };
+
+      if (!navigator.geolocation) {
+        fallback();
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          state.location = { lat:position.coords.latitude, lng:position.coords.longitude };
+          document.getElementById('locationText').textContent = `${state.location.lat.toFixed(4)}, ${state.location.lng.toFixed(4)}`;
+          if (map) renderMarkers();
+          renderShopList();
+        },
+        () => {
+          fallback();
+        },
+        { enableHighAccuracy:true, timeout:10000 }
+      );
+    }
+
+    function renderShopList() {
+      const wrap = document.getElementById('listWrap');
+      wrap.innerHTML = '';
+      const list = shops
+        .map(shop => ({ ...shop, distance: distanceMeters(state.location.lat, state.location.lng, shop.lat, shop.lng) }))
+        .sort((a, b) => a.distance - b.distance);
+
+      list.forEach(shop => {
+        const card = document.createElement('div');
+        card.className = 'shop-card';
+
+        card.innerHTML = `
+          <div class="shop-meta">
+            <div class="shop-name">${localizeName(shop)}</div>
+            <div class="shop-details">
+              <span>${(shop.distance / 1000).toFixed(2)} km</span>
+              <span>★ ${shop.rating}</span>
+              <span>${shop.open ? (state.lang === 'ar' ? 'مفتوح' : 'Open') : (state.lang === 'ar' ? 'مغلق' : 'Closed')}</span>
+            </div>
+          </div>
+          <div class="shop-actions">
+            <button type="button" class="btn" data-select-id="${shop.id}">${state.lang === 'ar' ? 'اختر' : 'Select'}</button>
+            <button type="button" class="btn ghost" data-view-id="${shop.id}">${state.lang === 'ar' ? 'عرض' : 'View'}</button>
+          </div>
+        `;
+
+        card.querySelector('[data-select-id]').addEventListener('click', () => openShopPanel(shop));
+        card.querySelector('[data-view-id]').addEventListener('click', () => {
+          if (map) {
+            map.setView([shop.lat, shop.lng], 15);
+            state.view = 'map';
+            updateView();
+          }
+        });
+
+        wrap.appendChild(card);
+      });
+    }
+
+    function updateView() {
+      const mapWrap = document.getElementById('mapWrap');
+      const listWrap = document.getElementById('listWrap');
+      const mapBtn = document.querySelector('[data-view="map"]');
+      const listBtn = document.querySelector('[data-view="list"]');
+
+      if (state.view === 'map') {
+        mapWrap.style.display = 'block';
+        listWrap.classList.remove('visible');
+        mapBtn.classList.add('active');
+        listBtn.classList.remove('active');
+        if (map) map.invalidateSize();
+      } else {
+        mapWrap.style.display = 'none';
+        listWrap.classList.add('visible');
+        mapBtn.classList.remove('active');
+        listBtn.classList.add('active');
+      }
+    }
+
+    function openShopPanel(shop) {
+      state.selectedShop = shop;
+      const panel = document.getElementById('orderPanel');
+      panel.classList.remove('hidden');
+      renderShopPanel(shop);
+    }
+
+    function closeShopPanel() {
+      document.getElementById('orderPanel').classList.add('hidden');
+      state.selectedShop = null;
+      state.cart = {};
+    }
+
+    function renderShopPanel(shop) {
+      document.getElementById('shopName').textContent = localizeName(shop);
+      document.getElementById('shopMeta').textContent = `${shop.rating} ★ • ${shop.open ? (state.lang === 'ar' ? 'مفتوح' : 'Open') : (state.lang === 'ar' ? 'مغلق' : 'Closed')}`;
+
+      const itemsList = document.getElementById('itemsList');
+      itemsList.innerHTML = '';
+      catalog.forEach(item => {
+        const price = shop.prices[item.key] || 0;
+        const row = document.createElement('div');
+        row.className = 'item-row';
+        row.innerHTML = `
+          <div class="item-main">
+            <div class="item-name">${state.lang === 'ar' ? item.name_ar : item.name_en}</div>
+            <div class="item-price">${formatMoney(price)}</div>
+          </div>
+          <div class="quantity-box">
+            <button class="qty-btn" type="button" data-action="minus" data-item="${item.id}">−</button>
+            <div class="qty-value" data-qty-for="${item.id}">${state.cart[item.id] || 0}</div>
+            <button class="qty-btn" type="button" data-action="plus" data-item="${item.id}">+</button>
+          </div>
+        `;
+
+        row.querySelector('[data-action="minus"]').addEventListener('click', () => adjustQuantity(item.id, -1));
+        row.querySelector('[data-action="plus"]').addEventListener('click', () => adjustQuantity(item.id, 1));
+
+        itemsList.appendChild(row);
+      });
+
+      updateTotals();
+      document.getElementById('pickupDate').value = '';
+      document.getElementById('pickupTime').value = '';
+      document.getElementById('addressInput').value = 'Riyadh';
+      hideTimeError();
+    }
+
+    function adjustQuantity(itemId, delta) {
+      const current = Number(state.cart[itemId] || 0);
+      const next = Math.max(0, current + delta);
+      if (next === 0) delete state.cart[itemId]; else state.cart[itemId] = next;
+      const qtyEl = document.querySelector(`[data-qty-for="${itemId}"]`);
+      if (qtyEl) qtyEl.textContent = next;
+      updateTotals();
+    }
+
+    function updateTotals() {
+      const laundry = catalog.reduce((sum, item) => {
+        const qty = Number(state.cart[item.id] || 0);
+        const price = state.selectedShop ? (state.selectedShop.prices[item.key] || 0) : 0;
+        return sum + (qty * price);
+      }, 0);
+
+      document.getElementById('laundrySubTotal').textContent = formatMoney(laundry);
+      document.getElementById('deliveryFee').textContent = formatMoney(DELIVERY_FEE);
+      document.getElementById('grandTotal').textContent = formatMoney(laundry + DELIVERY_FEE);
+    }
+
+    function showTimeError() {
+      const el = document.getElementById('timeError');
+      el.textContent = t('invalidTime');
+      el.classList.add('show');
+    }
+
+    function hideTimeError() {
+      const el = document.getElementById('timeError');
+      el.textContent = '';
+      el.classList.remove('show');
+    }
+
+    function validatePickupTime() {
+      const date = document.getElementById('pickupDate').value;
+      const time = document.getElementById('pickupTime').value;
+      if (!date || !time) {
+        hideTimeError();
+        return false;
+      }
+
+      const selectedDate = new Date(`${date}T${time}:00`);
+      const now = new Date();
+      const earliest = new Date(now.getTime() + MIN_SLOTS_HOURS * 60 * 60 * 1000);
+
+      if (selectedDate < earliest) {
+        showTimeError();
+        return false;
+      }
+
+      hideTimeError();
+      state.pickupDate = date;
+      state.pickupTime = time;
+      return true;
+    }
+
+    function checkout() {
+      if (!state.selectedShop) return;
+      const itemCount = Object.values(state.cart).reduce((s, x) => s + Number(x || 0), 0);
+      if (itemCount === 0) {
+        alert(state.lang === 'ar' ? 'يرجى اختيار عنصر واحد على الأقل.' : 'Please select at least one item.');
+        return;
+      }
+      if (!validatePickupTime()) {
+        return;
+      }
+
+      const subtotal = catalog.reduce((sum, item) => {
+        const qty = Number(state.cart[item.id] || 0);
+        return sum + (qty * (state.selectedShop.prices[item.key] || 0));
+      }, 0);
+
+      const order = {
+        id: `W${Date.now().toString().slice(-6)}`,
+        subtotal,
+        delivery: DELIVERY_FEE,
+        total: subtotal + DELIVERY_FEE,
+        date: state.pickupDate,
+        time: state.pickupTime,
+        address: document.getElementById('addressInput').value || 'Riyadh'
+      };
+
+      closeShopPanel();
+      showToast(order);
+    }
+
+    function showToast(order) {
+      const toast = document.getElementById('toast');
+      const title = state.lang === 'ar' ? 'تم إنشاء الطلب' : 'Order created';
+      const body = state.lang === 'ar'
+        ? `#${order.id} • الإجمالي ${formatMoney(order.total)}`
+        : `#${order.id} • Total ${formatMoney(order.total)}`;
+      document.getElementById('toastTitle').textContent = title;
+      document.getElementById('toastBody').textContent = body;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 5000);
+    }
+
+    function updateSupportLink() {
+      const message = state.lang === 'ar'
+        ? 'مرحباً، أحتاج مساعدة بخصوص طلب غسله.'
+        : 'Hello, I need help with my Washla order.';
+      const target = `https://wa.me/966558781345?text=${encodeURIComponent(message)}`;
+      document.getElementById('supportLink').href = target;
+    }
+
+    document.querySelectorAll('[data-lang]').forEach(btn => {
+      btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+    });
+
+    document.querySelector('[data-view="map"]').addEventListener('click', () => {
+      state.view = 'map'; updateView();
+    });
+
+    document.querySelector('[data-view="list"]').addEventListener('click', () => {
+      state.view = 'list'; updateView(); renderShopList();
+    });
+
+    document.getElementById('closePanelBtn').addEventListener('click', closeShopPanel);
+    document.getElementById('confirmBtn').addEventListener('click', checkout);
+    document.getElementById('pickupDate').addEventListener('change', validatePickupTime);
+    document.getElementById('pickupTime').addEventListener('change', validatePickupTime);
+    document.getElementById('toastClose').addEventListener('click', () => document.getElementById('toast').classList.add('hidden'));
+    document.getElementById('useLocationBtn').addEventListener('click', () => {
+      document.getElementById('addressInput').value = `${state.location.lat.toFixed(4)}, ${state.location.lng.toFixed(4)}`;
+    });
+
+    function ready() {
+      setLanguage('ar');
+      updateView();
+      initMap();
+      detectLocation();
+      updateSupportLink();
+      renderShopList();
+    }
+
+    ready();
+  </script>
+</body>
+</html>

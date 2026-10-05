@@ -662,6 +662,7 @@
 
     /* ================= Config & data ================= */
     const DELIVERY_FEE = 6;
+    const ITEM_PRICE = 1; // flat price per item, every laundry and service
     const MIN_LEAD_HOURS = 8;
     const PROMO = { code:'WASHLA10', pct:10 };
     const SUPPORT_PHONE = '966558781345';
@@ -682,8 +683,8 @@
         promoTitle:'خصم 10% على طلبك الأول', promoBody:'استخدم الكود', copy:'نسخ', copied:'تم نسخ الكود',
         how1t:'اختر المغسلة', how1b:'قارن الأسعار والتقييمات', how2t:'حدّد موعد الاستلام', how2b:'المندوب يوصل لبابك', how3t:'استلم ملابسك', how3b:'نظيفة، مكوية ومغلّفة',
         nearby:'مغاسل قريبة منك', list:'قائمة', map:'خريطة', mapLoading:'جاري تحميل الخريطة…', mapFailed:'تعذّر تحميل الخريطة. استخدم عرض القائمة.',
-        sort_near:'الأقرب', sort_rating:'الأعلى تقييماً', sort_price:'الأقل سعراً', f_open:'مفتوح الآن', f_express:'خلال 24 ساعة',
-        open:'مفتوح', closed:'مغلق الآن', km:'كم', reviews:'تقييم', from:'تبدأ من', express:'سريع', ready24:'جاهز خلال 24 ساعة', ready48:'جاهز خلال 48 ساعة',
+        sort_near:'الأقرب', sort_rating:'الأعلى تقييماً', f_open:'مفتوح الآن', f_express:'خلال 24 ساعة',
+        open:'مفتوح', closed:'مغلق الآن', km:'كم', reviews:'تقييم', express:'سريع', ready24:'جاهز خلال 24 ساعة', ready48:'جاهز خلال 48 ساعة',
         noShops:'لا توجد مغاسل مطابقة', noShopsBody:'جرّب تغيير البحث أو إزالة الفلاتر', clearFilters:'إزالة الفلاتر',
         viewCart:'عرض السلة', piece:'قطعة', pieces:'قطع',
         closedNote:'المغسلة مغلقة الآن، ويمكنك جدولة الاستلام لوقت لاحق.', minNote:'رسوم الاستلام والتوصيل ثابتة 6 ر.س لكل طلب.',
@@ -717,8 +718,8 @@
         promoTitle:'10% off your first order', promoBody:'Use code', copy:'Copy', copied:'Code copied',
         how1t:'Pick a laundry', how1b:'Compare prices & ratings', how2t:'Schedule pickup', how2b:'A driver comes to you', how3t:'Get it back', how3b:'Clean, ironed & packed',
         nearby:'Laundries near you', list:'List', map:'Map', mapLoading:'Loading map…', mapFailed:'Map couldn’t load. Use the list view.',
-        sort_near:'Nearest', sort_rating:'Top rated', sort_price:'Lowest price', f_open:'Open now', f_express:'24h express',
-        open:'Open', closed:'Closed now', km:'km', reviews:'reviews', from:'From', express:'Express', ready24:'Ready in 24h', ready48:'Ready in 48h',
+        sort_near:'Nearest', sort_rating:'Top rated', f_open:'Open now', f_express:'24h express',
+        open:'Open', closed:'Closed now', km:'km', reviews:'reviews', express:'Express', ready24:'Ready in 24h', ready48:'Ready in 48h',
         noShops:'No matching laundries', noShopsBody:'Try a different search or clear the filters', clearFilters:'Clear filters',
         viewCart:'View cart', piece:'item', pieces:'items',
         closedNote:'This laundry is closed right now — you can still schedule a later pickup.', minNote:'A flat SAR 6 pickup & delivery fee applies to every order.',
@@ -744,33 +745,33 @@
     };
 
     const SERVICES = [
-      { id:'wash', icon:'i-washer', factor:1 },
-      { id:'iron', icon:'i-iron', factor:0.5 },
-      { id:'dry', icon:'i-sparkle', factor:1.7 },
-      { id:'bulky', icon:'i-layers', factor:1 }
+      { id:'wash', icon:'i-washer' },
+      { id:'iron', icon:'i-iron' },
+      { id:'dry', icon:'i-sparkle' },
+      { id:'bulky', icon:'i-layers' }
     ];
 
     const ITEMS = [
-      { id:'thobe', icon:'g-thobe', base:12, svc:['wash','iron','dry'] },
-      { id:'shemagh', icon:'g-shemagh', base:7, svc:['wash','iron','dry'] },
-      { id:'shirt', icon:'g-shirt', base:8, svc:['wash','iron','dry'] },
-      { id:'tshirt', icon:'g-shirt', base:6, svc:['wash','iron'] },
-      { id:'pants', icon:'g-pants', base:8, svc:['wash','iron','dry'] },
-      { id:'abaya', icon:'g-abaya', base:15, svc:['wash','iron','dry'] },
-      { id:'suit', icon:'g-suit', base:22, svc:['iron','dry'] },
-      { id:'blanket', icon:'g-blanket', base:35, svc:['bulky'] },
-      { id:'duvet', icon:'g-duvet', base:45, svc:['bulky'] },
-      { id:'carpet', icon:'g-carpet', base:18, svc:['bulky'], unit:'sqm' },
-      { id:'curtain', icon:'g-curtain', base:20, svc:['bulky'] }
+      { id:'thobe', icon:'g-thobe', svc:['wash','iron','dry'] },
+      { id:'shemagh', icon:'g-shemagh', svc:['wash','iron','dry'] },
+      { id:'shirt', icon:'g-shirt', svc:['wash','iron','dry'] },
+      { id:'tshirt', icon:'g-shirt', svc:['wash','iron'] },
+      { id:'pants', icon:'g-pants', svc:['wash','iron','dry'] },
+      { id:'abaya', icon:'g-abaya', svc:['wash','iron','dry'] },
+      { id:'suit', icon:'g-suit', svc:['iron','dry'] },
+      { id:'blanket', icon:'g-blanket', svc:['bulky'] },
+      { id:'duvet', icon:'g-duvet', svc:['bulky'] },
+      { id:'carpet', icon:'g-carpet', svc:['bulky'], unit:'sqm' },
+      { id:'curtain', icon:'g-curtain', svc:['bulky'] }
     ];
 
     const SHOPS = [
-      { id:'noor',    ar:'مغسلة النور',            en:'Al Noor Laundry',      lat:24.7136, lng:46.6753, rating:4.8, reviews:1240, open:true,  express:true,  tier:1.10, hue:214 },
-      { id:'modern',  ar:'مغسلة الرياض الحديثة',    en:'Riyadh Modern Laundry', lat:24.7205, lng:46.6830, rating:4.5, reviews:860,  open:true,  express:false, tier:0.90, hue:190 },
-      { id:'oasis',   ar:'واحة النظافة',            en:'Clean Oasis',          lat:24.7062, lng:46.6698, rating:4.2, reviews:415,  open:false, express:false, tier:0.85, hue:160 },
-      { id:'white',   ar:'اللمسة البيضاء',          en:'White Touch',          lat:24.7251, lng:46.6662, rating:4.9, reviews:2034, open:true,  express:true,  tier:1.25, hue:258 },
-      { id:'jasmine', ar:'مغسلة الياسمين',          en:'Jasmine Laundry',      lat:24.7010, lng:46.6880, rating:4.4, reviews:530,  open:true,  express:false, tier:0.95, hue:330 },
-      { id:'steam',   ar:'البخار السريع',           en:'Express Steam',        lat:24.7170, lng:46.6590, rating:4.6, reviews:977,  open:true,  express:true,  tier:1.00, hue:24 }
+      { id:'noor',    ar:'مغسلة النور',            en:'Al Noor Laundry',      lat:24.7136, lng:46.6753, rating:4.8, reviews:1240, open:true,  express:true,  hue:214 },
+      { id:'modern',  ar:'مغسلة الرياض الحديثة',    en:'Riyadh Modern Laundry', lat:24.7205, lng:46.6830, rating:4.5, reviews:860,  open:true,  express:false, hue:190 },
+      { id:'oasis',   ar:'واحة النظافة',            en:'Clean Oasis',          lat:24.7062, lng:46.6698, rating:4.2, reviews:415,  open:false, express:false, hue:160 },
+      { id:'white',   ar:'اللمسة البيضاء',          en:'White Touch',          lat:24.7251, lng:46.6662, rating:4.9, reviews:2034, open:true,  express:true,  hue:258 },
+      { id:'jasmine', ar:'مغسلة الياسمين',          en:'Jasmine Laundry',      lat:24.7010, lng:46.6880, rating:4.4, reviews:530,  open:true,  express:false, hue:330 },
+      { id:'steam',   ar:'البخار السريع',           en:'Express Steam',        lat:24.7170, lng:46.6590, rating:4.6, reviews:977,  open:true,  express:true,  hue:24 }
     ];
 
     /* ================= State ================= */
@@ -814,19 +815,13 @@
     const shopName = s => state.lang === 'ar' ? s.ar : s.en;
     const shopById = id => SHOPS.find(s => s.id === id);
     const itemById = id => ITEMS.find(i => i.id === id);
-    const svcById = id => SERVICES.find(s => s.id === id);
     const locale = () => state.lang === 'ar' ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-GB';
 
     function money(n) {
       const v = Number.isInteger(n) ? String(n) : n.toFixed(2);
       return state.lang === 'ar' ? `${v} ر.س` : `SAR ${v}`;
     }
-    function price(shop, item, svcId) {
-      return Math.max(3, Math.round(item.base * svcById(svcId).factor * shop.tier));
-    }
-    function fromPrice(shop, svcId) {
-      return Math.min(...ITEMS.filter(i => i.svc.includes(svcId)).map(i => price(shop, i, svcId)));
-    }
+    function price() { return ITEM_PRICE; }
     function distanceKm(a, b) {
       const R = 6371, rad = Math.PI / 180;
       const dLat = (b.lat - a.lat) * rad, dLng = (b.lng - a.lng) * rad;
@@ -931,7 +926,7 @@
     }
 
     function renderFilters() {
-      const sorts = ['near', 'rating', 'price'].map(k =>
+      const sorts = ['near', 'rating'].map(k =>
         `<button type="button" class="chip ${state.sort === k ? 'active' : ''}" data-sort="${k}">${t('sort_' + k)}</button>`).join('');
       $('#filters').innerHTML = sorts +
         `<button type="button" class="chip ${state.openOnly ? 'active' : ''}" data-toggle="openOnly">${icon('i-clock')}${t('f_open')}</button>` +
@@ -941,13 +936,12 @@
     function visibleShops() {
       const q = state.query.trim().toLowerCase();
       return SHOPS
-        .map(s => ({ ...s, km: distanceKm(state.loc, s), from: fromPrice(s, state.service) }))
+        .map(s => ({ ...s, km: distanceKm(state.loc, s) }))
         .filter(s => !q || s.ar.includes(q) || s.en.toLowerCase().includes(q))
         .filter(s => !state.openOnly || s.open)
         .filter(s => !state.expressOnly || s.express)
         .sort((a, b) =>
-          state.sort === 'rating' ? b.rating - a.rating :
-          state.sort === 'price' ? a.from - b.from : a.km - b.km);
+          state.sort === 'rating' ? b.rating - a.rating : a.km - b.km);
     }
 
     function renderShops() {
@@ -971,7 +965,7 @@
                 <span>${icon('i-clock')}${s.express ? t('ready24') : t('ready48')}</span>
               </div>
               <div class="shop-foot">
-                <span class="price-from">${t('from')} <b>${money(s.from)}</b></span>
+                <span class="price-from"><b>${money(ITEM_PRICE)}</b> ${t('each')}</span>
                 <span class="badges">
                   ${s.express ? `<span class="badge express">${icon('i-bolt')}${t('express')}</span>` : ''}
                   ${s.open ? `<span class="badge open">${t('open')}</span>` : ''}
@@ -1017,7 +1011,7 @@
       }).addTo(mapLayer);
       const list = visibleShops();
       list.forEach(s => {
-        const html = `<div class="pin-marker ${s.open ? '' : 'closed'}"><i style="background:${shopColor(s)}">★</i>${s.rating.toFixed(1)} · ${money(s.from)}</div>`;
+        const html = `<div class="pin-marker ${s.open ? '' : 'closed'}"><i style="background:${shopColor(s)}">★</i>${s.rating.toFixed(1)}</div>`;
         L.marker([s.lat, s.lng], { icon: L.divIcon({ className:'', html, iconSize:[0,0] }), title: shopName(s) })
           .on('click', () => openShop(s.id)).addTo(mapLayer);
       });

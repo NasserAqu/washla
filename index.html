@@ -8,7 +8,7 @@
   <title>غسله Wash</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" />
   <style>
     /* Layout: single phone-width column (wider on desktop), sticky header, bottom tab bar;
        ordering screens replace the tab bar with one sticky action bar. */
@@ -32,7 +32,7 @@
       --shadow:0 6px 24px rgba(120,60,20,.08);
       --shadow-lg:0 24px 60px rgba(70,30,5,.22);
       --r-xl:26px; --r-lg:20px; --r:14px; --r-sm:10px;
-      --font:"Readex Pro", system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      --font:"IBM Plex Sans Arabic", system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
       --nav-h:66px;
     }
     *, *::before, *::after { box-sizing:border-box; }
@@ -258,8 +258,6 @@
     .wa-card .ic { width:60px; height:60px; border-radius:20px; display:grid; place-items:center; margin:0 auto 10px; background:#e5f7ec; color:#1da851; }
     .wa-card h2 { margin:0 0 4px; font-size:1.15rem; }
     .wa-card p { margin:0 0 14px; color:var(--ink-2); font-size:.9rem; }
-    .phone-line { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px 10px; margin-top:12px; font-size:.95rem; }
-    .phone-line b { white-space:nowrap; direction:ltr; user-select:all; letter-spacing:.03em; }
     .faq { margin-top:12px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); }
     .faq details + details { border-top:1px solid var(--line); }
     .faq summary { list-style:none; cursor:pointer; padding:14px; font-weight:500; display:flex; justify-content:space-between; gap:10px; align-items:center; }
@@ -444,8 +442,7 @@
     const SLOT_HOURS = [8, 10, 12, 16, 18, 20];
     const DAYS = 6;
     const PROMO = { code:'WASHLA10', pct:10 };
-    const WA_NUMBER = '966558781345';      // 055 878 1345
-    const WA_DISPLAY = '055 878 1345';
+    const WA_NUMBER = '966558781345';      // never shown in the UI; WhatsApp is the only contact channel
     const HOME_LOC = { lat:24.5560, lng:46.7120, ar:'الشفا، الرياض', en:'Al Shifa, Riyadh' };
     const K = { lang:'washla.v2.lang', users:'washla.v2.users', session:'washla.v2.session', orders:'washla.v2.orders.' };
 
@@ -536,14 +533,14 @@
         loginTitle:'سجّل دخولك', loginLead:'بنرسل لك رمز تحقق على جوالك.', phone:'رقم الجوال', phonePh:'5X XXX XXXX', sendCode:'أرسل الرمز',
         errPhone:'اكتب رقم جوال سعودي صحيح يبدأ بـ 05.', codeTitle:'اكتب رمز التحقق', codeLead:'أرسلنا رمز من 4 أرقام إلى', demoCode:'نسخة تجريبية بدون رسائل SMS. الرمز هو',
         verify:'تحقق', errCode:'الرمز غير صحيح.', editPhone:'تعديل الرقم', nameTitle:'وش نناديك؟', nameLead:'اسمك يظهر للمندوب.', namePh:'اسمك', errName:'اكتب اسمك.', save:'حفظ', welcome:'أهلاً {name}',
-        helpTitle:'المساعدة', waTitle:'كلّمنا على واتساب', waBody:'فريق خدمة العملاء يرد عليك بأسرع وقت.', openWa:'فتح محادثة واتساب', orCall:'أو راسلنا على الرقم', copy:'نسخ', copied:'تم نسخ الرقم',
+        helpTitle:'المساعدة', waTitle:'كلّمنا على واتساب', waBody:'فريق خدمة العملاء يرد عليك بأسرع وقت.', openWa:'فتح محادثة واتساب',
         faq:'أسئلة شائعة',
         q1:'كم سعر القطعة؟', a1:'كل القطع بريال واحد، بغض النظر عن نوع القطعة أو الخدمة أو المغسلة.',
         q5:'أقدر ألغي طلبي؟', a5:'إيه، الإلغاء مجاني قبل ما يستلم المندوب ملابسك، ونرجع لك المبلغ كامل. بعد الاستلام ما يمكن الإلغاء.',
         q2:'كم رسوم التوصيل؟', a2:'6 ريال لكل طلب، وتشمل الاستلام من بيتك والتوصيل بعد الغسيل.',
         q3:'متى يجي المندوب؟', a3:'تختار موعد الاستلام بنفسك، وأقرب موعد متاح بعد 8 ساعات من وقت الطلب.',
         q4:'كيف أدفع؟', a4:'تدفع وقت إرسال الطلب ببطاقة مدى أو فيزا أو ماستركارد، أو Apple Pay، أو STC Pay.',
-        waMsg:'السلام عليكم، أحتاج مساعدة بخصوص طلب غسله', waMsgOrder:'السلام عليكم، استفسار عن طلب غسله رقم {id}',
+        waMsg:'السلام عليكم غسله، أحتاج مساعدة', waMsgOrder:'السلام عليكم غسله، عندي استفسار عن طلب رقم {id}',
         sar:'ر.س', pcs:'{n} قطعة'
       },
       en: {
@@ -594,14 +591,14 @@
         loginTitle:'Sign in', loginLead:'We’ll text a verification code to your phone.', phone:'Phone number', phonePh:'5X XXX XXXX', sendCode:'Send code',
         errPhone:'Enter a valid Saudi mobile number starting with 05.', codeTitle:'Enter the code', codeLead:'We sent a 4-digit code to', demoCode:'Demo version, no SMS is sent. Your code is',
         verify:'Verify', errCode:'That code is wrong.', editPhone:'Change number', nameTitle:'What should we call you?', nameLead:'The driver will see your name.', namePh:'Your name', errName:'Enter your name.', save:'Save', welcome:'Welcome, {name}',
-        helpTitle:'Help', waTitle:'Chat with us on WhatsApp', waBody:'Our customer service team will reply as soon as possible.', openWa:'Open WhatsApp chat', orCall:'Or message us at', copy:'Copy', copied:'Number copied',
+        helpTitle:'Help', waTitle:'Chat with us on WhatsApp', waBody:'Our customer service team will reply as soon as possible.', openWa:'Open WhatsApp chat',
         faq:'Common questions',
         q1:'How much is an item?', a1:'Every item costs 1 riyal, whatever the item, service or laundry.',
         q5:'Can I cancel my order?', a5:'Yes. Cancelling is free until the driver picks up your clothes, and you get a full refund. After pickup, orders can’t be cancelled.',
         q2:'How much is delivery?', a2:'SAR 6 per order, covering pickup from your home and delivery back.',
         q3:'When does the driver come?', a3:'You choose the pickup time. The earliest slot is 8 hours after you order.',
         q4:'How do I pay?', a4:'You pay when you send the order, with mada, Visa, Mastercard, Apple Pay or STC Pay.',
-        waMsg:'Hello, I need help with a Washla order', waMsgOrder:'Hello, I have a question about Washla order #{id}',
+        waMsg:'Hello Washla, I need some help', waMsgOrder:'Hello Washla, I have a question about order #{id}',
         sar:'SAR', pcs:'{n} items'
       }
     };
@@ -956,8 +953,6 @@
             <div class="ic">${ic('i-wa', 'lg')}</div>
             <h2>${t('waTitle')}</h2><p>${t('waBody')}</p>
             <a class="btn wa full" href="${waLink(t('waMsg'))}" target="_blank" rel="noopener">${ic('i-wa')}${t('openWa')}</a>
-            <div class="phone-line"><span style="color:var(--ink-2)">${t('orCall')}</span><b class="num">${WA_DISPLAY}</b>
-              <button type="button" class="btn line sm" style="height:34px" data-copyphone>${ic('i-copy', 'sm')}${t('copy')}</button></div>
           </div>
           <div class="row-head"><h2>${t('faq')}</h2></div>
           <div class="faq" style="margin-top:0">${[1,2,3,4,5].map(i => `<details><summary>${t('q' + i)}${ic('i-down', 'sm')}</summary><p>${t('a' + i)}</p></details>`).join('')}</div>`;
@@ -1357,11 +1352,6 @@
       }
       if ('login' in d) return startLogin();
       if ('logout' in d) { store.del(K.session); S.phone = null; S.addrId = null; toast(t('loggedOut'), 'i-logout'); render(); return; }
-      if ('copyphone' in d) {
-        const done = () => toast(t('copied'), 'i-copy');
-        try { navigator.clipboard.writeText(WA_DISPLAY.replace(/\s/g, '')).then(done, () => selectPhone()); } catch { selectPhone(); }
-        return;
-      }
 
       /* login sheet */
       if ('sendcode' in d) {
@@ -1387,10 +1377,6 @@
       }
     });
 
-    function selectPhone() {
-      const el = $('.phone-line b'); if (!el) return;
-      const r = document.createRange(); r.selectNodeContents(el); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
-    }
 
     document.addEventListener('change', e => {
       if (e.target.name === 'pay') { captureInputs(); captureCard(); S.pay = e.target.value; S.payErr = null; S.errs = {}; render(); }

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#fff8f3" />
-  <meta name="description" content="غسله — مغاسل الملابس القريبة منك في جنوب وغرب الرياض. كل القطع بريالين، استلام وتوصيل لباب بيتك." />
+  <meta name="description" content="غسله — مغاسل الملابس القريبة منك في جنوب وغرب الرياض. الكوي بريالين للقطعة، والغسيل والكوي بـ3 ريالات، استلام وتوصيل لباب بيتك." />
   <title>غسله Wash</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -83,6 +83,8 @@
     .deal::before { content:""; position:absolute; inset-inline-end:-30px; bottom:-50px; width:150px; height:150px; border-radius:50%; background:var(--peach-200); opacity:.55; }
     .deal .big { font-size:2.6rem; font-weight:700; line-height:1; color:var(--orange-ink); position:relative; }
     .deal .big .sar svg { width:.62em; height:.7em; }
+    .deal .big { display:flex; align-items:baseline; gap:8px; }
+    .deal .big .from { font-size:.95rem; font-weight:600; color:var(--orange-ink); }
     .deal p { margin:0; position:relative; color:var(--ink-2); font-size:.9rem; }
     .deal strong { display:block; color:var(--ink); font-size:1rem; position:relative; }
     .deal .bubbles { grid-row:1 / span 2; grid-column:2; position:relative; width:74px; height:74px; }
@@ -94,6 +96,10 @@
     .svc .ic { width:44px; height:44px; border-radius:14px; background:var(--peach-50); color:var(--orange-ink); display:grid; place-items:center; }
     .svc[aria-checked="true"] { border-color:var(--orange); background:var(--peach-50); color:var(--ink); }
     .svc[aria-checked="true"] .ic { background:var(--orange); color:#fff; }
+    .svc-sub { font-size:.7rem; font-weight:500; color:var(--muted); }
+    .svc.soon { color:var(--muted); background:#fcf7f3; }
+    .svc.soon .ic { background:#f3ece7; color:var(--muted); }
+    .soon-tag { display:inline-block; font-size:.66rem; font-weight:600; padding:1px 8px; border-radius:999px; background:#f3ece7; color:var(--ink-2); }
 
     .row-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:26px 0 10px; }
     .row-head h2 { margin:0; font-size:1.1rem; font-weight:600; }
@@ -138,6 +144,7 @@
     .seg::-webkit-scrollbar { display:none; }
     .seg button { flex:1 0 auto; border:0; background:transparent; height:40px; border-radius:11px; font-size:.82rem; font-weight:600; color:var(--ink-2); display:flex; align-items:center; justify-content:center; gap:5px; padding:0 12px; white-space:nowrap; }
     .seg button[aria-selected="true"] { background:var(--surface); color:var(--ink); box-shadow:0 2px 6px rgba(120,60,20,.1); }
+    .soon-line { display:flex; align-items:center; gap:6px; margin:8px 2px 0; font-size:.78rem; color:var(--muted); }
     .seg .dot { min-width:18px; height:18px; border-radius:9px; background:var(--orange); color:#fff; font-size:.68rem; display:grid; place-items:center; padding:0 4px; }
     .items { margin-top:12px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); }
     .item { display:flex; align-items:center; gap:12px; padding:11px 12px; }
@@ -440,7 +447,10 @@
     'use strict';
 
     /* ============ Config ============ */
-    const ITEM_PRICE = 2;          // every item, every laundry, every service
+    const PRICES = { wash:3, iron:2 };   // per item, same at every laundry
+    const SOON = ['dry', 'bulky'];        // shown as "coming soon", not orderable yet
+    const price = svc => PRICES[svc] ?? 0;
+    const isSoon = svc => SOON.includes(svc);
     const DELIVERY_FEE = 6;        // pickup & return
     const MIN_LEAD_H = 8;          // earliest pickup = now + 8h
     const SLOT_HOURS = [8, 10, 12, 16, 18, 20];
@@ -492,7 +502,7 @@
       ar: {
         langBtn:'EN', tabHome:'الرئيسية', tabOrders:'طلباتي', tabAccount:'حسابي', tabHelp:'المساعدة',
         hi:'هلا', hiGuest:'وش نغسل لك اليوم؟', hiUser:'هلا {name}، وش نغسل لك اليوم؟', sub:'نستلم من بابك ونرجعها نظيفة ومكوية.',
-        dealTitle:'كل القطع بريالين', dealBody:'أي قطعة، أي خدمة، أي مغسلة. التوصيل {fee}.',
+        dealTitle:'الكوي بريالين للقطعة', dealBody:'الغسيل والكوي {wash} للقطعة. التوصيل {fee}.', from:'من', soon:'قريباً', soonToast:'هذه الخدمة قريباً', soonLine:'التنظيف الجاف والبطانيات والسجاد قريباً.',
         chooseService:'اختر الخدمة', svc_wash:'غسيل وكوي', svc_iron:'كوي فقط', svc_dry:'تنظيف جاف', svc_bulky:'بطانيات وسجاد',
         nearby:'مغاسل قريبة منك', results:'{n} مغسلة', searchPh:'ابحث باسم المغسلة أو الحي',
         sortNear:'الأقرب', sortRating:'الأعلى تقييماً', openNow:'مفتوح الآن',
@@ -539,7 +549,7 @@
         verify:'تحقق', errCode:'الرمز غير صحيح.', editPhone:'تعديل الرقم', nameTitle:'وش نناديك؟', nameLead:'اسمك يظهر للمندوب.', namePh:'اسمك', errName:'اكتب اسمك.', save:'حفظ', welcome:'أهلاً {name}',
         helpTitle:'المساعدة', waTitle:'كلّمنا على واتساب', waBody:'فريق خدمة العملاء يرد عليك بأسرع وقت.', openWa:'فتح محادثة واتساب',
         faq:'أسئلة شائعة',
-        q1:'كم سعر القطعة؟', a1:'كل القطع بريالين، بغض النظر عن نوع القطعة أو الخدمة أو المغسلة.',
+        q1:'كم سعر القطعة؟', a1:'الكوي فقط بريالين للقطعة، والغسيل والكوي بـ3 ريالات للقطعة، في كل المغاسل. التنظيف الجاف والبطانيات والسجاد قريباً.',
         q5:'أقدر ألغي طلبي؟', a5:'إيه، الإلغاء مجاني قبل ما يستلم المندوب ملابسك، ونرجع لك المبلغ كامل. بعد الاستلام ما يمكن الإلغاء.',
         q2:'كم رسوم التوصيل؟', a2:'6 ريالات لكل طلب، وتشمل الاستلام من بيتك والتوصيل بعد الغسيل.',
         q3:'متى يجي المندوب؟', a3:'تختار موعد الاستلام بنفسك، وأقرب موعد متاح بعد 8 ساعات من وقت الطلب.',
@@ -550,7 +560,7 @@
       en: {
         langBtn:'ع', tabHome:'Home', tabOrders:'Orders', tabAccount:'Account', tabHelp:'Help',
         hi:'Hi', hiGuest:'What can we wash for you today?', hiUser:'Hi {name}, what can we wash today?', sub:'We pick up from your door and bring it back clean and ironed.',
-        dealTitle:'Every item for 2 riyals', dealBody:'Any item, any service, any laundry. Delivery is {fee}.',
+        dealTitle:'Ironing for 2 riyals an item', dealBody:'Wash & iron is {wash} an item. Delivery is {fee}.', from:'from', soon:'Soon', soonToast:'This service is coming soon', soonLine:'Dry cleaning and bedding & rugs are coming soon.',
         chooseService:'Choose a service', svc_wash:'Wash & iron', svc_iron:'Iron only', svc_dry:'Dry clean', svc_bulky:'Bedding & rugs',
         nearby:'Laundries near you', results:'{n} laundries', searchPh:'Search by laundry or district',
         sortNear:'Nearest', sortRating:'Top rated', openNow:'Open now',
@@ -597,7 +607,7 @@
         verify:'Verify', errCode:'That code is wrong.', editPhone:'Change number', nameTitle:'What should we call you?', nameLead:'The driver will see your name.', namePh:'Your name', errName:'Enter your name.', save:'Save', welcome:'Welcome, {name}',
         helpTitle:'Help', waTitle:'Chat with us on WhatsApp', waBody:'Our customer service team will reply as soon as possible.', openWa:'Open WhatsApp chat',
         faq:'Common questions',
-        q1:'How much is an item?', a1:'Every item costs 2 riyals, whatever the item, service or laundry.',
+        q1:'How much is an item?', a1:'Iron only is 2 riyals an item and wash & iron is 3 riyals an item, at every laundry. Dry cleaning and bedding & rugs are coming soon.',
         q5:'Can I cancel my order?', a5:'Yes. Cancelling is free until the driver picks up your clothes, and you get a full refund. After pickup, orders can’t be cancelled.',
         q2:'How much is delivery?', a2:'6 riyals per order, covering pickup from your home and delivery back.',
         q3:'When does the driver come?', a3:'You choose the pickup time. The earliest slot is 8 hours after you order.',
@@ -673,9 +683,9 @@
     }
 
     /* cart */
-    const cartList = () => Object.entries(S.cart).filter(([, q]) => q > 0).map(([k, q]) => { const [svc, it] = k.split('|'); return { key:k, svc, item:item(it), q }; });
+    const cartList = () => Object.entries(S.cart).filter(([k, q]) => q > 0 && !isSoon(k.split('|')[0])).map(([k, q]) => { const [svc, it] = k.split('|'); return { key:k, svc, item:item(it), q }; });
     function totals() {
-      const list = cartList(), count = list.reduce((a, e) => a + e.q, 0), sub = count * ITEM_PRICE;
+      const list = cartList(), count = list.reduce((a, e) => a + e.q, 0), sub = list.reduce((a, e) => a + e.q * price(e.svc), 0);
       const disc = S.promoOn ? Math.round(sub * PROMO.pct) / 100 : 0, fee = count ? DELIVERY_FEE : 0;
       return { list, count, sub, disc, fee, total: Math.max(0, sub - disc + fee) };
     }
@@ -730,14 +740,14 @@
           <p class="sub">${t('sub')}</p>
 
           <div class="deal">
-            <div><div class="big">${money(ITEM_PRICE)}</div></div>
+            <div><div class="big"><small class="from">${t('from')}</small>${money(PRICES.iron)}</div></div>
             <div class="bubbles" aria-hidden="true"><i style="width:34px;height:34px;top:4px;inset-inline-start:8px"></i><i style="width:20px;height:20px;top:40px;inset-inline-start:40px"></i><i style="width:12px;height:12px;top:12px;inset-inline-start:50px"></i></div>
-            <div><strong>${t('dealTitle')}</strong><p>${t('dealBody', { fee:money(DELIVERY_FEE) })}</p></div>
+            <div><strong>${t('dealTitle')}</strong><p>${t('dealBody', { wash:money(PRICES.wash), fee:money(DELIVERY_FEE) })}</p></div>
           </div>
 
           <div class="label">${t('chooseService')}</div>
           <div class="services" role="radiogroup" aria-label="${t('chooseService')}">
-            ${SERVICES.map(s => `<button type="button" class="svc" role="radio" aria-checked="${S.service === s.id}" data-svc="${s.id}"><span class="ic">${ic(s.icon)}</span>${t('svc_' + s.id)}</button>`).join('')}
+            ${SERVICES.map(s => `<button type="button" class="svc ${isSoon(s.id) ? 'soon' : ''}" role="radio" aria-checked="${S.service === s.id}" ${isSoon(s.id) ? 'aria-disabled="true"' : ''} data-svc="${s.id}"><span class="ic">${ic(s.icon)}</span>${t('svc_' + s.id)}<span class="svc-sub">${isSoon(s.id) ? `<span class="soon-tag">${t('soon')}</span>` : `${money(price(s.id))} ${t('each')}`}</span></button>`).join('')}
           </div>
 
           <div class="row-head"><h2>${t('nearby')}</h2><span class="count">${t('results', { n:list.length })}</span></div>
@@ -759,7 +769,7 @@
         const rows = ITEMS.filter(i => i.svc.includes(S.tab)).map(i => {
           const k = `${S.tab}|${i.id}`, q = S.cart[k] || 0;
           return `<div class="item"><span class="ic">${ic(i.icon)}</span>
-            <div class="info"><strong>${t('item_' + i.id)}</strong><span>${money(ITEM_PRICE)} ${t('each')}</span></div>
+            <div class="info"><strong>${t('item_' + i.id)}</strong><span>${money(price(S.tab))} ${t('each')}</span></div>
             <div class="stepper">
               ${q ? `<button type="button" data-q="${k}" data-d="-1" aria-label="−">${ic('i-minus', 'sm')}</button><output class="num">${q}</output>` : ''}
               <button type="button" class="plus ${q ? '' : 'solo'}" data-q="${k}" data-d="1" aria-label="+">${ic('i-plus', 'sm')}</button>
@@ -780,8 +790,9 @@
           </div>
           ${s.open ? '' : `<div class="hint warn">${ic('i-clock')}<span>${t('closedHint')}</span></div>`}
           <div class="seg" role="tablist">
-            ${SERVICES.map(v => `<button type="button" role="tab" aria-selected="${S.tab === v.id}" data-tab="${v.id}">${t('svc_' + v.id)}${counts[v.id] ? `<span class="dot num">${counts[v.id]}</span>` : ''}</button>`).join('')}
+            ${SERVICES.filter(v => !isSoon(v.id)).map(v => `<button type="button" role="tab" aria-selected="${S.tab === v.id}" data-tab="${v.id}">${t('svc_' + v.id)} · ${money(price(v.id))}${counts[v.id] ? `<span class="dot num">${counts[v.id]}</span>` : ''}</button>`).join('')}
           </div>
+          <p class="soon-line">${ic('i-clock', 'sm')}${t('soonLine')}</p>
           <div class="items">${rows}</div>
           <div class="hint">${ic('i-truck')}<span>${t('feeHint', { fee:money(DELIVERY_FEE) })}</span></div>`;
       },
@@ -835,7 +846,7 @@
 
           <section class="block">
             <div class="block-head" style="margin-bottom:8px"><span class="avatar" style="width:38px;height:38px;font-size:.95rem;border-radius:12px">${esc(initial(s))}</span><div class="t"><small>${t('items')}</small><b>${esc(nm(s))}</b></div></div>
-            ${tot.list.map(e => `<div class="kv"><span>${e.q} × ${t('item_' + e.item.id)} <small style="color:var(--muted)">· ${t('svc_' + e.svc)}</small></span><span class="num">${money(e.q * ITEM_PRICE)}</span></div>`).join('')}
+            ${tot.list.map(e => `<div class="kv"><span>${e.q} × ${t('item_' + e.item.id)} <small style="color:var(--muted)">· ${t('svc_' + e.svc)}</small></span><span class="num">${money(e.q * price(e.svc))}</span></div>`).join('')}
             <div style="border-top:1px solid var(--line);margin:8px 0 4px"></div>
             <div class="kv"><span>${t('subtotal')}</span><span class="num">${money(tot.sub)}</span></div>
             ${tot.disc ? `<div class="kv disc"><span>${t('discount')} · ${PROMO.code}</span><span class="num">−${money(tot.disc)}</span></div>` : ''}
@@ -921,7 +932,7 @@
             ${pm.at ? `<div class="kv"><span>${t('paidAt')}</span><span>${new Date(pm.at).toLocaleString(loc(), { day:'numeric', month:'short', hour:'numeric', minute:'2-digit' })}</span></div>` : ''}
           </section>
           <section class="block">
-            ${o.lines.map(l => `<div class="kv"><span>${l.q} × ${t('item_' + l.item)} <small style="color:var(--muted)">· ${t('svc_' + l.svc)}</small></span><span class="num">${money(l.q * ITEM_PRICE)}</span></div>`).join('')}
+            ${o.lines.map(l => `<div class="kv"><span>${l.q} × ${t('item_' + l.item)} <small style="color:var(--muted)">· ${t('svc_' + l.svc)}</small></span><span class="num">${money(l.q * (l.p ?? 2))}</span></div>`).join('')}
             <div style="border-top:1px solid var(--line);margin:8px 0 4px"></div>
             <div class="kv"><span>${t('subtotal')}</span><span class="num">${money(o.sub)}</span></div>
             ${o.disc ? `<div class="kv disc"><span>${t('discount')}</span><span class="num">−${money(o.disc)}</span></div>` : ''}
@@ -1251,7 +1262,7 @@
       const tot = totals();
       const o = {
         id: String(Date.now()).slice(-6), shopId:S.shopId, slot:S.slot, address:`${t('lbl_' + addr.label)} — ${addr.text}`,
-        lines: tot.list.map(e => ({ svc:e.svc, item:e.item.id, q:e.q })), count:tot.count, sub:tot.sub, disc:tot.disc, fee:tot.fee, total:tot.total,
+        lines: tot.list.map(e => ({ svc:e.svc, item:e.item.id, q:e.q, p:price(e.svc) })), count:tot.count, sub:tot.sub, disc:tot.disc, fee:tot.fee, total:tot.total,
         notes:S.notes, createdAt:Date.now(), step:0, status:'active'
       };
       startPayment(o);
@@ -1287,7 +1298,7 @@
       if (d.go) return go(d.go);
       if ('back' in d) return back();
       if ('lang' in d) { S.lang = S.lang === 'ar' ? 'en' : 'ar'; store.set(K.lang, S.lang); captureInputs(); render(); if ($('#sheet').classList.contains('on')) closeSheet(); return; }
-      if (d.svc) { S.service = d.svc; render(); return; }
+      if (d.svc) { if (isSoon(d.svc)) { toast(t('soonToast'), 'i-clock'); return; } S.service = d.svc; render(); return; }
       if (d.sort) { S.sort = d.sort; render(); return; }
       if ('open' in d) { S.openOnly = !S.openOnly; render(); return; }
       if ('clear' in d) { S.q = ''; S.openOnly = false; render(); return; }
@@ -1359,7 +1370,7 @@
       if (d.step) { const list = myOrders(); const o = list.find(x => x.id === d.step); if (o.status !== 'cancelled') o.step = Math.min(4, (o.step || 0) + 1); S.confirmCancel = null; saveOrders(list); render(); return; }
       if (d.reorder) {
         const o = myOrders().find(x => x.id === d.reorder);
-        S.shopId = o.shopId; S.cart = {}; o.lines.forEach(l => { S.cart[`${l.svc}|${l.item}`] = l.q; }); S.tab = o.lines[0].svc;
+        S.shopId = o.shopId; S.cart = {}; o.lines.filter(l => !isSoon(l.svc)).forEach(l => { S.cart[`${l.svc}|${l.item}`] = l.q; }); S.tab = cartList()[0]?.svc || 'wash';
         history_.length = 0; return go('shop', {}, false);
       }
       if ('login' in d) return startLogin();

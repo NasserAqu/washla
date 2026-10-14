@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#fff8f3" />
-  <meta name="description" content="غسله — مغاسل الملابس القريبة منك في جنوب وغرب الرياض. كل القطع بريال واحد، استلام وتوصيل لباب بيتك." />
+  <meta name="description" content="غسله — مغاسل الملابس القريبة منك في جنوب وغرب الرياض. كل القطع بريالين، استلام وتوصيل لباب بيتك." />
   <title>غسله Wash</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -49,6 +49,8 @@
     .icon.sm { width:16px; height:16px; } .icon.lg { width:26px; height:26px; } .icon.fill { fill:currentColor; stroke:none; }
     [dir="ltr"] .flip { transform:scaleX(-1); }
     .num { font-variant-numeric:tabular-nums; }
+    .sar { display:inline-flex; align-items:baseline; gap:.22em; white-space:nowrap; }
+    .sar svg { width:.86em; height:.94em; fill:currentColor; flex:none; align-self:center; }
 
     .wrap { width:100%; max-width:640px; margin:0 auto; padding-inline:16px; }
 
@@ -80,7 +82,7 @@
     }
     .deal::before { content:""; position:absolute; inset-inline-end:-30px; bottom:-50px; width:150px; height:150px; border-radius:50%; background:var(--peach-200); opacity:.55; }
     .deal .big { font-size:2.6rem; font-weight:700; line-height:1; color:var(--orange-ink); position:relative; }
-    .deal .big small { font-size:1rem; font-weight:600; }
+    .deal .big .sar svg { width:.62em; height:.7em; }
     .deal p { margin:0; position:relative; color:var(--ink-2); font-size:.9rem; }
     .deal strong { display:block; color:var(--ink); font-size:1rem; position:relative; }
     .deal .bubbles { grid-row:1 / span 2; grid-column:2; position:relative; width:74px; height:74px; }
@@ -403,6 +405,8 @@
     <symbol id="g-curtain" viewBox="0 0 24 24"><path d="M2 3h20M5 3v18c3 0 5-6 5-9S8 3 5 3M19 3v18c-3 0-5-6-5-9s2-9 5-9"/></symbol>
   </svg>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- Saudi Riyal sign (SAMA, 2025). Outline from "Saudi Riyal Font" © Emran Alhaddad, SIL Open Font License 1.1 -->
+    <symbol id="i-sar" viewBox="40 0 1150 1270"><path d="M750,1119 C730,1163,716,1211,711,1262 C711,1262,1136,1172,1136,1172 C1156,1127,1169,1079,1174,1028 C1174,1028,750,1119,750,1119Z M1136,901 C1136,901,1136,901,1136,901 C1156,857,1169,809,1174,758 C1174,758,843,828,843,828 C843,828,843,693,843,693 C843,693,1136,631,1136,631 C1156,587,1169,538,1174,488 C1174,488,843,558,843,558 C843,558,843,72,843,72 C793,100,748,138,711,183 C711,183,711,586,711,586 C711,586,579,614,579,614 C579,614,579,6,579,6 C528,34,483,72,447,117 C447,117,447,642,447,642 C447,642,151,705,151,705 C131,750,117,798,112,849 C112,849,447,777,447,777 C447,777,447,948,447,948 C447,948,88,1024,88,1024 C68,1068,55,1117,50,1167 C50,1167,425,1088,425,1088 C456,1081,482,1063,499,1038 C499,1038,568,936,568,936 C568,936,568,936,568,936 C575,926,579,913,579,899 C579,899,579,749,579,749 C579,749,711,721,711,721 C711,721,711,992,711,992 C711,992,1136,901,1136,901Z "/></symbol>
     <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
     <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></symbol>
     <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
@@ -436,7 +440,7 @@
     'use strict';
 
     /* ============ Config ============ */
-    const ITEM_PRICE = 1;          // every item, every laundry, every service
+    const ITEM_PRICE = 2;          // every item, every laundry, every service
     const DELIVERY_FEE = 6;        // pickup & return
     const MIN_LEAD_H = 8;          // earliest pickup = now + 8h
     const SLOT_HOURS = [8, 10, 12, 16, 18, 20];
@@ -488,14 +492,14 @@
       ar: {
         langBtn:'EN', tabHome:'الرئيسية', tabOrders:'طلباتي', tabAccount:'حسابي', tabHelp:'المساعدة',
         hi:'هلا', hiGuest:'وش نغسل لك اليوم؟', hiUser:'هلا {name}، وش نغسل لك اليوم؟', sub:'نستلم من بابك ونرجعها نظيفة ومكوية.',
-        dealTitle:'كل القطع بريال واحد', dealBody:'أي قطعة، أي خدمة، أي مغسلة. التوصيل 6 ر.س.',
+        dealTitle:'كل القطع بريالين', dealBody:'أي قطعة، أي خدمة، أي مغسلة. التوصيل {fee}.',
         chooseService:'اختر الخدمة', svc_wash:'غسيل وكوي', svc_iron:'كوي فقط', svc_dry:'تنظيف جاف', svc_bulky:'بطانيات وسجاد',
         nearby:'مغاسل قريبة منك', results:'{n} مغسلة', searchPh:'ابحث باسم المغسلة أو الحي',
         sortNear:'الأقرب', sortRating:'الأعلى تقييماً', openNow:'مفتوح الآن',
         open:'مفتوح', closed:'مغلق', km:'كم', noShops:'ما لقينا مغاسل', noShopsBody:'جرّب كلمة ثانية أو شيل الفلتر.', clear:'إزالة الفلاتر',
         sampleNote:'أسماء ومواقع تجريبية لحين ربط بيانات خرائط Google.',
         openMaps:'افتح في خرائط Google', closedHint:'المغسلة مغلقة الآن، ويمكنك جدولة الاستلام لوقت لاحق.',
-        each:'لكل قطعة', perItem:'1 ر.س للقطعة', feeHint:'رسوم الاستلام والتوصيل 6 ر.س لكل طلب.',
+        each:'لكل قطعة', feeHint:'رسوم الاستلام والتوصيل {fee} لكل طلب.',
         addItems:'أضف قطعة على الأقل', next:'التالي', back:'رجوع',
         checkout:'تأكيد الطلب', pickup:'موعد الاستلام', earliest:'أقرب موعد متاح', change:'تغيير', done:'تم',
         today:'اليوم', tomorrow:'بكرة', noSlots:'ما فيه مواعيد متاحة هذا اليوم.', leadNote:'المواعيد تبدأ بعد 8 ساعات من الآن.',
@@ -535,25 +539,25 @@
         verify:'تحقق', errCode:'الرمز غير صحيح.', editPhone:'تعديل الرقم', nameTitle:'وش نناديك؟', nameLead:'اسمك يظهر للمندوب.', namePh:'اسمك', errName:'اكتب اسمك.', save:'حفظ', welcome:'أهلاً {name}',
         helpTitle:'المساعدة', waTitle:'كلّمنا على واتساب', waBody:'فريق خدمة العملاء يرد عليك بأسرع وقت.', openWa:'فتح محادثة واتساب',
         faq:'أسئلة شائعة',
-        q1:'كم سعر القطعة؟', a1:'كل القطع بريال واحد، بغض النظر عن نوع القطعة أو الخدمة أو المغسلة.',
+        q1:'كم سعر القطعة؟', a1:'كل القطع بريالين، بغض النظر عن نوع القطعة أو الخدمة أو المغسلة.',
         q5:'أقدر ألغي طلبي؟', a5:'إيه، الإلغاء مجاني قبل ما يستلم المندوب ملابسك، ونرجع لك المبلغ كامل. بعد الاستلام ما يمكن الإلغاء.',
-        q2:'كم رسوم التوصيل؟', a2:'6 ريال لكل طلب، وتشمل الاستلام من بيتك والتوصيل بعد الغسيل.',
+        q2:'كم رسوم التوصيل؟', a2:'6 ريالات لكل طلب، وتشمل الاستلام من بيتك والتوصيل بعد الغسيل.',
         q3:'متى يجي المندوب؟', a3:'تختار موعد الاستلام بنفسك، وأقرب موعد متاح بعد 8 ساعات من وقت الطلب.',
         q4:'كيف أدفع؟', a4:'تدفع وقت إرسال الطلب ببطاقة مدى أو فيزا أو ماستركارد، أو Apple Pay، أو STC Pay.',
         waMsg:'السلام عليكم غسله، أحتاج مساعدة', waMsgOrder:'السلام عليكم غسله، عندي استفسار عن طلب رقم {id}',
-        sar:'ر.س', pcs:'{n} قطعة'
+        pcs:'{n} قطعة'
       },
       en: {
         langBtn:'ع', tabHome:'Home', tabOrders:'Orders', tabAccount:'Account', tabHelp:'Help',
         hi:'Hi', hiGuest:'What can we wash for you today?', hiUser:'Hi {name}, what can we wash today?', sub:'We pick up from your door and bring it back clean and ironed.',
-        dealTitle:'Every item for 1 riyal', dealBody:'Any item, any service, any laundry. Delivery is SAR 6.',
+        dealTitle:'Every item for 2 riyals', dealBody:'Any item, any service, any laundry. Delivery is {fee}.',
         chooseService:'Choose a service', svc_wash:'Wash & iron', svc_iron:'Iron only', svc_dry:'Dry clean', svc_bulky:'Bedding & rugs',
         nearby:'Laundries near you', results:'{n} laundries', searchPh:'Search by laundry or district',
         sortNear:'Nearest', sortRating:'Top rated', openNow:'Open now',
         open:'Open', closed:'Closed', km:'km', noShops:'No laundries found', noShopsBody:'Try another word or remove the filter.', clear:'Clear filters',
         sampleNote:'Sample names and locations until Google Maps data is connected.',
         openMaps:'Open in Google Maps', closedHint:'This laundry is closed now. You can still schedule a later pickup.',
-        each:'per item', perItem:'SAR 1 per item', feeHint:'Pickup & delivery is SAR 6 per order.',
+        each:'per item', feeHint:'Pickup & delivery is {fee} per order.',
         addItems:'Add at least one item', next:'Next', back:'Back',
         checkout:'Review order', pickup:'Pickup time', earliest:'Earliest available', change:'Change', done:'Done',
         today:'Today', tomorrow:'Tomorrow', noSlots:'No slots left on this day.', leadNote:'Slots start 8 hours from now.',
@@ -593,13 +597,13 @@
         verify:'Verify', errCode:'That code is wrong.', editPhone:'Change number', nameTitle:'What should we call you?', nameLead:'The driver will see your name.', namePh:'Your name', errName:'Enter your name.', save:'Save', welcome:'Welcome, {name}',
         helpTitle:'Help', waTitle:'Chat with us on WhatsApp', waBody:'Our customer service team will reply as soon as possible.', openWa:'Open WhatsApp chat',
         faq:'Common questions',
-        q1:'How much is an item?', a1:'Every item costs 1 riyal, whatever the item, service or laundry.',
+        q1:'How much is an item?', a1:'Every item costs 2 riyals, whatever the item, service or laundry.',
         q5:'Can I cancel my order?', a5:'Yes. Cancelling is free until the driver picks up your clothes, and you get a full refund. After pickup, orders can’t be cancelled.',
-        q2:'How much is delivery?', a2:'SAR 6 per order, covering pickup from your home and delivery back.',
+        q2:'How much is delivery?', a2:'6 riyals per order, covering pickup from your home and delivery back.',
         q3:'When does the driver come?', a3:'You choose the pickup time. The earliest slot is 8 hours after you order.',
         q4:'How do I pay?', a4:'You pay when you send the order, with mada, Visa, Mastercard, Apple Pay or STC Pay.',
         waMsg:'Hello Washla, I need some help', waMsgOrder:'Hello Washla, I have a question about order #{id}',
-        sar:'SAR', pcs:'{n} items'
+        pcs:'{n} items'
       }
     };
 
@@ -641,7 +645,15 @@
     const shop = id => SHOPS.find(s => s.id === id);
     const item = id => ITEMS.find(i => i.id === id);
     const loc = () => S.lang === 'ar' ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-GB';
-    const money = n => { const v = Number.isInteger(n) ? n : n.toFixed(2); return S.lang === 'ar' ? `${v} ر.س` : `SAR ${v}`; };
+    // Official riyal sign: after the number in Arabic (reading right to left), before it in English.
+    const SAR = '<svg aria-hidden="true"><use href="#i-sar"/></svg>';
+    const money = n => {
+      const v = Number.isInteger(n) ? n : n.toFixed(2);
+      const label = S.lang === 'ar' ? `${v} ريال` : `${v} riyals`;
+      return S.lang === 'ar'
+        ? `<span class="sar" dir="rtl" role="text" aria-label="${label}"><span>${v}</span>${SAR}</span>`
+        : `<span class="sar" dir="ltr" role="text" aria-label="${label}">${SAR}<span>${v}</span></span>`;
+    };
     const initial = s => (S.lang === 'ar' ? s.ar.replace(/^مغسلة\s+/, '').replace(/^ال/, '') : s.en.replace(/^(Al|The)\s+/i, '')).charAt(0);
     const fmtPhone = p => p ? `${p.slice(0,3)} ${p.slice(3,6)} ${p.slice(6)}` : '';
     const waLink = text => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
@@ -718,9 +730,9 @@
           <p class="sub">${t('sub')}</p>
 
           <div class="deal">
-            <div><div class="big">1 <small>${t('sar')}</small></div></div>
+            <div><div class="big">${money(ITEM_PRICE)}</div></div>
             <div class="bubbles" aria-hidden="true"><i style="width:34px;height:34px;top:4px;inset-inline-start:8px"></i><i style="width:20px;height:20px;top:40px;inset-inline-start:40px"></i><i style="width:12px;height:12px;top:12px;inset-inline-start:50px"></i></div>
-            <div><strong>${t('dealTitle')}</strong><p>${t('dealBody')}</p></div>
+            <div><strong>${t('dealTitle')}</strong><p>${t('dealBody', { fee:money(DELIVERY_FEE) })}</p></div>
           </div>
 
           <div class="label">${t('chooseService')}</div>
@@ -771,7 +783,7 @@
             ${SERVICES.map(v => `<button type="button" role="tab" aria-selected="${S.tab === v.id}" data-tab="${v.id}">${t('svc_' + v.id)}${counts[v.id] ? `<span class="dot num">${counts[v.id]}</span>` : ''}</button>`).join('')}
           </div>
           <div class="items">${rows}</div>
-          <div class="hint">${ic('i-truck')}<span>${t('feeHint')}</span></div>`;
+          <div class="hint">${ic('i-truck')}<span>${t('feeHint', { fee:money(DELIVERY_FEE) })}</span></div>`;
       },
 
       checkout() {
@@ -889,7 +901,7 @@
             <div class="block-head" style="margin-bottom:14px"><span class="avatar" style="width:44px;height:44px;font-size:1rem;border-radius:13px">${esc(initial(s))}</span>
               <div class="t"><b>${esc(nm(s))}</b><small>${t('pcs', { n:o.count })} · ${money(o.total)}</small></div><span class="badge ${off ? 'off' : st === 4 ? 'ok' : ''}">${off ? t('stCancel') : t('st' + st)}</span></div>
             ${off
-              ? `<div class="cancelled">${ic('i-x')}<div><b style="display:block;color:var(--ink)">${t('cancelledTitle')}</b>${esc(pm.method === 'stcpay' ? t('refundStc', { amount:money(o.total) }) : t('refundNote', { amount:money(o.total), method:methodName }))}</div></div>`
+              ? `<div class="cancelled">${ic('i-x')}<div><b style="display:block;color:var(--ink)">${t('cancelledTitle')}</b>${pm.method === 'stcpay' ? t('refundStc', { amount:money(o.total) }) : t('refundNote', { amount:money(o.total), method:esc(methodName) })}</div></div>`
               : `<ol class="tl">${steps}</ol>
                  ${st < 4 ? `<button type="button" class="btn line sm" style="width:100%;margin-top:16px" data-step="${o.id}">${t('demoNext')}</button>` : ''}
                  ${st === 0 ? (S.confirmCancel === o.id

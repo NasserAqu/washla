@@ -243,7 +243,7 @@
     .profile { display:flex; align-items:center; gap:14px; padding:16px; border-radius:var(--r-lg); background:var(--peach-100); }
     .profile .avatar { background:var(--surface); border:0; }
     .profile b { display:block; font-size:1.1rem; }
-    .profile div > span { color:var(--ink-2); font-size:.9rem; direction:ltr; display:inline-block; }
+    .profile span { color:var(--ink-2); font-size:.9rem; direction:ltr; display:inline-block; }
     .list { background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); margin-top:12px; }
     .list-row { display:flex; align-items:center; gap:12px; padding:12px 14px; width:100%; text-align:start; border:0; background:none; }
     .list-row + .list-row { border-top:1px solid var(--line); }
@@ -294,6 +294,53 @@
     .phone-in span { padding:0 12px; color:var(--muted); border-inline-end:1px solid var(--line); height:50px; display:grid; place-items:center; font-weight:500; }
     .phone-in input { flex:1; min-width:0; border:0; outline:0; height:50px; padding:0 12px; font-size:1.05rem; letter-spacing:.04em; background:transparent; }
     .stack { display:grid; gap:10px; margin-top:16px; }
+
+    /* payment */
+    .pm { display:flex; align-items:center; gap:12px; padding:12px; border-radius:var(--r); border:1.5px solid var(--line); background:var(--surface); cursor:pointer; }
+    .pm:has(input:checked) { border-color:var(--orange); background:var(--peach-50); }
+    .pm input { accent-color:var(--orange-strong); width:18px; height:18px; margin:0; flex:none; }
+    .pm .tx { flex:1; min-width:0; }
+    .pm .tx b { display:block; font-weight:500; }
+    .pm .tx small { color:var(--muted); font-size:.76rem; }
+    .logos { display:flex; gap:4px; flex:none; direction:ltr; }
+    .logo { height:24px; min-width:38px; padding:0 6px; border-radius:6px; border:1px solid var(--line); background:#fff; display:grid; place-items:center; font:700 10px/1 system-ui, sans-serif; letter-spacing:.02em; }
+    .logo.mada { color:#1b75bb; } .logo.visa { color:#1a1f71; font-style:italic; font-size:11px; } .logo.mc { color:#eb001b; }
+    .logo.apple { background:#000; color:#fff; border-color:#000; font-size:11px; } .logo.stc { background:#4f008c; color:#fff; border-color:#4f008c; }
+    .cardbox { margin-top:10px; padding:12px; border-radius:var(--r); background:var(--peach-50); display:grid; gap:10px; }
+    .cardbox .two { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .cardbox .input { background:#fff; direction:ltr; text-align:left; letter-spacing:.04em; }
+    .cardbox .input[id="cName"] { direction:auto; text-align:start; letter-spacing:0; }
+    .numwrap { position:relative; }
+    .numwrap .logo { position:absolute; top:12px; right:10px; pointer-events:none; }
+    .check { display:flex; align-items:center; gap:8px; font-size:.85rem; color:var(--ink-2); cursor:pointer; }
+    .check input { accent-color:var(--orange-strong); width:18px; height:18px; margin:0; }
+    .testcards { font-size:.75rem; color:var(--muted); line-height:1.6; }
+    .testcards code { direction:ltr; display:inline-block; font-family:ui-monospace, Menlo, monospace; color:var(--ink-2); }
+    .pay-err { display:flex; gap:8px; align-items:flex-start; margin-top:10px; padding:10px 12px; border-radius:var(--r); background:var(--red-50); color:var(--red); font-size:.85rem; font-weight:500; }
+    .secure { display:flex; align-items:center; justify-content:center; gap:6px; font-size:.75rem; color:var(--muted); margin-top:8px; }
+    .terms { font-size:.75rem; color:var(--muted); text-align:center; margin:12px 0 0; }
+    .btn.apple { background:#000; }
+    .btn.stc { background:#4f008c; }
+    .btn.danger { background:var(--red-50); color:var(--red); }
+    .bank { border-radius:var(--r-lg); background:var(--surface); border:1px solid var(--line); padding:16px; }
+    .bank-head { display:flex; align-items:center; justify-content:space-between; gap:10px; padding-bottom:12px; border-bottom:1px solid var(--line); margin-bottom:8px; }
+    .bank-head b { display:flex; align-items:center; gap:6px; }
+    .bank-head .icon { color:var(--green); }
+    .code-in { width:100%; height:56px; text-align:center; font-size:1.5rem; letter-spacing:.5em; direction:ltr; border-radius:var(--r); border:1.5px solid var(--line); background:var(--surface); outline:none; margin-top:10px; }
+    .code-in:focus { border-color:var(--orange); box-shadow:0 0 0 4px var(--peach-50); }
+    .apsheet { background:#f2f2f7; color:#000; border-radius:var(--r-lg); padding:16px; font-family:-apple-system, system-ui, sans-serif; }
+    .apsheet .ap-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+    .apsheet .ap-row { display:flex; justify-content:space-between; gap:10px; padding:10px 0; border-top:1px solid #d1d1d6; font-size:.9rem; }
+    .apsheet .ap-row span:first-child { color:#6e6e73; }
+    .apsheet .faceid { text-align:center; padding:14px 0 4px; color:#6e6e73; font-size:.85rem; }
+    .apsheet .faceid .icon { width:40px; height:40px; color:#0a84ff; display:block; margin:0 auto 6px; }
+    .spin { width:54px; height:54px; border-radius:50%; border:5px solid var(--peach-100); border-top-color:var(--orange-strong); margin:28px auto 14px; animation:rot .9s linear infinite; }
+    @keyframes rot { to { transform:rotate(360deg); } }
+    .receipt .kv span:last-child { text-align:end; }
+    .cancel-box { margin-top:12px; padding:12px; border-radius:var(--r); background:var(--red-50); }
+    .cancel-box p { margin:0 0 10px; font-size:.88rem; color:var(--ink); }
+    .cancelled { display:flex; gap:10px; align-items:flex-start; padding:12px; border-radius:var(--r); background:#f3ece7; color:var(--ink-2); font-size:.88rem; }
+    .badge.off { background:#f3ece7; color:var(--ink-2); }
 
     .toast { position:fixed; z-index:80; left:50%; top:calc(68px + env(safe-area-inset-top, 0px)); transform:translate(-50%, -16px); opacity:0; pointer-events:none; background:var(--ink); color:#fff; padding:10px 16px; border-radius:999px; font-size:.86rem; font-weight:500; display:flex; align-items:center; gap:8px; transition:all .25s; max-width:calc(100% - 32px); box-shadow:var(--shadow-lg); }
     .toast.on { opacity:1; transform:translate(-50%, 0); }
@@ -458,7 +505,22 @@
         address:'عنوان الاستلام', addAddress:'إضافة عنوان', newAddress:'عنوان جديد', addrLabel:'نوع العنوان', addrDetails:'تفاصيل العنوان',
         addrPh:'الحي، الشارع، رقم المبنى، أقرب معلم', locateMe:'موقعي الحالي', locating:'جاري تحديد الموقع…', locFail:'تعذّر تحديد الموقع، اكتب العنوان يدوياً.',
         lbl_home:'البيت', lbl_work:'العمل', lbl_other:'آخر', saveAddr:'حفظ العنوان', errAddr:'اكتب تفاصيل العنوان.', makeDefault:'تعيين كافتراضي', deflt:'افتراضي',
-        payment:'الدفع', pay_cash:'كاش عند الاستلام', pay_card:'مدى / بطاقة عند الاستلام', pay_note:'الدفع يتم مع المندوب.',
+        payment:'طريقة الدفع', pay_card:'بطاقة مدى أو فيزا أو ماستركارد', pay_applepay:'Apple Pay', pay_stcpay:'STC Pay', pay_note:'الدفع الآن عند إرسال الطلب.',
+        pay_card_s:'تحقق من البنك برمز يصلك', pay_applepay_s:'ادفع بلمسة من جهازك', pay_stcpay_s:'ادفع من محفظتك برقم جوالك',
+        newCard:'بطاقة جديدة', cardNum:'رقم البطاقة', cardExp:'تاريخ الانتهاء', cardCvv:'رمز الأمان CVV', cardName:'الاسم على البطاقة', cardNamePh:'كما يظهر على البطاقة', saveCard:'احفظ البطاقة للطلبات القادمة',
+        savedCvv:'رمز الأمان CVV للبطاقة', expShort:'تنتهي', errCardNum:'رقم البطاقة غير صحيح.', errCardExp:'تاريخ الانتهاء غير صحيح أو منتهي.', errCardCvv:'رمز الأمان 3 أرقام.', errCardName:'اكتب الاسم على البطاقة.',
+        testCards:'بطاقات تجريبية:', testOk:'تنجح', testNo:'يرفضها البنك', secure:'الدفع مشفّر وآمن. لا نحفظ رقم البطاقة كاملاً أو رمز الأمان.',
+        payBtn:'ادفع {amount}', payApple:'الدفع عبر Apple Pay', payStc:'الدفع عبر STC Pay', termsLine:'بإرسال الطلب أنت توافق على الشروط وسياسة الإلغاء: إلغاء مجاني قبل استلام الملابس.',
+        tdsTitle:'التحقق الآمن من البنك', tdsLead:'أرسل البنك رمز تحقق إلى جوالك المسجّل. اكتبه لإكمال الدفع.', merchant:'التاجر', amount:'المبلغ', card:'البطاقة', confirmPay:'تأكيد الدفع', cancelPay:'إلغاء',
+        demoOtp:'نسخة تجريبية. الرمز هو', errOtp:'الرمز غير صحيح.', processing:'جاري معالجة الدفع…', processingSub:'لا تغلق الصفحة.',
+        declined:'رفض البنك العملية. جرّب بطاقة أخرى أو طريقة دفع ثانية.', payCancelled:'تم إلغاء عملية الدفع.',
+        apTitle:'Apple Pay', apPayTo:'ادفع لـ', apCard:'البطاقة', apCardVal:'بطاقتك في Apple Wallet', apConfirm:'تأكيد عبر Face ID', apNote:'عرض تجريبي. في التطبيق الحقيقي تظهر نافذة Apple Pay من جهازك.',
+        stcTitle:'الدفع عبر STC Pay', stcLead:'اكتب رقم الجوال المسجّل في STC Pay.', stcSend:'أرسل رمز التحقق', stcCodeLead:'أرسلت STC Pay رمزاً إلى', errStcPhone:'اكتب رقم جوال صحيح يبدأ بـ 05.',
+        paid:'مدفوع', paidAt:'وقت الدفع', txn:'رقم العملية', receipt:'الإيصال',
+        cancelOrder:'إلغاء الطلب', cancelQ:'متأكد تبي تلغي الطلب؟ بنرجع لك {amount} كاملة.', cancelYes:'نعم، ألغِ الطلب', cancelNo:'لا، رجوع',
+        cancelledTitle:'تم إلغاء الطلب', refundNote:'تم استرداد {amount} إلى {method}. يظهر المبلغ خلال 5–7 أيام عمل حسب البنك.', refundStc:'تم استرداد {amount} إلى محفظة STC Pay.',
+        cancelLocked:'لا يمكن الإلغاء بعد استلام الملابس. تواصل معنا على واتساب لأي مشكلة.', stCancel:'ملغي', orderCancelled:'تم إلغاء الطلب واسترداد المبلغ',
+        myCards:'بطاقاتي', noCards:'ما فيه بطاقات محفوظة. تقدر تحفظ بطاقتك وقت الدفع.', cardRemoved:'تم حذف البطاقة',
         notes:'ملاحظات للمندوب', notesPh:'مثال: اتصل قبل ما توصل', optional:'اختياري',
         promo:'عندك كود خصم؟', promoPh:'اكتب الكود', apply:'تطبيق', promoOk:'تم تطبيق خصم 10% على القطع', promoBad:'الكود غير صحيح', remove:'إزالة',
         items:'القطع', subtotal:'قيمة القطع', fee:'الاستلام والتوصيل', discount:'الخصم', total:'الإجمالي',
@@ -477,9 +539,10 @@
         helpTitle:'المساعدة', waTitle:'كلّمنا على واتساب', waBody:'فريق خدمة العملاء يرد عليك بأسرع وقت.', openWa:'فتح محادثة واتساب', orCall:'أو راسلنا على الرقم', copy:'نسخ', copied:'تم نسخ الرقم',
         faq:'أسئلة شائعة',
         q1:'كم سعر القطعة؟', a1:'كل القطع بريال واحد، بغض النظر عن نوع القطعة أو الخدمة أو المغسلة.',
+        q5:'أقدر ألغي طلبي؟', a5:'إيه، الإلغاء مجاني قبل ما يستلم المندوب ملابسك، ونرجع لك المبلغ كامل. بعد الاستلام ما يمكن الإلغاء.',
         q2:'كم رسوم التوصيل؟', a2:'6 ريال لكل طلب، وتشمل الاستلام من بيتك والتوصيل بعد الغسيل.',
         q3:'متى يجي المندوب؟', a3:'تختار موعد الاستلام بنفسك، وأقرب موعد متاح بعد 8 ساعات من وقت الطلب.',
-        q4:'كيف أدفع؟', a4:'كاش أو مدى مع المندوب وقت الاستلام.',
+        q4:'كيف أدفع؟', a4:'تدفع وقت إرسال الطلب ببطاقة مدى أو فيزا أو ماستركارد، أو Apple Pay، أو STC Pay.',
         waMsg:'السلام عليكم، أحتاج مساعدة بخصوص طلب غسله', waMsgOrder:'السلام عليكم، استفسار عن طلب غسله رقم {id}',
         sar:'ر.س', pcs:'{n} قطعة'
       },
@@ -500,7 +563,22 @@
         address:'Pickup address', addAddress:'Add address', newAddress:'New address', addrLabel:'Address type', addrDetails:'Address details',
         addrPh:'District, street, building no., landmark', locateMe:'Use my location', locating:'Finding your location…', locFail:'Couldn’t get your location. Type the address instead.',
         lbl_home:'Home', lbl_work:'Work', lbl_other:'Other', saveAddr:'Save address', errAddr:'Enter the address details.', makeDefault:'Make default', deflt:'Default',
-        payment:'Payment', pay_cash:'Cash on pickup', pay_card:'mada / card on pickup', pay_note:'You pay the driver.',
+        payment:'Payment method', pay_card:'mada, Visa or Mastercard', pay_applepay:'Apple Pay', pay_stcpay:'STC Pay', pay_note:'You pay now, when you send the order.',
+        pay_card_s:'Verified by your bank with a code', pay_applepay_s:'Pay with one touch on your device', pay_stcpay_s:'Pay from your wallet with your phone number',
+        newCard:'New card', cardNum:'Card number', cardExp:'Expiry date', cardCvv:'Security code (CVV)', cardName:'Name on card', cardNamePh:'As shown on the card', saveCard:'Save this card for next time',
+        savedCvv:'Security code (CVV) for this card', expShort:'Expires', errCardNum:'That card number isn’t valid.', errCardExp:'The expiry date is invalid or has passed.', errCardCvv:'The security code is 3 digits.', errCardName:'Enter the name on the card.',
+        testCards:'Test cards:', testOk:'succeeds', testNo:'declined by bank', secure:'Payments are encrypted. We never store your full card number or security code.',
+        payBtn:'Pay {amount}', payApple:'Pay with Apple Pay', payStc:'Pay with STC Pay', termsLine:'By sending the order you agree to the terms and cancellation policy: free cancellation before pickup.',
+        tdsTitle:'Secure bank verification', tdsLead:'Your bank sent a code to your registered phone. Enter it to finish paying.', merchant:'Merchant', amount:'Amount', card:'Card', confirmPay:'Confirm payment', cancelPay:'Cancel',
+        demoOtp:'Demo version. The code is', errOtp:'That code is wrong.', processing:'Processing payment…', processingSub:'Please don’t close this page.',
+        declined:'Your bank declined the payment. Try another card or payment method.', payCancelled:'Payment cancelled.',
+        apTitle:'Apple Pay', apPayTo:'Pay', apCard:'Card', apCardVal:'Your card in Apple Wallet', apConfirm:'Confirm with Face ID', apNote:'Demo. In the real app, your device’s Apple Pay sheet appears.',
+        stcTitle:'Pay with STC Pay', stcLead:'Enter the phone number registered with STC Pay.', stcSend:'Send verification code', stcCodeLead:'STC Pay sent a code to', errStcPhone:'Enter a valid number starting with 05.',
+        paid:'Paid', paidAt:'Paid at', txn:'Transaction no.', receipt:'Receipt',
+        cancelOrder:'Cancel order', cancelQ:'Cancel this order? You’ll get the full {amount} back.', cancelYes:'Yes, cancel it', cancelNo:'No, keep it',
+        cancelledTitle:'Order cancelled', refundNote:'{amount} was refunded to {method}. It shows up within 5–7 business days depending on your bank.', refundStc:'{amount} was refunded to your STC Pay wallet.',
+        cancelLocked:'Orders can’t be cancelled after pickup. Message us on WhatsApp about any problem.', stCancel:'Cancelled', orderCancelled:'Order cancelled and refunded',
+        myCards:'My cards', noCards:'No saved cards. You can save a card when you pay.', cardRemoved:'Card removed',
         notes:'Notes for the driver', notesPh:'e.g. Call when you arrive', optional:'Optional',
         promo:'Have a promo code?', promoPh:'Enter code', apply:'Apply', promoOk:'10% off items applied', promoBad:'That code isn’t valid', remove:'Remove',
         items:'Items', subtotal:'Items', fee:'Pickup & delivery', discount:'Discount', total:'Total',
@@ -519,9 +597,10 @@
         helpTitle:'Help', waTitle:'Chat with us on WhatsApp', waBody:'Our customer service team will reply as soon as possible.', openWa:'Open WhatsApp chat', orCall:'Or message us at', copy:'Copy', copied:'Number copied',
         faq:'Common questions',
         q1:'How much is an item?', a1:'Every item costs 1 riyal, whatever the item, service or laundry.',
+        q5:'Can I cancel my order?', a5:'Yes. Cancelling is free until the driver picks up your clothes, and you get a full refund. After pickup, orders can’t be cancelled.',
         q2:'How much is delivery?', a2:'SAR 6 per order, covering pickup from your home and delivery back.',
         q3:'When does the driver come?', a3:'You choose the pickup time. The earliest slot is 8 hours after you order.',
-        q4:'How do I pay?', a4:'Cash or mada to the driver at pickup.',
+        q4:'How do I pay?', a4:'You pay when you send the order, with mada, Visa, Mastercard, Apple Pay or STC Pay.',
         waMsg:'Hello, I need help with a Washla order', waMsgOrder:'Hello, I have a question about Washla order #{id}',
         sar:'SAR', pcs:'{n} items'
       }
@@ -542,7 +621,7 @@
       service: 'wash', sort: 'near', openOnly: false, q: '',
       shopId: null, tab: 'wash', cart: {},
       dayIdx: 0, slot: null, pickSlot: false,
-      addrId: null, draftAddr: { label:'home', text:'' }, pay: 'cash', notes: '',
+      addrId: null, draftAddr: { label:'home', text:'' }, pay: 'card', cardSel: 'new', card: { num:'', exp:'', cvv:'', name:'', save:true }, savedCvv: '', payErr: null, notes: '', confirmCancel: null,
       promoIn: '', promoOn: false, promoErr: false, errs: {},
       phone: store.get(K.session, null),
       lastOrder: null,
@@ -621,7 +700,7 @@
       const cur = S.view === 'order' ? 'orders' : S.view;
       $$('#tabbar [data-go]').forEach(b => b.dataset.go === cur ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current'));
       $$('[data-t]').forEach(el => { el.textContent = t(el.dataset.t); });
-      const active = myOrders().filter(o => (o.step || 0) < 4).length;
+      const active = myOrders().filter(o => (o.step || 0) < 4 && o.status !== 'cancelled').length;
       $('#ordersN').hidden = !active; $('#ordersN').textContent = active;
     }
     function setAction(html) { $('#actionbar').hidden = !html; $('#actionbarIn').innerHTML = html || ''; }
@@ -714,7 +793,9 @@
           : `<div style="grid-column:1/-1;color:var(--muted);font-size:.85rem">${t('noSlots')}</div>`;
         const isEarliest = S.slot === earliestSlot()?.iso;
 
-        setAction(`<button type="button" class="btn full" data-place><span class="grow">${u ? t('placeOrder') : t('loginToOrder')}</span><span class="num">${money(tot.total)}</span></button>`);
+        const payLbl = !u ? t('loginToOrder') : S.pay === 'applepay' ? t('payApple') : S.pay === 'stcpay' ? t('payStc') : t('payBtn', { amount:'' }).trim();
+        const payCls = u && S.pay === 'applepay' ? 'apple' : u && S.pay === 'stcpay' ? 'stc' : '';
+        setAction(`<button type="button" class="btn full ${payCls}" data-place><span class="grow">${payLbl}</span><span class="num">${money(tot.total)}</span></button>`);
 
         return `
           <section class="block">
@@ -734,11 +815,12 @@
           </section>
 
           <section class="block">
-            <div class="block-head"><span class="ic">${ic('i-cash')}</span><div class="t"><b>${t('payment')}</b><small>${t('pay_note')}</small></div></div>
-            <div class="opts">
-              ${['cash', 'card'].map(p => `<label class="opt"><input type="radio" name="pay" value="${p}" ${S.pay === p ? 'checked' : ''} /><span class="tx"><b>${t('pay_' + p)}</b></span>${ic(p === 'cash' ? 'i-cash' : 'i-card')}</label>`).join('')}
-            </div>
-            <label class="field"><span>${t('notes')} <small style="color:var(--muted)">· ${t('optional')}</small></span>
+            <div class="block-head"><span class="ic">${ic('i-card')}</span><div class="t"><b>${t('payment')}</b><small>${t('pay_note')}</small></div></div>
+            ${payBlock(u)}
+          </section>
+
+          <section class="block">
+            <label class="field" style="margin-top:0"><span>${t('notes')} <small style="color:var(--muted)">· ${t('optional')}</small></span>
               <textarea class="input" id="notes" rows="2" placeholder="${t('notesPh')}">${esc(S.notes)}</textarea></label>
           </section>
 
@@ -757,7 +839,8 @@
                 : `<div class="inline" style="margin-top:10px"><input class="input ${S.promoErr ? 'bad' : ''}" id="promo" value="${esc(S.promoIn)}" placeholder="${t('promoPh')}" autocapitalize="characters" /><button type="button" class="btn line sm" style="height:48px" data-promo>${t('apply')}</button></div>
                    ${S.promoErr ? `<div class="err" style="margin-top:6px">${t('promoBad')}</div>` : ''}`}
             </details>
-          </section>`;
+          </section>
+          <p class="terms">${t('termsLine')}</p>`;
       },
 
       done() {
@@ -768,7 +851,9 @@
             <div class="kv"><span>${t('order')}</span><b class="num">#${o.id}</b></div>
             <div class="kv"><span>${t('pickup')}</span><span style="text-align:end">${esc(slotLabel(o.slot))}</span></div>
             <div class="kv"><span>${t('items')}</span><span>${t('pcs', { n:o.count })}</span></div>
-            <div class="kv total"><span>${t('total')}</span><span class="num">${money(o.total)}</span></div>
+            <div class="kv"><span>${t('paidBy')}</span><span dir="auto">${o.payment.method === 'card' ? `${brandName(o.payment.brand)} •••• ${o.payment.last4}` : t('pay_' + o.payment.method)}</span></div>
+            <div class="kv"><span>${t('txn')}</span><span class="num" dir="ltr">${o.payment.txn}</span></div>
+            <div class="kv total"><span>${t('total')} · ${t('paid')}</span><span class="num">${money(o.total)}</span></div>
           </section>`;
       },
 
@@ -777,12 +862,12 @@
         if (!me()) return `<h1 class="page-title">${t('ordersTitle')}</h1>${guestCard(t('guestOrders'))}`;
         const list = myOrders().slice().reverse();
         return `<h1 class="page-title">${t('ordersTitle')}</h1>` + (list.length ? list.map(o => {
-          const s = shop(o.shopId), st = o.step || 0;
+          const s = shop(o.shopId), st = o.step || 0, off = o.status === 'cancelled';
           return `<button type="button" class="order" data-open-order="${o.id}">
             <div class="top-row"><span class="avatar">${esc(initial(s))}</span>
               <div style="flex:1;min-width:0"><b style="display:block;font-weight:600">${esc(nm(s))}</b><small style="color:var(--muted)">#${o.id} · ${t('pcs', { n:o.count })} · <span class="num">${money(o.total)}</span></small></div>
-              <span class="badge ${st === 4 ? 'ok' : ''}">${t('st' + st)}</span></div>
-            <div class="bar"><i style="width:${(st + 1) * 20}%"></i></div>
+              <span class="badge ${off ? 'off' : st === 4 ? 'ok' : ''}">${off ? t('stCancel') : t('st' + st)}</span></div>
+            ${off ? '' : `<div class="bar"><i style="width:${(st + 1) * 20}%"></i></div>`}
             <small style="color:var(--ink-2)">${ic('i-cal', 'sm')} ${esc(slotLabel(o.slot))}</small>
           </button>`;
         }).join('') : `<div class="empty"><div class="ic">${ic('i-bag', 'lg')}</div><strong>${t('noOrders')}</strong>${t('noOrdersBody')}
@@ -793,8 +878,10 @@
         const o = myOrders().find(x => x.id === S.params.id);
         setAction('');
         if (!o) return '';
-        const s = shop(o.shopId), st = o.step || 0;
+        const s = shop(o.shopId), st = o.step || 0, off = o.status === 'cancelled';
         const ret = new Date(new Date(o.slot).getTime() + 48 * 3600e3);
+        const pm = o.payment || {};
+        const methodName = pm.method === 'card' ? `${brandName(pm.brand)} •••• ${pm.last4}` : t('pay_' + (pm.method || 'card'));
         const steps = [0, 1, 2, 3, 4].map(i => {
           const cls = i < st || st === 4 ? 'done' : i === st ? 'now' : 'later';
           const sub = i === 1 ? slotLabel(o.slot) : i === 4 && st < 4 ? dayLabel(ret) : t('st' + i + 'd');
@@ -803,15 +890,26 @@
         return `
           <section class="block" style="margin-top:4px">
             <div class="block-head" style="margin-bottom:14px"><span class="avatar" style="width:44px;height:44px;font-size:1rem;border-radius:13px">${esc(initial(s))}</span>
-              <div class="t"><b>${esc(nm(s))}</b><small>${t('pcs', { n:o.count })} · ${money(o.total)}</small></div><span class="badge ${st === 4 ? 'ok' : ''}">${t('st' + st)}</span></div>
-            <ol class="tl">${steps}</ol>
-            ${st < 4 ? `<button type="button" class="btn line sm" style="width:100%;margin-top:16px" data-step="${o.id}">${t('demoNext')}</button>` : ''}
+              <div class="t"><b>${esc(nm(s))}</b><small>${t('pcs', { n:o.count })} · ${money(o.total)}</small></div><span class="badge ${off ? 'off' : st === 4 ? 'ok' : ''}">${off ? t('stCancel') : t('st' + st)}</span></div>
+            ${off
+              ? `<div class="cancelled">${ic('i-x')}<div><b style="display:block;color:var(--ink)">${t('cancelledTitle')}</b>${esc(pm.method === 'stcpay' ? t('refundStc', { amount:money(o.total) }) : t('refundNote', { amount:money(o.total), method:methodName }))}</div></div>`
+              : `<ol class="tl">${steps}</ol>
+                 ${st < 4 ? `<button type="button" class="btn line sm" style="width:100%;margin-top:16px" data-step="${o.id}">${t('demoNext')}</button>` : ''}
+                 ${st === 0 ? (S.confirmCancel === o.id
+                    ? `<div class="cancel-box"><p>${t('cancelQ', { amount:money(o.total) })}</p><div class="inline"><button type="button" class="btn sm" style="flex:1;background:var(--red)" data-cancel-yes="${o.id}">${t('cancelYes')}</button><button type="button" class="btn line sm" style="flex:1" data-cancel-no>${t('cancelNo')}</button></div></div>`
+                    : `<button type="button" class="btn danger sm" style="width:100%;margin-top:8px" data-cancel="${o.id}">${ic('i-x', 'sm')}${t('cancelOrder')}</button>`)
+                   : st < 4 ? `<p style="margin:10px 0 0;font-size:.78rem;color:var(--muted)">${t('cancelLocked')}</p>` : ''}`}
           </section>
           <section class="block">
             <div class="kv"><span>${t('pickup')}</span><span style="text-align:end">${esc(slotLabel(o.slot))}</span></div>
             <div class="kv"><span>${t('returnBy')}</span><span>${esc(dayLabel(ret))}</span></div>
             <div class="kv"><span>${t('address')}</span><span style="text-align:end;overflow-wrap:anywhere">${esc(o.address)}</span></div>
-            <div class="kv"><span>${t('paidBy')}</span><span>${t('pay_' + o.pay)}</span></div>
+          </section>
+          <section class="block receipt">
+            <div class="block-head" style="margin-bottom:8px"><span class="ic">${ic('i-card')}</span><div class="t"><b>${t('receipt')}</b></div><span class="badge ${off ? 'off' : 'ok'}">${off ? t('stCancel') : t('paid')}</span></div>
+            <div class="kv"><span>${t('paidBy')}</span><span dir="auto">${esc(methodName)}</span></div>
+            ${pm.txn ? `<div class="kv"><span>${t('txn')}</span><span class="num" dir="ltr">${pm.txn}</span></div>` : ''}
+            ${pm.at ? `<div class="kv"><span>${t('paidAt')}</span><span>${new Date(pm.at).toLocaleString(loc(), { day:'numeric', month:'short', hour:'numeric', minute:'2-digit' })}</span></div>` : ''}
           </section>
           <section class="block">
             ${o.lines.map(l => `<div class="kv"><span>${l.q} × ${t('item_' + l.item)} <small style="color:var(--muted)">· ${t('svc_' + l.svc)}</small></span><span class="num">${money(l.q * ITEM_PRICE)}</span></div>`).join('')}
@@ -842,6 +940,12 @@
                 ${a.def ? '' : `<br><button type="button" class="link-btn" style="padding:4px 0" data-defaddr="${a.id}">${t('makeDefault')}</button>`}</span>
               <button type="button" class="mini" data-deladdr="${a.id}" aria-label="delete">${ic('i-trash', 'sm')}</button></div>`).join('')
             : `<div class="list-row"><span class="tx"><small>${t('noAddr')}</small></span></div>`}</div>
+          <div class="row-head" style="margin-top:22px"><h2>${t('myCards')}</h2></div>
+          <div class="list" style="margin-top:0">${(u.cards || []).length ? u.cards.map(c => `
+            <div class="list-row"><span class="ic">${ic('i-card')}</span>
+              <span class="tx"><b dir="ltr" style="text-align:start">${brandName(c.brand)} •••• ${c.last4}</b><small>${t('expShort')} <span dir="ltr">${c.exp}</span></small></span>
+              <button type="button" class="mini" data-delcard="${c.id}" aria-label="delete">${ic('i-trash', 'sm')}</button></div>`).join('')
+            : `<div class="list-row"><span class="tx"><small>${t('noCards')}</small></span></div>`}</div>
           <div class="list">${langRow}<button type="button" class="list-row" data-logout><span class="ic">${ic('i-logout')}</span><span class="tx"><b>${t('logout')}</b></span></button></div>`;
       },
 
@@ -856,7 +960,7 @@
               <button type="button" class="btn line sm" style="height:34px" data-copyphone>${ic('i-copy', 'sm')}${t('copy')}</button></div>
           </div>
           <div class="row-head"><h2>${t('faq')}</h2></div>
-          <div class="faq" style="margin-top:0">${[1,2,3,4].map(i => `<details><summary>${t('q' + i)}${ic('i-down', 'sm')}</summary><p>${t('a' + i)}</p></details>`).join('')}</div>`;
+          <div class="faq" style="margin-top:0">${[1,2,3,4,5].map(i => `<details><summary>${t('q' + i)}${ic('i-down', 'sm')}</summary><p>${t('a' + i)}</p></details>`).join('')}</div>`;
       }
     };
 
@@ -908,6 +1012,7 @@
       renderChrome();
     }
     function captureInputs() {
+      if (typeof captureCard === 'function') captureCard();
       if ($('#notes')) S.notes = $('#notes').value;
       if ($('#promo')) S.promoIn = $('#promo').value;
       if ($('#addrText-draft')) S.draftAddr.text = $('#addrText-draft').value;
@@ -968,9 +1073,165 @@
       u.addresses = [...list, rec]; saveMe(u); return rec;
     }
 
+    /* ============ Payments (simulated gateway) ============ */
+    const TEST_DECLINE = '4000000000000002';
+    const digits = v => String(v || '').replace(/\D/g, '');
+    function brandOf(n) {
+      n = digits(n);
+      if (/^4/.test(n)) return 'visa';
+      if (/^(5[1-5]|2(2[2-9]|[3-6]\d|7[01]|720))/.test(n)) return 'mc';
+      return n.length >= 1 ? 'card' : '';
+    }
+    const brandName = b => ({ visa:'Visa', mc:'Mastercard', mada:'mada' }[b] || (S.lang === 'ar' ? 'بطاقة' : 'Card'));
+    function luhn(n) {
+      let sum = 0, alt = false;
+      for (let i = n.length - 1; i >= 0; i--) { let x = +n[i]; if (alt) { x *= 2; if (x > 9) x -= 9; } sum += x; alt = !alt; }
+      return n.length >= 13 && sum % 10 === 0;
+    }
+    function expOk(v) {
+      const m = /^(\d{2})\s*\/\s*(\d{2})$/.exec(v || ''); if (!m) return false;
+      const mo = +m[1], yr = 2000 + +m[2]; if (mo < 1 || mo > 12) return false;
+      const end = new Date(yr, mo, 1); return end > new Date();
+    }
+    const fmtCard = v => digits(v).slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 ');
+    const fmtExp = v => { const x = digits(v).slice(0, 4); return x.length > 2 ? `${x.slice(0, 2)}/${x.slice(2)}` : x; };
+    const newTxn = () => 'TX' + Date.now().toString().slice(-6) + Math.floor(100000 + Math.random() * 900000);
+
+    function payBlock(u) {
+      const cards = u?.cards || [];
+      if (S.cardSel !== 'new' && !cards.some(c => c.id === S.cardSel)) S.cardSel = cards[0]?.id || 'new';
+      const e = S.errs, c = S.card, br = brandOf(c.num);
+      const logo = { visa:'<span class="logo visa">VISA</span>', mc:'<span class="logo mc">MC</span>' }[br] || '';
+      const methods = [
+        ['card', `<span class="logos"><span class="logo mada">mada</span><span class="logo visa">VISA</span><span class="logo mc">MC</span></span>`],
+        ['applepay', `<span class="logos"><span class="logo apple">Apple Pay</span></span>`],
+        ['stcpay', `<span class="logos"><span class="logo stc">stc pay</span></span>`]
+      ];
+      const cardForm = S.pay !== 'card' ? '' : `<div class="cardbox">
+          ${cards.length ? `<div class="opts" style="margin:0">${cards.map(k => `
+            <label class="pm"><input type="radio" name="cardSel" value="${k.id}" ${S.cardSel === k.id ? 'checked' : ''} />
+              <span class="tx"><b dir="ltr" style="text-align:start">${brandName(k.brand)} •••• ${k.last4}</b><small>${t('expShort')} <span dir="ltr">${k.exp}</span></small></span></label>`).join('')}
+            <label class="pm"><input type="radio" name="cardSel" value="new" ${S.cardSel === 'new' ? 'checked' : ''} /><span class="tx"><b>${t('newCard')}</b></span>${ic('i-plus', 'sm')}</label></div>` : ''}
+          ${S.cardSel !== 'new' ? `
+            <label class="field" style="margin:0"><span>${t('savedCvv')}</span><input class="input ${e.cvv ? 'bad' : ''}" id="sCvv" inputmode="numeric" autocomplete="cc-csc" maxlength="3" placeholder="•••" value="${esc(S.savedCvv)}" style="max-width:140px" /></label>
+            ${e.cvv ? `<div class="err" id="err-cvv">${t('errCardCvv')}</div>` : ''}` : `
+            <label class="field" style="margin:0"><span>${t('cardNum')}</span><span class="numwrap"><input class="input ${e.num ? 'bad' : ''}" id="cNum" inputmode="numeric" autocomplete="cc-number" placeholder="0000 0000 0000 0000" value="${esc(fmtCard(c.num))}" />${logo}</span></label>
+            ${e.num ? `<div class="err" id="err-num">${t('errCardNum')}</div>` : ''}
+            <div class="two">
+              <label class="field" style="margin:0"><span>${t('cardExp')}</span><input class="input ${e.exp ? 'bad' : ''}" id="cExp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" value="${esc(c.exp)}" /></label>
+              <label class="field" style="margin:0"><span>${t('cardCvv')}</span><input class="input ${e.cvv ? 'bad' : ''}" id="cCvv" inputmode="numeric" autocomplete="cc-csc" maxlength="3" placeholder="•••" value="${esc(c.cvv)}" /></label>
+            </div>
+            ${e.exp ? `<div class="err" id="err-exp">${t('errCardExp')}</div>` : ''}${e.cvv ? `<div class="err" id="err-cvv">${t('errCardCvv')}</div>` : ''}
+            <label class="field" style="margin:0"><span>${t('cardName')}</span><input class="input ${e.name ? 'bad' : ''}" id="cName" autocomplete="cc-name" placeholder="${t('cardNamePh')}" value="${esc(c.name)}" /></label>
+            ${e.name ? `<div class="err" id="err-name">${t('errCardName')}</div>` : ''}
+            <label class="check"><input type="checkbox" id="cSave" ${c.save ? 'checked' : ''} />${t('saveCard')}</label>
+            <div class="testcards">${t('testCards')} <code>4111 1111 1111 1111</code> ${t('testOk')} · <code>4000 0000 0000 0002</code> ${t('testNo')}</div>`}
+        </div>`;
+      return `<div class="opts">${methods.map(([m, logos]) => `
+          <label class="pm"><input type="radio" name="pay" value="${m}" ${S.pay === m ? 'checked' : ''} />
+            <span class="tx"><b>${t('pay_' + m)}</b><small>${t('pay_' + m + '_s')}</small></span>${logos}</label>
+          ${m === 'card' ? cardForm : ''}`).join('')}</div>
+        ${S.payErr ? `<div class="pay-err">${ic('i-x', 'sm')}<span>${t(S.payErr)}</span></div>` : ''}
+        <div class="secure">${ic('i-shield', 'sm')}${t('secure')}</div>`;
+    }
+
+    function captureCard() {
+      if ($('#cNum')) S.card.num = digits($('#cNum').value);
+      if ($('#cExp')) S.card.exp = $('#cExp').value.trim();
+      if ($('#cCvv')) S.card.cvv = digits($('#cCvv').value);
+      if ($('#cName')) S.card.name = $('#cName').value;
+      if ($('#cSave')) S.card.save = $('#cSave').checked;
+      if ($('#sCvv')) S.savedCvv = digits($('#sCvv').value);
+    }
+    function validatePayment() {
+      if (S.pay !== 'card') return true;
+      const e = {};
+      if (S.cardSel !== 'new') { if (!/^\d{3}$/.test(S.savedCvv)) e.cvv = true; }
+      else {
+        if (!luhn(S.card.num) || !['visa', 'mc'].includes(brandOf(S.card.num))) e.num = true;
+        if (!expOk(S.card.exp)) e.exp = true;
+        if (!/^\d{3}$/.test(S.card.cvv)) e.cvv = true;
+        if (!S.card.name.trim()) e.name = true;
+      }
+      Object.assign(S.errs, e);
+      return !Object.keys(e).length;
+    }
+
+    const P = { code:'', err:false, phone:'', step:'' };
+    const sixDigits = () => String(Math.floor(100000 + Math.random() * 900000));
+    function payInfo() {
+      const u = me();
+      if (S.cardSel !== 'new') { const k = u.cards.find(c => c.id === S.cardSel); return { brand:k.brand, last4:k.last4, number:null }; }
+      return { brand:brandOf(S.card.num), last4:S.card.num.slice(-4), number:S.card.num };
+    }
+    function startPayment(order) {
+      P.err = false;
+      if (S.pay === 'card') { P.code = sixDigits(); return tdsSheet(order); }
+      if (S.pay === 'applepay') return applePaySheet(order);
+      P.step = 'phone'; P.phone = S.phone; return stcSheet(order);
+    }
+    function tdsSheet(order) {
+      const pi = payInfo();
+      openSheet(`<div class="bank">
+          <div class="bank-head"><b>${ic('i-shield')}${t('tdsTitle')}</b><span class="logo ${pi.brand}">${pi.brand === 'mc' ? 'MC' : 'VISA'}</span></div>
+          <div class="kv"><span>${t('merchant')}</span><span>Washla غسله</span></div>
+          <div class="kv"><span>${t('amount')}</span><b class="num">${money(order.total)}</b></div>
+          <div class="kv"><span>${t('card')}</span><span dir="ltr">•••• ${pi.last4}</span></div>
+          <p style="margin:12px 0 0;font-size:.88rem;color:var(--ink-2)">${t('tdsLead')}</p>
+          <input class="code-in ${P.err ? 'bad' : ''}" id="tdsCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••" />
+          ${P.err ? `<div class="err" style="text-align:center;margin-top:6px">${t('errOtp')}</div>` : ''}
+          <div class="demo-code">${t('demoOtp')} <b>${P.code}</b></div>
+        </div>
+        <div class="stack"><button type="button" class="btn full" data-tds-ok>${t('confirmPay')}</button><button type="button" class="btn line full" data-pay-cancel>${t('cancelPay')}</button></div>`, t('tdsTitle'));
+      S.payOrder = order;
+    }
+    function applePaySheet(order) {
+      openSheet(`<div class="apsheet">
+          <div class="ap-top"><b style="font-size:1.1rem">Apple Pay</b><button type="button" class="link-btn" style="color:#0a84ff" data-pay-cancel>${t('cancelPay')}</button></div>
+          <div class="ap-row"><span>${t('apCard')}</span><span>${t('apCardVal')}</span></div>
+          <div class="ap-row"><span>${t('apPayTo')}</span><span>WASHLA</span></div>
+          <div class="ap-row" style="font-weight:600"><span>${t('total')}</span><span class="num">${money(order.total)}</span></div>
+          <div class="faceid">${ic('i-user')}${t('apConfirm')}</div>
+        </div>
+        <div class="stack"><button type="button" class="btn full apple" data-ap-ok>${t('apConfirm')}</button></div>
+        <p class="terms">${t('apNote')}</p>`, t('apTitle'));
+      S.payOrder = order;
+    }
+    function stcSheet(order) {
+      S.payOrder = order;
+      if (P.step === 'phone') return openSheet(`<h2>${t('stcTitle')}</h2><p class="lead">${t('stcLead')}</p>
+          <span class="phone-in"><span>+966</span><input id="stcPhone" type="tel" inputmode="numeric" value="${esc((P.phone || '').replace(/^0/, ''))}" maxlength="12" /></span>
+          ${P.err ? `<div class="err" style="margin-top:6px">${t('errStcPhone')}</div>` : ''}
+          <div class="kv" style="margin-top:12px"><span>${t('amount')}</span><b class="num">${money(order.total)}</b></div>
+          <div class="stack"><button type="button" class="btn full stc" data-stc-send>${t('stcSend')}</button><button type="button" class="btn line full" data-pay-cancel>${t('cancelPay')}</button></div>`, t('stcTitle'));
+      openSheet(`<h2>${t('stcTitle')}</h2><p class="lead">${t('stcCodeLead')} <b dir="ltr" style="display:inline-block">${fmtPhone(P.phone)}</b></p>
+          <input class="code-in ${P.err ? 'bad' : ''}" id="stcCode" inputmode="numeric" maxlength="6" placeholder="••••••" />
+          ${P.err ? `<div class="err" style="text-align:center;margin-top:6px">${t('errOtp')}</div>` : ''}
+          <div class="demo-code">${t('demoOtp')} <b>${P.code}</b></div>
+          <div class="stack"><button type="button" class="btn full stc" data-stc-ok>${t('confirmPay')} · ${money(order.total)}</button><button type="button" class="btn line full" data-pay-cancel>${t('cancelPay')}</button></div>`, t('stcTitle'));
+    }
+    function processPayment(order, declined) {
+      openSheet(`<div style="text-align:center;padding-bottom:20px"><div class="spin"></div><b style="display:block;font-size:1.05rem">${t('processing')}</b><span style="color:var(--muted);font-size:.85rem">${t('processingSub')}</span></div>`, t('processing'));
+      setTimeout(() => {
+        closeSheet();
+        if (declined) { S.payErr = 'declined'; render(); document.querySelector('.pay-err')?.scrollIntoView({ block:'center', behavior:'smooth' }); return; }
+        const payment = { method:S.pay, txn:newTxn(), at:Date.now(), status:'paid' };
+        if (S.pay === 'card') {
+          const pi = payInfo(); payment.brand = pi.brand; payment.last4 = pi.last4;
+          if (pi.number && S.card.save) {
+            const u = me(); u.cards = u.cards || [];
+            if (!u.cards.some(c => c.last4 === pi.last4 && c.exp === S.card.exp)) u.cards.push({ id:'c' + Date.now().toString(36), brand:pi.brand, last4:pi.last4, exp:S.card.exp });
+            saveMe(u);
+          }
+        }
+        finishOrder(order, payment);
+      }, 1400);
+    }
+
     /* place order */
     function place() {
-      captureInputs();
+      captureInputs(); captureCard();
+      S.payErr = null; S.errs = {};
       const u = me();
       if (!u) { startLogin(() => { if (S.view === 'checkout') place(); }); return; }
       let addr = (u.addresses || []).find(a => a.id === S.addrId);
@@ -979,15 +1240,20 @@
         addr = addAddress(S.draftAddr); S.addrId = addr.id; S.draftAddr = { label:'home', text:'' };
       }
       if (!S.slot || new Date(S.slot).getTime() < minTime()) { S.slot = null; render(); toast(t('noSlots'), 'i-clock'); return; }
+      if (!validatePayment()) { render(); document.querySelector('.cardbox .err')?.scrollIntoView({ block:'center', behavior:'smooth' }); return; }
       const tot = totals();
       const o = {
         id: String(Date.now()).slice(-6), shopId:S.shopId, slot:S.slot, address:`${t('lbl_' + addr.label)} — ${addr.text}`,
         lines: tot.list.map(e => ({ svc:e.svc, item:e.item.id, q:e.q })), count:tot.count, sub:tot.sub, disc:tot.disc, fee:tot.fee, total:tot.total,
-        pay:S.pay, notes:S.notes, createdAt:Date.now(), step:0
+        notes:S.notes, createdAt:Date.now(), step:0, status:'active'
       };
+      startPayment(o);
+    }
+    function finishOrder(o, payment) {
+      o.payment = payment;
       saveOrders([...myOrders(), o]);
       S.lastOrder = o.id;
-      S.cart = {}; S.promoOn = false; S.promoIn = ''; S.promoErr = false; S.notes = ''; S.slot = null; S.errs = {};
+      S.cart = {}; S.promoOn = false; S.promoIn = ''; S.promoErr = false; S.notes = ''; S.slot = null; S.errs = {}; S.savedCvv = ''; S.card = { num:'', exp:'', cvv:'', name:'', save:true }; S.payErr = null;
       history_.length = 0;
       go('done', {}, false);
     }
@@ -1057,8 +1323,33 @@
       }
       if ('unpromo' in d) { captureInputs(); S.promoOn = false; S.promoIn = ''; render(); return; }
       if ('place' in d) return place();
+      if ('payCancel' in d) { closeSheet(); toast(t('payCancelled'), 'i-x'); return; }
+      if ('tdsOk' in d) {
+        const code = digits($('#tdsCode').value);
+        if (code !== P.code) { P.err = true; return tdsSheet(S.payOrder); }
+        const pi = payInfo();
+        return processPayment(S.payOrder, pi.number === TEST_DECLINE);
+      }
+      if ('apOk' in d) return processPayment(S.payOrder, false);
+      if ('stcSend' in d) {
+        let raw = digits($('#stcPhone').value).replace(/^(00966|966)/, '').replace(/^0/, '');
+        if (!/^5\d{8}$/.test(raw)) { P.err = true; return stcSheet(S.payOrder); }
+        P.phone = '0' + raw; P.err = false; P.step = 'code'; P.code = sixDigits(); return stcSheet(S.payOrder);
+      }
+      if ('stcOk' in d) {
+        if (digits($('#stcCode').value) !== P.code) { P.err = true; return stcSheet(S.payOrder); }
+        return processPayment(S.payOrder, false);
+      }
+      if (d.cancel) { S.confirmCancel = d.cancel; render(); return; }
+      if ('cancelNo' in d) { S.confirmCancel = null; render(); return; }
+      if (d.cancelYes) {
+        const list = myOrders(), o = list.find(x => x.id === d.cancelYes);
+        if (o && (o.step || 0) === 0) { o.status = 'cancelled'; o.payment.status = 'refunded'; o.payment.refundedAt = Date.now(); saveOrders(list); toast(t('orderCancelled'), 'i-check'); }
+        S.confirmCancel = null; render(); return;
+      }
+      if (d.delcard) { const u = me(); u.cards = (u.cards || []).filter(c => c.id !== d.delcard); saveMe(u); toast(t('cardRemoved'), 'i-trash'); render(); return; }
       if (d.openOrder) { history_.length = 0; history_.push({ view:'orders', params:{} }); return go('order', { id:d.openOrder }, false); }
-      if (d.step) { const list = myOrders(); const o = list.find(x => x.id === d.step); o.step = Math.min(4, (o.step || 0) + 1); saveOrders(list); render(); return; }
+      if (d.step) { const list = myOrders(); const o = list.find(x => x.id === d.step); if (o.status !== 'cancelled') o.step = Math.min(4, (o.step || 0) + 1); S.confirmCancel = null; saveOrders(list); render(); return; }
       if (d.reorder) {
         const o = myOrders().find(x => x.id === d.reorder);
         S.shopId = o.shopId; S.cart = {}; o.lines.forEach(l => { S.cart[`${l.svc}|${l.item}`] = l.q; }); S.tab = o.lines[0].svc;
@@ -1102,7 +1393,9 @@
     }
 
     document.addEventListener('change', e => {
-      if (e.target.name === 'pay') S.pay = e.target.value;
+      if (e.target.name === 'pay') { captureInputs(); captureCard(); S.pay = e.target.value; S.payErr = null; S.errs = {}; render(); }
+      if (e.target.name === 'cardSel') { captureInputs(); captureCard(); S.cardSel = e.target.value; S.errs = {}; render(); }
+      if (e.target.id === 'cSave') S.card.save = e.target.checked;
       if (e.target.name === 'addr') S.addrId = e.target.value;
     });
     document.addEventListener('input', e => {
@@ -1110,6 +1403,19 @@
       if (el.id && el.id.startsWith('addrText') && S.errs.addr && el.value.trim()) {
         S.errs.addr = false; el.classList.remove('bad'); el.closest('.field').nextElementSibling?.classList.contains('err') && el.closest('.field').nextElementSibling.remove();
       }
+      if (el.id === 'cNum') {
+        const before = el.value.slice(0, el.selectionStart).replace(/\D/g, '').length;
+        el.value = fmtCard(el.value); S.card.num = digits(el.value);
+        let pos = 0, seen = 0; while (pos < el.value.length && seen < before) { if (/\d/.test(el.value[pos])) seen++; pos++; }
+        el.setSelectionRange(pos, pos);
+        const br = brandOf(el.value), wrap = el.parentElement, old = wrap.querySelector('.logo');
+        const html = { visa:'<span class="logo visa">VISA</span>', mc:'<span class="logo mc">MC</span>' }[br] || '';
+        if (old) old.remove(); if (html) wrap.insertAdjacentHTML('beforeend', html);
+      }
+      if (el.id === 'cExp') { el.value = fmtExp(el.value); }
+      const errKey = { cNum:'num', cExp:'exp', cCvv:'cvv', sCvv:'cvv', cName:'name' }[el.id];
+      if (errKey && S.errs[errKey]) { S.errs[errKey] = false; el.classList.remove('bad'); $('#err-' + errKey)?.remove(); }
+      if (el.id === 'cCvv' || el.id === 'sCvv' || el.id === 'tdsCode' || el.id === 'stcCode') { el.value = digits(el.value); }
       if (el.id === 'q') {
         S.q = el.value;
         const pos = el.selectionStart; render(); const n = $('#q'); n.focus(); n.setSelectionRange(pos, pos);
@@ -1130,7 +1436,7 @@
       if (e.key === 'Escape' && $('#sheet').classList.contains('on')) closeSheet();
       if (e.key === 'Backspace' && e.target.id?.startsWith('otp') && !e.target.value) { const i = Number(e.target.id.slice(3)); if (i) $('#otp' + (i - 1)).focus(); }
       if (e.key === 'Enter') {
-        const map = { phoneIn:'[data-sendcode]', nameIn:'[data-savename]', promo:'[data-promo]' };
+        const map = { phoneIn:'[data-sendcode]', nameIn:'[data-savename]', promo:'[data-promo]', tdsCode:'[data-tds-ok]', stcPhone:'[data-stc-send]', stcCode:'[data-stc-ok]' };
         if (map[e.target.id]) { e.preventDefault(); $(map[e.target.id])?.click(); }
       }
     });

@@ -1,0 +1,1408 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#fff8f3" />
+  <meta name="description" content="غسله — مغسلة ملابس تخدم الشفا والسويدي وبدر. الكوي بريالين للقطعة، والغسيل والكوي بـ3 ريالات، استلام وتوصيل لباب بيتك." />
+  <title>غسله Wash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" />
+  <style>
+    /* Layout: single phone-width column (wider on desktop), sticky header, bottom tab bar;
+       ordering screens replace the tab bar with one sticky action bar. */
+    :root {
+      color-scheme: light;
+      --bg:#fff8f3;            /* warm paper */
+      --surface:#ffffff;
+      --peach-50:#fff1e6;
+      --peach-100:#ffe1cc;
+      --peach-200:#fcc9a6;
+      --orange:#f4985f;        /* soft orange, fills & highlights */
+      --orange-strong:#e2733a; /* buttons */
+      --orange-ink:#b4531d;    /* orange text on light */
+      --ink:#2b1d14;
+      --ink-2:#5c4a3e;
+      --muted:#977f70;
+      --line:#f0e2d6;
+      --green:#2f9a68; --green-50:#e6f6ee;
+      --red:#cf3d32;   --red-50:#fdecea;
+      --star:#f2a516;
+      --shadow:0 6px 24px rgba(120,60,20,.08);
+      --shadow-lg:0 24px 60px rgba(70,30,5,.22);
+      --r-xl:26px; --r-lg:20px; --r:14px; --r-sm:10px;
+      --font:"IBM Plex Sans Arabic", system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      --nav-h:66px;
+    }
+    *, *::before, *::after { box-sizing:border-box; }
+    html { -webkit-text-size-adjust:100%; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:400 15px/1.55 var(--font); -webkit-font-smoothing:antialiased; }
+    body.lock { overflow:hidden; }
+    button, input, textarea { font:inherit; color:inherit; }
+    button { cursor:pointer; -webkit-tap-highlight-color:transparent; }
+    a { color:inherit; text-decoration:none; }
+    :focus-visible { outline:3px solid var(--peach-200); outline-offset:2px; }
+    [hidden] { display:none !important; }
+    .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+    .icon { width:20px; height:20px; flex:none; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .icon.sm { width:16px; height:16px; } .icon.lg { width:26px; height:26px; } .icon.fill { fill:currentColor; stroke:none; }
+    [dir="ltr"] .flip { transform:scaleX(-1); }
+    .num { font-variant-numeric:tabular-nums; }
+    .sar { display:inline-flex; align-items:baseline; gap:.22em; white-space:nowrap; }
+    .sar svg { width:.86em; height:.94em; fill:currentColor; flex:none; align-self:center; }
+
+    .wrap { width:100%; max-width:640px; margin:0 auto; padding-inline:16px; }
+
+    /* ---------- header ---------- */
+    .top { position:sticky; top:env(safe-area-inset-top, 0px); z-index:30; background:color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+    .top .wrap { display:flex; align-items:center; gap:10px; height:60px; }
+    .brand { display:flex; align-items:center; gap:9px; font-weight:700; font-size:1.15rem; border:0; background:none; padding:0; }
+    .mark { width:34px; height:34px; border-radius:11px; background:var(--orange); color:#fff; display:grid; place-items:center; }
+    .mark .icon { width:20px; height:20px; }
+    .brand small { color:var(--muted); font-weight:500; font-size:.8rem; }
+    .top .spacer { flex:1; }
+    .pill-btn { height:36px; padding:0 12px; border-radius:999px; border:1px solid var(--line); background:var(--surface); display:inline-flex; align-items:center; gap:6px; font-weight:600; font-size:.85rem; }
+    .view-head { display:flex; align-items:center; gap:10px; height:60px; }
+    .view-head h1 { margin:0; font-size:1.1rem; font-weight:600; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .icon-btn { width:40px; height:40px; border-radius:12px; border:1px solid var(--line); background:var(--surface); display:grid; place-items:center; flex:none; }
+
+    main { padding-bottom:calc(var(--nav-h) + 24px + env(safe-area-inset-bottom, 0px)); }
+    main.cart { padding-bottom:calc(var(--nav-h) + 96px + env(safe-area-inset-bottom, 0px)); }
+    .actionbar.over-tabs { bottom:calc(var(--nav-h) + env(safe-area-inset-bottom, 0px)); background:transparent; border-top:0; padding:0 0 12px; pointer-events:none; }
+    .actionbar.over-tabs .btn { pointer-events:auto; box-shadow:0 12px 30px rgba(226,115,58,.35); }
+    .svc .ic { position:relative; }
+    .svc-count { position:absolute; top:-6px; inset-inline-end:-6px; min-width:20px; height:20px; border-radius:10px; padding:0 5px; background:var(--ink); color:#fff; font-size:.7rem; font-weight:700; display:grid; place-items:center; }
+    main.flow { padding-bottom:calc(110px + env(safe-area-inset-bottom, 0px)); }
+
+    /* ---------- home ---------- */
+    .loc { display:inline-flex; align-items:center; gap:6px; border:0; background:none; padding:4px 0; color:var(--ink-2); font-size:.85rem; }
+    .loc strong { color:var(--ink); font-weight:600; }
+    .loc .icon { color:var(--orange-strong); }
+    .hello { margin:6px 0 2px; font-size:clamp(1.5rem, 6.4vw, 2rem); line-height:1.25; font-weight:700; letter-spacing:-.01em; text-wrap:balance; }
+    .sub { margin:0; color:var(--ink-2); }
+
+    .deal {
+      margin-top:16px; border-radius:var(--r-xl); background:var(--peach-100); padding:18px; display:grid; grid-template-columns:1fr auto; gap:6px 14px; align-items:center; position:relative; overflow:hidden;
+    }
+    .deal::before { content:""; position:absolute; inset-inline-end:-30px; bottom:-50px; width:150px; height:150px; border-radius:50%; background:var(--peach-200); opacity:.55; }
+    .deal .big { font-size:2.6rem; font-weight:700; line-height:1; color:var(--orange-ink); position:relative; }
+    .deal .big .sar svg { width:.62em; height:.7em; }
+    .deal .big { display:flex; align-items:baseline; gap:8px; }
+    .deal .big .from { font-size:.95rem; font-weight:600; color:var(--orange-ink); }
+    .deal p { margin:0; position:relative; color:var(--ink-2); font-size:.9rem; }
+    .deal strong { display:block; color:var(--ink); font-size:1rem; position:relative; }
+    .deal .bubbles { grid-row:1 / span 2; grid-column:2; position:relative; width:74px; height:74px; }
+    .deal .bubbles i { position:absolute; border-radius:50%; background:#fff; opacity:.9; }
+
+    .label { font-size:.78rem; font-weight:600; color:var(--muted); letter-spacing:.04em; margin:22px 0 10px; }
+    .services { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; }
+    .svc { border:1.5px solid var(--line); background:var(--surface); border-radius:var(--r-lg); padding:12px 4px 10px; display:flex; flex-direction:column; align-items:center; gap:7px; font-size:.78rem; font-weight:600; color:var(--ink-2); text-align:center; line-height:1.3; }
+    .svc .ic { width:44px; height:44px; border-radius:14px; background:var(--peach-50); color:var(--orange-ink); display:grid; place-items:center; }
+    .svc[aria-checked="true"] { border-color:var(--orange); background:var(--peach-50); color:var(--ink); }
+    .svc[aria-checked="true"] .ic { background:var(--orange); color:#fff; }
+    .svc-sub { font-size:.7rem; font-weight:500; color:var(--muted); }
+    .svc.soon { color:var(--muted); background:#fcf7f3; }
+    .svc.soon .ic { background:#f3ece7; color:var(--muted); }
+    .soon-tag { display:inline-block; font-size:.66rem; font-weight:600; padding:1px 8px; border-radius:999px; background:#f3ece7; color:var(--ink-2); }
+
+    .row-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:26px 0 10px; }
+    .row-head h2 { margin:0; font-size:1.1rem; font-weight:600; }
+    .row-head .count { color:var(--muted); font-size:.85rem; }
+    .search { display:flex; align-items:center; gap:8px; height:46px; padding:0 14px; border-radius:var(--r); background:var(--surface); border:1.5px solid var(--line); color:var(--muted); }
+    .search:focus-within { border-color:var(--orange); }
+    .search input { flex:1; min-width:0; border:0; outline:0; background:transparent; color:var(--ink); height:100%; }
+    .chips { display:flex; gap:8px; overflow-x:auto; margin:10px -16px 12px; padding:0 16px; scrollbar-width:none; }
+    .chips::-webkit-scrollbar { display:none; }
+    .chip { flex:none; height:34px; padding:0 14px; border-radius:999px; border:1px solid var(--line); background:var(--surface); font-size:.83rem; font-weight:500; color:var(--ink-2); display:inline-flex; align-items:center; gap:6px; }
+    .chip[aria-pressed="true"] { background:var(--ink); border-color:var(--ink); color:#fff; }
+    .chip .icon { width:14px; height:14px; }
+
+    .shops { display:grid; gap:10px; }
+    .shop { display:flex; gap:12px; align-items:center; width:100%; text-align:start; border:1px solid var(--line); background:var(--surface); border-radius:var(--r-lg); padding:12px; transition:transform .12s, box-shadow .15s; }
+    .shop:hover { box-shadow:var(--shadow); }
+    .shop:active { transform:scale(.99); }
+    .avatar { width:56px; height:56px; border-radius:16px; flex:none; display:grid; place-items:center; font-weight:700; font-size:1.3rem; color:var(--orange-ink); background:var(--peach-50); border:1px solid var(--peach-100); }
+    .shop .body { flex:1; min-width:0; }
+    .shop .name { font-weight:600; font-size:.98rem; line-height:1.35; }
+    .meta { display:flex; flex-wrap:wrap; gap:2px 12px; font-size:.8rem; color:var(--ink-2); margin-top:3px; }
+    .meta span { display:inline-flex; align-items:center; gap:4px; }
+    .meta .icon { width:13px; height:13px; color:var(--muted); }
+    .meta .star { color:var(--star); }
+    .state { font-size:.72rem; font-weight:600; padding:2px 8px; border-radius:999px; }
+    .state.open { background:var(--green-50); color:var(--green); }
+    .state.closed { background:#f3ece7; color:var(--ink-2); }
+    .shop > .chev { color:var(--muted); }
+    .data-note { font-size:.75rem; color:var(--muted); text-align:center; margin:14px 0 0; }
+
+    .empty { text-align:center; padding:34px 18px; border:1.5px dashed var(--line); border-radius:var(--r-lg); background:var(--surface); color:var(--ink-2); }
+    .empty .ic { width:60px; height:60px; border-radius:20px; display:grid; place-items:center; margin:0 auto 12px; background:var(--peach-50); color:var(--orange-ink); }
+    .empty strong { display:block; color:var(--ink); font-size:1.02rem; margin-bottom:4px; }
+
+    /* ---------- shop ---------- */
+    .shop-card { display:flex; gap:14px; align-items:center; padding:14px; border-radius:var(--r-lg); background:var(--surface); border:1px solid var(--line); }
+    .shop-card .avatar { width:62px; height:62px; }
+    .shop-card .name { font-size:1.1rem; font-weight:700; line-height:1.3; }
+    .shop-card .addr { font-size:.8rem; color:var(--muted); margin-top:2px; }
+    .gmaps { display:inline-flex; align-items:center; gap:5px; color:var(--orange-ink); font-weight:600; font-size:.8rem; margin-top:6px; }
+    .seg { display:flex; gap:4px; background:var(--peach-50); padding:4px; border-radius:var(--r); margin-top:14px; overflow-x:auto; scrollbar-width:none; }
+    .seg::-webkit-scrollbar { display:none; }
+    .seg button { flex:1 0 auto; border:0; background:transparent; height:40px; border-radius:11px; font-size:.82rem; font-weight:600; color:var(--ink-2); display:flex; align-items:center; justify-content:center; gap:5px; padding:0 12px; white-space:nowrap; }
+    .seg button[aria-selected="true"] { background:var(--surface); color:var(--ink); box-shadow:0 2px 6px rgba(120,60,20,.1); }
+    .soon-line { display:flex; align-items:center; gap:6px; margin:8px 2px 0; font-size:.78rem; color:var(--muted); }
+    .seg .dot { min-width:18px; height:18px; border-radius:9px; background:var(--orange); color:#fff; font-size:.68rem; display:grid; place-items:center; padding:0 4px; }
+    .items { margin-top:12px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); }
+    .item { display:flex; align-items:center; gap:12px; padding:11px 12px; }
+    .item + .item { border-top:1px solid var(--line); }
+    .item .ic { width:42px; height:42px; border-radius:12px; background:var(--peach-50); color:var(--orange-ink); display:grid; place-items:center; flex:none; }
+    .item .info { flex:1; min-width:0; }
+    .item .info strong { display:block; font-weight:500; }
+    .item .info span { font-size:.8rem; color:var(--muted); }
+    .stepper { display:flex; align-items:center; gap:2px; }
+    .stepper button { width:36px; height:36px; border-radius:11px; border:0; display:grid; place-items:center; background:var(--peach-50); color:var(--orange-ink); }
+    .stepper button.plus.solo { background:var(--orange-strong); color:#fff; }
+    .stepper output { min-width:28px; text-align:center; font-weight:600; }
+    .hint { display:flex; gap:8px; align-items:flex-start; font-size:.82rem; color:var(--ink-2); background:var(--peach-50); border-radius:var(--r); padding:10px 12px; margin-top:12px; }
+    .hint .icon { color:var(--orange-ink); width:17px; height:17px; margin-top:2px; }
+    .hint.warn { background:#fff4dc; }
+
+    /* ---------- action bar ---------- */
+    .actionbar { position:fixed; inset-inline:0; bottom:0; z-index:35; background:var(--surface); border-top:1px solid var(--line); padding:12px 0 calc(12px + env(safe-area-inset-bottom, 0px)); }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; height:52px; padding:0 20px; border-radius:var(--r); border:0; background:var(--orange-strong); color:#fff; font-weight:600; font-size:1rem; transition:filter .15s, transform .1s; }
+    .btn:hover { filter:brightness(.96); }
+    .btn:active { transform:scale(.985); }
+    .btn[disabled] { background:#e9ddd4; color:var(--muted); pointer-events:none; }
+    .btn.full { width:100%; }
+    .btn.soft { background:var(--peach-50); color:var(--orange-ink); }
+    .btn.line { background:var(--surface); color:var(--ink); border:1px solid var(--line); }
+    .btn.wa { background:#1da851; }
+    .btn.sm { height:40px; font-size:.88rem; padding:0 14px; border-radius:var(--r-sm); }
+    .btn .grow { flex:1; text-align:start; }
+    .btn .qty { background:rgba(255,255,255,.22); border-radius:8px; padding:1px 8px; font-size:.85rem; }
+
+    /* ---------- checkout ---------- */
+    .block { background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:14px; margin-top:12px; }
+    .block-head { display:flex; align-items:center; gap:10px; }
+    .block-head .ic { width:38px; height:38px; border-radius:12px; display:grid; place-items:center; background:var(--peach-50); color:var(--orange-ink); flex:none; }
+    .block-head .t { flex:1; min-width:0; }
+    .block-head .t small { display:block; font-size:.75rem; color:var(--muted); font-weight:500; }
+    .block-head .t b { font-weight:600; display:block; overflow-wrap:anywhere; }
+    .link-btn { border:0; background:none; color:var(--orange-ink); font-weight:600; font-size:.85rem; padding:6px 2px; flex:none; }
+    .days { display:flex; gap:8px; overflow-x:auto; margin:14px -14px 0; padding:0 14px 2px; scrollbar-width:none; }
+    .days::-webkit-scrollbar { display:none; }
+    .day { flex:none; width:64px; padding:7px 0; border-radius:var(--r); border:1.5px solid var(--line); background:var(--surface); text-align:center; line-height:1.3; }
+    .day small { display:block; font-size:.7rem; color:var(--muted); }
+    .day b { font-size:1.05rem; }
+    .day[aria-pressed="true"] { border-color:var(--orange); background:var(--peach-50); }
+    .day[disabled] { opacity:.4; }
+    .slots { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-top:10px; }
+    .slot { height:42px; border-radius:var(--r-sm); border:1.5px solid var(--line); background:var(--surface); font-size:.82rem; font-weight:500; }
+    .slot[aria-pressed="true"] { background:var(--orange-strong); border-color:var(--orange-strong); color:#fff; }
+    .slot[disabled] { color:#cbbcb1; text-decoration:line-through; background:#fcf7f3; }
+    .opts { display:grid; gap:8px; margin-top:12px; }
+    .opt { display:flex; align-items:center; gap:12px; padding:12px; border-radius:var(--r); border:1.5px solid var(--line); background:var(--surface); cursor:pointer; text-align:start; width:100%; }
+    .opt:has(input:checked) { border-color:var(--orange); background:var(--peach-50); }
+    .opt input { accent-color:var(--orange-strong); width:18px; height:18px; margin:0; flex:none; }
+    .opt .tx { flex:1; min-width:0; }
+    .opt .tx b { display:block; font-weight:500; }
+    .opt .tx small { color:var(--muted); font-size:.78rem; overflow-wrap:anywhere; }
+    .field { display:grid; gap:6px; margin-top:12px; }
+    .field > span { font-size:.85rem; font-weight:500; color:var(--ink-2); }
+    .input { width:100%; min-height:48px; border-radius:var(--r); border:1.5px solid var(--line); background:var(--surface); padding:0 14px; outline:none; }
+    textarea.input { padding:12px 14px; resize:vertical; min-height:70px; }
+    .input:focus { border-color:var(--orange); box-shadow:0 0 0 4px var(--peach-50); }
+    .input.bad { border-color:var(--red); }
+    .err { color:var(--red); font-size:.8rem; font-weight:500; }
+    .okmsg { color:var(--green); font-size:.8rem; font-weight:500; }
+    .inline { display:flex; gap:8px; }
+    .inline .input { flex:1; min-width:0; }
+    .tags { display:flex; gap:8px; flex-wrap:wrap; }
+    .tag { height:36px; padding:0 14px; border-radius:999px; border:1.5px solid var(--line); background:var(--surface); font-size:.85rem; font-weight:500; display:inline-flex; align-items:center; gap:6px; }
+    .tag[aria-pressed="true"] { border-color:var(--orange); background:var(--peach-50); color:var(--orange-ink); }
+    .kv { display:flex; justify-content:space-between; gap:12px; padding:5px 0; font-size:.9rem; }
+    .kv span:first-child { color:var(--ink-2); }
+    .kv.total { border-top:1px dashed var(--line); margin-top:8px; padding-top:12px; font-weight:700; font-size:1.02rem; }
+    .kv.total span:first-child { color:var(--ink); }
+    .kv.disc span:last-child { color:var(--green); }
+    details.promo summary { list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px; color:var(--orange-ink); font-weight:600; font-size:.88rem; }
+    details.promo summary::-webkit-details-marker { display:none; }
+
+    /* ---------- done / orders ---------- */
+    .done { text-align:center; padding:30px 0 6px; }
+    .done .ring { width:92px; height:92px; border-radius:50%; margin:0 auto 18px; display:grid; place-items:center; color:#fff; background:var(--green); box-shadow:0 0 0 12px var(--green-50); animation:pop .45s cubic-bezier(.2,1.4,.4,1); }
+    .done h2 { margin:0 0 6px; font-size:1.4rem; }
+    .done p { margin:0 auto; color:var(--ink-2); max-width:34ch; }
+    .page-title { font-size:1.45rem; font-weight:700; margin:12px 0 14px; }
+    .order { display:grid; gap:10px; width:100%; text-align:start; padding:14px; border-radius:var(--r-lg); border:1px solid var(--line); background:var(--surface); margin-bottom:10px; }
+    .order .top-row { display:flex; align-items:center; gap:12px; }
+    .order .avatar { width:44px; height:44px; font-size:1rem; border-radius:13px; }
+    .badge { font-size:.74rem; font-weight:600; padding:3px 10px; border-radius:999px; background:var(--peach-50); color:var(--orange-ink); flex:none; }
+    .badge.ok { background:var(--green-50); color:var(--green); }
+    .bar { height:6px; border-radius:6px; background:var(--peach-50); overflow:hidden; }
+    .bar i { display:block; height:100%; background:var(--orange); border-radius:6px; }
+    .tl { list-style:none; margin:0; padding:0; }
+    .tl li { display:flex; gap:12px; position:relative; padding-bottom:18px; }
+    .tl li:last-child { padding-bottom:0; }
+    .tl li::before { content:""; position:absolute; inset-inline-start:13px; top:28px; bottom:0; width:2px; background:var(--line); }
+    .tl li:last-child::before { display:none; }
+    .tl li.done::before { background:var(--orange); }
+    .tl .dot { width:28px; height:28px; border-radius:50%; flex:none; display:grid; place-items:center; background:#f3ece7; color:var(--muted); position:relative; }
+    .tl li.done .dot { background:var(--orange); color:#fff; }
+    .tl li.now .dot { background:var(--surface); color:var(--orange-ink); box-shadow:0 0 0 2px var(--orange), 0 0 0 7px var(--peach-50); }
+    .tl b { display:block; font-weight:600; font-size:.92rem; }
+    .tl span { font-size:.8rem; color:var(--muted); }
+    .tl li.later b { color:var(--muted); font-weight:400; }
+
+    /* ---------- account / help ---------- */
+    .profile { display:flex; align-items:center; gap:14px; padding:16px; border-radius:var(--r-lg); background:var(--peach-100); }
+    .profile .avatar { background:var(--surface); border:0; }
+    .profile b { display:block; font-size:1.1rem; }
+    .profile span { color:var(--ink-2); font-size:.9rem; direction:ltr; display:inline-block; }
+    .list { background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); margin-top:12px; }
+    .list-row { display:flex; align-items:center; gap:12px; padding:12px 14px; width:100%; text-align:start; border:0; background:none; }
+    .list-row + .list-row { border-top:1px solid var(--line); }
+    .list-row .ic { width:36px; height:36px; border-radius:11px; display:grid; place-items:center; background:var(--peach-50); color:var(--orange-ink); flex:none; }
+    .list-row .tx { flex:1; min-width:0; }
+    .list-row .tx b { display:block; font-weight:500; }
+    .list-row .tx small { color:var(--muted); font-size:.8rem; overflow-wrap:anywhere; }
+    .list-row .mini { border:0; background:none; color:var(--muted); width:34px; height:34px; border-radius:10px; display:grid; place-items:center; }
+    .list-row .mini:hover { background:var(--peach-50); color:var(--red); }
+    .def { font-size:.7rem; font-weight:600; color:var(--green); background:var(--green-50); padding:1px 8px; border-radius:999px; margin-inline-start:6px; }
+    .wa-card { padding:18px; border-radius:var(--r-xl); background:var(--surface); border:1px solid var(--line); text-align:center; }
+    .wa-card .ic { width:60px; height:60px; border-radius:20px; display:grid; place-items:center; margin:0 auto 10px; background:#e5f7ec; color:#1da851; }
+    .wa-card h2 { margin:0 0 4px; font-size:1.15rem; }
+    .wa-card p { margin:0 0 14px; color:var(--ink-2); font-size:.9rem; }
+    .faq { margin-top:12px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); }
+    .faq details + details { border-top:1px solid var(--line); }
+    .faq summary { list-style:none; cursor:pointer; padding:14px; font-weight:500; display:flex; justify-content:space-between; gap:10px; align-items:center; }
+    .faq summary::-webkit-details-marker { display:none; }
+    .faq summary .icon { color:var(--muted); transition:transform .2s; }
+    .faq details[open] summary .icon { transform:rotate(180deg); }
+    .faq p { margin:0; padding:0 14px 14px; color:var(--ink-2); font-size:.9rem; }
+
+    /* ---------- tab bar ---------- */
+    .tabbar { position:fixed; inset-inline:0; bottom:0; z-index:35; background:var(--surface); border-top:1px solid var(--line); padding-bottom:env(safe-area-inset-bottom, 0px); }
+    .tabbar .in { max-width:640px; margin:0 auto; display:grid; grid-template-columns:repeat(4, 1fr); height:var(--nav-h); }
+    .tabbar button { border:0; background:none; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; font-size:.72rem; font-weight:500; color:var(--muted); position:relative; }
+    .tabbar button[aria-current="page"] { color:var(--orange-ink); }
+    .tabbar button[aria-current="page"] .icon { stroke-width:2.4; }
+    .tabbar .n { position:absolute; top:8px; inset-inline-start:calc(50% + 5px); min-width:17px; height:17px; border-radius:9px; background:var(--orange-strong); color:#fff; font-size:.65rem; font-weight:700; display:grid; place-items:center; padding:0 4px; }
+
+    /* ---------- sheet ---------- */
+    .scrim { position:fixed; inset:0; z-index:60; background:rgba(43,29,20,.45); opacity:0; pointer-events:none; transition:opacity .25s; }
+    .scrim.on { opacity:1; pointer-events:auto; }
+    .sheet { position:fixed; z-index:61; inset-inline:0; bottom:0; max-width:640px; margin:0 auto; max-height:90dvh; overflow:auto; background:var(--bg); border-radius:var(--r-xl) var(--r-xl) 0 0; padding:8px 16px calc(20px + env(safe-area-inset-bottom, 0px)); transform:translateY(105%); visibility:hidden; transition:transform .3s cubic-bezier(.2,.8,.2,1), visibility 0s .3s; box-shadow:var(--shadow-lg); }
+    .sheet.on { transform:none; visibility:visible; transition-delay:0s; }
+    .grab { width:40px; height:5px; border-radius:3px; background:var(--peach-200); margin:0 auto 10px; }
+    .sheet h2 { margin:6px 0 4px; font-size:1.2rem; }
+    .sheet .lead { margin:0 0 12px; color:var(--ink-2); font-size:.9rem; }
+    .otp { display:flex; gap:10px; justify-content:center; direction:ltr; margin:8px 0 4px; }
+    .otp input { width:56px; height:60px; text-align:center; font-size:1.5rem; font-weight:600; border-radius:var(--r); border:1.5px solid var(--line); background:var(--surface); outline:none; }
+    .otp input:focus { border-color:var(--orange); box-shadow:0 0 0 4px var(--peach-50); }
+    .demo-code { text-align:center; font-size:.82rem; color:var(--ink-2); background:#fff4dc; border-radius:var(--r-sm); padding:8px; margin-top:10px; }
+    .demo-code b { letter-spacing:.2em; direction:ltr; display:inline-block; }
+    .phone-in { display:flex; align-items:center; gap:0; direction:ltr; border:1.5px solid var(--line); border-radius:var(--r); background:var(--surface); overflow:hidden; }
+    .phone-in:focus-within { border-color:var(--orange); box-shadow:0 0 0 4px var(--peach-50); }
+    .phone-in span { padding:0 12px; color:var(--muted); border-inline-end:1px solid var(--line); height:50px; display:grid; place-items:center; font-weight:500; }
+    .phone-in input { flex:1; min-width:0; border:0; outline:0; height:50px; padding:0 12px; font-size:1.05rem; letter-spacing:.04em; background:transparent; }
+    .stack { display:grid; gap:10px; margin-top:16px; }
+
+    /* payment */
+    .pm { display:flex; align-items:center; gap:12px; padding:12px; border-radius:var(--r); border:1.5px solid var(--line); background:var(--surface); cursor:pointer; }
+    .pm:has(input:checked) { border-color:var(--orange); background:var(--peach-50); }
+    .pm input { accent-color:var(--orange-strong); width:18px; height:18px; margin:0; flex:none; }
+    .pm .tx { flex:1; min-width:0; }
+    .pm .tx b { display:block; font-weight:500; }
+    .pm .tx small { color:var(--muted); font-size:.76rem; }
+    .logos { display:flex; gap:4px; flex:none; direction:ltr; }
+    .logo { height:24px; min-width:38px; padding:0 6px; border-radius:6px; border:1px solid var(--line); background:#fff; display:grid; place-items:center; font:700 10px/1 system-ui, sans-serif; letter-spacing:.02em; }
+    .logo.mada { color:#1b75bb; } .logo.visa { color:#1a1f71; font-style:italic; font-size:11px; } .logo.mc { color:#eb001b; }
+    .logo.apple { background:#000; color:#fff; border-color:#000; font-size:11px; } .logo.stc { background:#4f008c; color:#fff; border-color:#4f008c; }
+    .cardbox { margin-top:10px; padding:12px; border-radius:var(--r); background:var(--peach-50); display:grid; gap:10px; }
+    .cardbox .two { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .cardbox .input { background:#fff; direction:ltr; text-align:left; letter-spacing:.04em; }
+    .cardbox .input[id="cName"] { direction:auto; text-align:start; letter-spacing:0; }
+    .numwrap { position:relative; }
+    .numwrap .logo { position:absolute; top:12px; right:10px; pointer-events:none; }
+    .check { display:flex; align-items:center; gap:8px; font-size:.85rem; color:var(--ink-2); cursor:pointer; }
+    .check input { accent-color:var(--orange-strong); width:18px; height:18px; margin:0; }
+    .testcards { font-size:.75rem; color:var(--muted); line-height:1.6; }
+    .testcards code { direction:ltr; display:inline-block; font-family:ui-monospace, Menlo, monospace; color:var(--ink-2); }
+    .pay-err { display:flex; gap:8px; align-items:flex-start; margin-top:10px; padding:10px 12px; border-radius:var(--r); background:var(--red-50); color:var(--red); font-size:.85rem; font-weight:500; }
+    .secure { display:flex; align-items:center; justify-content:center; gap:6px; font-size:.75rem; color:var(--muted); margin-top:8px; }
+    .terms { font-size:.75rem; color:var(--muted); text-align:center; margin:12px 0 0; }
+    .btn.apple { background:#000; }
+    .btn.stc { background:#4f008c; }
+    .btn.danger { background:var(--red-50); color:var(--red); }
+    .bank { border-radius:var(--r-lg); background:var(--surface); border:1px solid var(--line); padding:16px; }
+    .bank-head { display:flex; align-items:center; justify-content:space-between; gap:10px; padding-bottom:12px; border-bottom:1px solid var(--line); margin-bottom:8px; }
+    .bank-head b { display:flex; align-items:center; gap:6px; }
+    .bank-head .icon { color:var(--green); }
+    .code-in { width:100%; height:56px; text-align:center; font-size:1.5rem; letter-spacing:.5em; direction:ltr; border-radius:var(--r); border:1.5px solid var(--line); background:var(--surface); outline:none; margin-top:10px; }
+    .code-in:focus { border-color:var(--orange); box-shadow:0 0 0 4px var(--peach-50); }
+    .apsheet { background:#f2f2f7; color:#000; border-radius:var(--r-lg); padding:16px; font-family:-apple-system, system-ui, sans-serif; }
+    .apsheet .ap-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+    .apsheet .ap-row { display:flex; justify-content:space-between; gap:10px; padding:10px 0; border-top:1px solid #d1d1d6; font-size:.9rem; }
+    .apsheet .ap-row span:first-child { color:#6e6e73; }
+    .apsheet .faceid { text-align:center; padding:14px 0 4px; color:#6e6e73; font-size:.85rem; }
+    .apsheet .faceid .icon { width:40px; height:40px; color:#0a84ff; display:block; margin:0 auto 6px; }
+    .spin { width:54px; height:54px; border-radius:50%; border:5px solid var(--peach-100); border-top-color:var(--orange-strong); margin:28px auto 14px; animation:rot .9s linear infinite; }
+    @keyframes rot { to { transform:rotate(360deg); } }
+    .receipt .kv span:last-child { text-align:end; }
+    .cancel-box { margin-top:12px; padding:12px; border-radius:var(--r); background:var(--red-50); }
+    .cancel-box p { margin:0 0 10px; font-size:.88rem; color:var(--ink); }
+    .cancelled { display:flex; gap:10px; align-items:flex-start; padding:12px; border-radius:var(--r); background:#f3ece7; color:var(--ink-2); font-size:.88rem; }
+    .badge.off { background:#f3ece7; color:var(--ink-2); }
+
+    .toast { position:fixed; z-index:80; left:50%; top:calc(68px + env(safe-area-inset-top, 0px)); transform:translate(-50%, -16px); opacity:0; pointer-events:none; background:var(--ink); color:#fff; padding:10px 16px; border-radius:999px; font-size:.86rem; font-weight:500; display:flex; align-items:center; gap:8px; transition:all .25s; max-width:calc(100% - 32px); box-shadow:var(--shadow-lg); }
+    .toast.on { opacity:1; transform:translate(-50%, 0); }
+
+    @keyframes pop { from { transform:scale(.4); opacity:0; } to { transform:none; opacity:1; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } }
+    @media (max-width:360px) { .services { grid-template-columns:repeat(2, 1fr); } }
+    @media (min-width:700px) {
+      .wrap { max-width:720px; }
+      .shops { grid-template-columns:1fr 1fr; }
+      .sheet { bottom:auto; top:50%; border-radius:var(--r-xl); transform:translateY(-46%); opacity:0; transition:transform .25s, opacity .25s, visibility 0s .25s; width:min(520px, calc(100% - 32px)); inset-inline:0; }
+      .sheet.on { transform:translateY(-50%); opacity:1; }
+      .grab { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 2.7s6.5 7 6.5 11.8a6.5 6.5 0 0 1-13 0C5.5 9.7 12 2.7 12 2.7Z"/><path d="M9 15a3 3 0 0 0 3 3"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m20.5 20.5-4.2-4.2"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2h-4v-7H9v7H5a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="i-orders" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4M12 16h4M8 11h.01M8 16h.01"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2M15 18H9M19 18h2a1 1 0 0 0 1-1v-3.6a1 1 0 0 0-.2-.6l-3.5-4.4a1 1 0 0 0-.8-.4H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+    <symbol id="i-washer" viewBox="0 0 24 24"><rect x="3" y="2" width="18" height="20" rx="2.5"/><path d="M7 6h2M16 6h.01"/><circle cx="12" cy="14" r="5"/><path d="M9.5 14.5c1 .8 2 .8 2.5 0s1.5-.8 2.5 0"/></symbol>
+    <symbol id="i-iron" viewBox="0 0 24 24"><path d="M2 18h20l-1.4-4.6A6 6 0 0 0 14.9 9H8"/><path d="M8 9V6h9"/><path d="M7 14h.01M11 14h.01M15 14h.01"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/><path d="M19 3v4M17 5h4"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z"/><circle cx="7.5" cy="7.5" r="1.2"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></symbol>
+    <symbol id="i-cash" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></symbol>
+    <symbol id="i-locate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.7Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 2.5a14 14 0 0 0 0 19 14 14 0 0 0 0-19M2.5 12h19"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <!-- garments -->
+    <symbol id="g-thobe" viewBox="0 0 24 24"><path d="M9 2h6l5 4-2 4-2-1v13H8V9l-2 1-2-4z"/><path d="M12 2v5"/></symbol>
+    <symbol id="g-shemagh" viewBox="0 0 24 24"><path d="M3 5h18l-9 15z"/><path d="M7 9h10M9.5 13h5"/></symbol>
+    <symbol id="g-shirt" viewBox="0 0 24 24"><path d="M20.4 3.5 16 2a4 4 0 0 1-8 0L3.6 3.5a2 2 0 0 0-1.3 2.2l.6 3.5a1 1 0 0 0 1 .8H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.1a1 1 0 0 0 1-.8l.6-3.5a2 2 0 0 0-1.3-2.2z"/></symbol>
+    <symbol id="g-pants" viewBox="0 0 24 24"><path d="M6 2h12l1 20h-5l-2-12-2 12H5z"/><path d="M6 6h12"/></symbol>
+    <symbol id="g-abaya" viewBox="0 0 24 24"><path d="M9 2h6l3 4 3 16H3L6 6z"/><path d="M12 6v16"/></symbol>
+    <symbol id="g-suit" viewBox="0 0 24 24"><path d="M8 2 4 5v17h16V5l-4-3"/><path d="m8 2 4 7 4-7M12 9v13M15 14h2"/></symbol>
+    <symbol id="g-blanket" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 15c3-2 6 2 9 0s6 2 9 0"/></symbol>
+    <symbol id="g-duvet" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 12h18M12 5v14"/></symbol>
+    <symbol id="g-carpet" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="1"/><path d="M7 2v2M10 2v2M14 2v2M17 2v2M7 20v2M10 20v2M14 20v2M17 20v2M9 9l3 3 3-3M9 15l3-3 3 3"/></symbol>
+    <symbol id="g-curtain" viewBox="0 0 24 24"><path d="M2 3h20M5 3v18c3 0 5-6 5-9S8 3 5 3M19 3v18c-3 0-5-6-5-9s2-9 5-9"/></symbol>
+  </svg>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- Saudi Riyal sign (SAMA, 2025). Outline from "Saudi Riyal Font" © Emran Alhaddad, SIL Open Font License 1.1 -->
+    <symbol id="i-sar" viewBox="40 0 1150 1270"><path d="M750,1119 C730,1163,716,1211,711,1262 C711,1262,1136,1172,1136,1172 C1156,1127,1169,1079,1174,1028 C1174,1028,750,1119,750,1119Z M1136,901 C1136,901,1136,901,1136,901 C1156,857,1169,809,1174,758 C1174,758,843,828,843,828 C843,828,843,693,843,693 C843,693,1136,631,1136,631 C1156,587,1169,538,1174,488 C1174,488,843,558,843,558 C843,558,843,72,843,72 C793,100,748,138,711,183 C711,183,711,586,711,586 C711,586,579,614,579,614 C579,614,579,6,579,6 C528,34,483,72,447,117 C447,117,447,642,447,642 C447,642,151,705,151,705 C131,750,117,798,112,849 C112,849,447,777,447,777 C447,777,447,948,447,948 C447,948,88,1024,88,1024 C68,1068,55,1117,50,1167 C50,1167,425,1088,425,1088 C456,1081,482,1063,499,1038 C499,1038,568,936,568,936 C568,936,568,936,568,936 C575,926,579,913,579,899 C579,899,579,749,579,749 C579,749,711,721,711,721 C711,721,711,992,711,992 C711,992,1136,901,1136,901Z "/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+    <symbol id="i-work" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M2 13h20"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2.2-1-1 .9a5 5 0 0 1-2.6-2.6l.9-1-1-2.2z"/></symbol>
+  </svg>
+
+  <header class="top"><div class="wrap" id="topbar"></div></header>
+  <main id="main"><div class="wrap" id="view"></div></main>
+
+  <div class="actionbar" id="actionbar" hidden><div class="wrap" id="actionbarIn"></div></div>
+
+  <nav class="tabbar" id="tabbar" aria-label="Main">
+    <div class="in">
+      <button type="button" data-go="home"><svg class="icon"><use href="#i-home"/></svg><span data-t="tabHome"></span></button>
+      <button type="button" data-go="orders"><svg class="icon"><use href="#i-orders"/></svg><span data-t="tabOrders"></span><span class="n" id="ordersN" hidden></span></button>
+      <button type="button" data-go="account"><svg class="icon"><use href="#i-user"/></svg><span data-t="tabAccount"></span></button>
+      <button type="button" data-go="help"><svg class="icon"><use href="#i-help"/></svg><span data-t="tabHelp"></span></button>
+    </div>
+  </nav>
+
+  <div class="scrim" id="scrim"></div>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label=""><div class="grab"></div><div id="sheetIn"></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+  (() => {
+    'use strict';
+
+    /* ============ Config ============ */
+    const PRICES = { wash:3, iron:2 };   // per item, same at every laundry
+    const SOON = ['dry', 'bulky'];        // shown as "coming soon", not orderable yet
+    const price = svc => PRICES[svc] ?? 0;
+    const isSoon = svc => SOON.includes(svc);
+    const DELIVERY_FEE = 6;        // pickup & return
+    const MIN_LEAD_H = 8;          // earliest pickup = now + 8h
+    const SLOT_HOURS = [8, 10, 12, 16, 18, 20];
+    const DAYS = 6;
+    const PROMO = { code:'WASHLA10', pct:10 };
+    const WA_NUMBER = '966558781345';      // never shown in the UI; WhatsApp is the only contact channel
+    // Service area: roughly centred between Al Shifa, Al Suwaidi and Badr. Adjust when the real laundry location is known.
+    const AREA = { lat:24.5620, lng:46.7050, radiusKm:10 };
+    const K = { lang:'washla.v2.lang', users:'washla.v2.users', session:'washla.v2.session', orders:'washla.v2.orders.' };
+
+    const SHOP = { id:'main', ar:'غسله', en:'Washla' };
+
+    const SERVICES = [
+      { id:'wash',  icon:'i-washer' },
+      { id:'iron',  icon:'i-iron' },
+      { id:'dry',   icon:'i-sparkle' },
+      { id:'bulky', icon:'i-layers' }
+    ];
+    const ITEMS = [
+      { id:'thobe',   icon:'g-thobe',   svc:['wash','iron','dry'] },
+      { id:'shemagh', icon:'g-shemagh', svc:['wash','iron','dry'] },
+      { id:'shirt',   icon:'g-shirt',   svc:['wash','iron','dry'] },
+      { id:'tshirt',  icon:'g-shirt',   svc:['wash','iron'] },
+      { id:'pants',   icon:'g-pants',   svc:['wash','iron','dry'] },
+      { id:'abaya',   icon:'g-abaya',   svc:['wash','iron','dry'] },
+      { id:'suit',    icon:'g-suit',    svc:['iron','dry'] },
+      { id:'blanket', icon:'g-blanket', svc:['bulky'] },
+      { id:'duvet',   icon:'g-duvet',   svc:['bulky'] },
+      { id:'carpet',  icon:'g-carpet',  svc:['bulky'] },
+      { id:'curtain', icon:'g-curtain', svc:['bulky'] }
+    ];
+
+    const T = {
+      ar: {
+        langBtn:'EN', tabHome:'الرئيسية', tabOrders:'طلباتي', tabAccount:'حسابي', tabHelp:'المساعدة',
+        hi:'هلا', coverage:'نخدم الشفا والسويدي وبدر والأحياء القريبة', outOfArea:'موقعك خارج منطقة خدمتنا حالياً. نخدم الشفا والسويدي وبدر وما حولها.', chooseItems:'اختر القطع', hiGuest:'وش نغسل لك اليوم؟', hiUser:'هلا {name}، وش نغسل لك اليوم؟', sub:'نستلم من بابك ونرجعها نظيفة ومكوية.',
+        dealTitle:'الكوي بريالين للقطعة', dealBody:'الغسيل والكوي {wash} للقطعة. التوصيل {fee}.', from:'من', soon:'قريباً', soonToast:'هذه الخدمة قريباً', soonLine:'التنظيف الجاف والبطانيات والسجاد قريباً.',
+        chooseService:'اختر الخدمة', svc_wash:'غسيل وكوي', svc_iron:'كوي فقط', svc_dry:'تنظيف جاف', svc_bulky:'بطانيات وسجاد',
+        nearby:'مغاسل قريبة منك', results:'{n} مغسلة', searchPh:'ابحث باسم المغسلة أو الحي',
+        sortNear:'الأقرب', sortRating:'الأعلى تقييماً', openNow:'مفتوح الآن',
+        open:'مفتوح', closed:'مغلق', km:'كم', noShops:'ما لقينا مغاسل', noShopsBody:'جرّب كلمة ثانية أو شيل الفلتر.', clear:'إزالة الفلاتر',
+        sampleNote:'أسماء ومواقع تجريبية لحين ربط بيانات خرائط Google.',
+        openMaps:'افتح في خرائط Google', closedHint:'المغسلة مغلقة الآن، ويمكنك جدولة الاستلام لوقت لاحق.',
+        each:'لكل قطعة', feeHint:'رسوم الاستلام والتوصيل {fee} لكل طلب.',
+        addItems:'أضف قطعة على الأقل', next:'التالي', back:'رجوع',
+        checkout:'تأكيد الطلب', pickup:'موعد الاستلام', earliest:'أقرب موعد متاح', change:'تغيير', done:'تم',
+        today:'اليوم', tomorrow:'بكرة', noSlots:'ما فيه مواعيد متاحة هذا اليوم.', leadNote:'المواعيد تبدأ بعد 8 ساعات من الآن.',
+        address:'عنوان الاستلام', addAddress:'إضافة عنوان', newAddress:'عنوان جديد', addrLabel:'نوع العنوان', addrDetails:'تفاصيل العنوان',
+        addrPh:'الحي، الشارع، رقم المبنى، أقرب معلم', locateMe:'موقعي الحالي', locating:'جاري تحديد الموقع…', locFail:'تعذّر تحديد الموقع، اكتب العنوان يدوياً.',
+        lbl_home:'البيت', lbl_work:'العمل', lbl_other:'آخر', saveAddr:'حفظ العنوان', errAddr:'اكتب تفاصيل العنوان.', makeDefault:'تعيين كافتراضي', deflt:'افتراضي',
+        payment:'طريقة الدفع', pay_card:'بطاقة مدى أو فيزا أو ماستركارد', pay_applepay:'Apple Pay', pay_stcpay:'STC Pay', pay_note:'الدفع الآن عند إرسال الطلب.',
+        pay_card_s:'تحقق من البنك برمز يصلك', pay_applepay_s:'ادفع بلمسة من جهازك', pay_stcpay_s:'ادفع من محفظتك برقم جوالك',
+        newCard:'بطاقة جديدة', cardNum:'رقم البطاقة', cardExp:'تاريخ الانتهاء', cardCvv:'رمز الأمان CVV', cardName:'الاسم على البطاقة', cardNamePh:'كما يظهر على البطاقة', saveCard:'احفظ البطاقة للطلبات القادمة',
+        savedCvv:'رمز الأمان CVV للبطاقة', expShort:'تنتهي', errCardNum:'رقم البطاقة غير صحيح.', errCardExp:'تاريخ الانتهاء غير صحيح أو منتهي.', errCardCvv:'رمز الأمان 3 أرقام.', errCardName:'اكتب الاسم على البطاقة.',
+        testCards:'بطاقات تجريبية:', testOk:'تنجح', testNo:'يرفضها البنك', secure:'الدفع مشفّر وآمن. لا نحفظ رقم البطاقة كاملاً أو رمز الأمان.',
+        payBtn:'ادفع {amount}', payApple:'الدفع عبر Apple Pay', payStc:'الدفع عبر STC Pay', termsLine:'بإرسال الطلب أنت توافق على الشروط وسياسة الإلغاء: إلغاء مجاني قبل استلام الملابس.',
+        tdsTitle:'التحقق الآمن من البنك', tdsLead:'أرسل البنك رمز تحقق إلى جوالك المسجّل. اكتبه لإكمال الدفع.', merchant:'التاجر', amount:'المبلغ', card:'البطاقة', confirmPay:'تأكيد الدفع', cancelPay:'إلغاء',
+        demoOtp:'نسخة تجريبية. الرمز هو', errOtp:'الرمز غير صحيح.', processing:'جاري معالجة الدفع…', processingSub:'لا تغلق الصفحة.',
+        declined:'رفض البنك العملية. جرّب بطاقة أخرى أو طريقة دفع ثانية.', payCancelled:'تم إلغاء عملية الدفع.',
+        apTitle:'Apple Pay', apPayTo:'ادفع لـ', apCard:'البطاقة', apCardVal:'بطاقتك في Apple Wallet', apConfirm:'تأكيد عبر Face ID', apNote:'عرض تجريبي. في التطبيق الحقيقي تظهر نافذة Apple Pay من جهازك.',
+        stcTitle:'الدفع عبر STC Pay', stcLead:'اكتب رقم الجوال المسجّل في STC Pay.', stcSend:'أرسل رمز التحقق', stcCodeLead:'أرسلت STC Pay رمزاً إلى', errStcPhone:'اكتب رقم جوال صحيح يبدأ بـ 05.',
+        paid:'مدفوع', paidAt:'وقت الدفع', txn:'رقم العملية', receipt:'الإيصال',
+        cancelOrder:'إلغاء الطلب', cancelQ:'متأكد تبي تلغي الطلب؟ بنرجع لك {amount} كاملة.', cancelYes:'نعم، ألغِ الطلب', cancelNo:'لا، رجوع',
+        cancelledTitle:'تم إلغاء الطلب', refundNote:'تم استرداد {amount} إلى {method}. يظهر المبلغ خلال 5–7 أيام عمل حسب البنك.', refundStc:'تم استرداد {amount} إلى محفظة STC Pay.',
+        cancelLocked:'لا يمكن الإلغاء بعد استلام الملابس. تواصل معنا على واتساب لأي مشكلة.', stCancel:'ملغي', orderCancelled:'تم إلغاء الطلب واسترداد المبلغ',
+        myCards:'بطاقاتي', noCards:'ما فيه بطاقات محفوظة. تقدر تحفظ بطاقتك وقت الدفع.', cardRemoved:'تم حذف البطاقة',
+        notes:'ملاحظات للمندوب', notesPh:'مثال: اتصل قبل ما توصل', optional:'اختياري',
+        promo:'عندك كود خصم؟', promoPh:'اكتب الكود', apply:'تطبيق', promoOk:'تم تطبيق خصم 10% على القطع', promoBad:'الكود غير صحيح', remove:'إزالة',
+        items:'القطع', subtotal:'قيمة القطع', fee:'الاستلام والتوصيل', discount:'الخصم', total:'الإجمالي',
+        placeOrder:'أرسل الطلب', loginToOrder:'سجّل دخولك لإرسال الطلب',
+        doneTitle:'تم إرسال طلبك', doneBody:'المندوب بيتواصل معك قبل موعد الاستلام.', track:'تابع الطلب', home:'الرئيسية',
+        ordersTitle:'طلباتي', noOrders:'ما عندك طلبات للحين', noOrdersBody:'اطلب أول غسلة وخلّها علينا.', browse:'تصفّح المغاسل',
+        guestOrders:'سجّل دخولك عشان تشوف طلباتك', login:'تسجيل الدخول',
+        order:'طلب', st0:'تم استلام الطلب', st1:'تم أخذ الملابس', st2:'قيد الغسيل والكوي', st3:'في الطريق إليك', st4:'تم التسليم',
+        st0d:'المغسلة وصلها طلبك', st2d:'نعتني بملابسك', st3d:'المندوب في الطريق', st4d:'بالعافية عليك',
+        demoNext:'محاكاة الخطوة التالية (تجريبي)', reorder:'اطلب نفس الطلب', chatAbout:'اسألنا عن هذا الطلب', returnBy:'التسليم المتوقع', paidBy:'الدفع',
+        accountTitle:'حسابي', guestTitle:'سجّل دخولك برقم جوالك', guestBody:'احفظ عناوينك وتابع طلباتك.',
+        addresses:'عناويني', noAddr:'ما فيه عناوين محفوظة.', language:'اللغة', langName:'العربية', logout:'تسجيل الخروج', loggedOut:'تم تسجيل الخروج',
+        loginTitle:'سجّل دخولك', loginLead:'بنرسل لك رمز تحقق على جوالك.', phone:'رقم الجوال', phonePh:'5X XXX XXXX', sendCode:'أرسل الرمز',
+        errPhone:'اكتب رقم جوال سعودي صحيح يبدأ بـ 05.', codeTitle:'اكتب رمز التحقق', codeLead:'أرسلنا رمز من 4 أرقام إلى', demoCode:'نسخة تجريبية بدون رسائل SMS. الرمز هو',
+        verify:'تحقق', errCode:'الرمز غير صحيح.', editPhone:'تعديل الرقم', nameTitle:'وش نناديك؟', nameLead:'اسمك يظهر للمندوب.', namePh:'اسمك', errName:'اكتب اسمك.', save:'حفظ', welcome:'أهلاً {name}',
+        helpTitle:'المساعدة', waTitle:'كلّمنا على واتساب', waBody:'فريق خدمة العملاء يرد عليك بأسرع وقت.', openWa:'فتح محادثة واتساب',
+        faq:'أسئلة شائعة',
+        q1:'كم سعر القطعة؟', a1:'الكوي فقط بريالين للقطعة، والغسيل والكوي بـ3 ريالات للقطعة، في كل المغاسل. التنظيف الجاف والبطانيات والسجاد قريباً.',
+        q5:'أقدر ألغي طلبي؟', a5:'إيه، الإلغاء مجاني قبل ما يستلم المندوب ملابسك، ونرجع لك المبلغ كامل. بعد الاستلام ما يمكن الإلغاء.',
+        q2:'كم رسوم التوصيل؟', a2:'6 ريالات لكل طلب، وتشمل الاستلام من بيتك والتوصيل بعد الغسيل.',
+        q3:'متى يجي المندوب؟', a3:'تختار موعد الاستلام بنفسك، وأقرب موعد متاح بعد 8 ساعات من وقت الطلب.',
+        q4:'كيف أدفع؟', a4:'تدفع وقت إرسال الطلب ببطاقة مدى أو فيزا أو ماستركارد، أو Apple Pay، أو STC Pay.',
+        waMsg:'السلام عليكم غسله، أحتاج مساعدة', waMsgOrder:'السلام عليكم غسله، عندي استفسار عن طلب رقم {id}',
+        pcs:'{n} قطعة'
+      },
+      en: {
+        langBtn:'ع', tabHome:'Home', tabOrders:'Orders', tabAccount:'Account', tabHelp:'Help',
+        hi:'Hi', coverage:'We serve Al Shifa, Al Suwaidi, Badr and nearby', outOfArea:'Your location is outside our service area for now. We serve Al Shifa, Al Suwaidi, Badr and nearby.', chooseItems:'Choose your items', hiGuest:'What can we wash for you today?', hiUser:'Hi {name}, what can we wash today?', sub:'We pick up from your door and bring it back clean and ironed.',
+        dealTitle:'Ironing for 2 riyals an item', dealBody:'Wash & iron is {wash} an item. Delivery is {fee}.', from:'from', soon:'Soon', soonToast:'This service is coming soon', soonLine:'Dry cleaning and bedding & rugs are coming soon.',
+        chooseService:'Choose a service', svc_wash:'Wash & iron', svc_iron:'Iron only', svc_dry:'Dry clean', svc_bulky:'Bedding & rugs',
+        nearby:'Laundries near you', results:'{n} laundries', searchPh:'Search by laundry or district',
+        sortNear:'Nearest', sortRating:'Top rated', openNow:'Open now',
+        open:'Open', closed:'Closed', km:'km', noShops:'No laundries found', noShopsBody:'Try another word or remove the filter.', clear:'Clear filters',
+        sampleNote:'Sample names and locations until Google Maps data is connected.',
+        openMaps:'Open in Google Maps', closedHint:'This laundry is closed now. You can still schedule a later pickup.',
+        each:'per item', feeHint:'Pickup & delivery is {fee} per order.',
+        addItems:'Add at least one item', next:'Next', back:'Back',
+        checkout:'Review order', pickup:'Pickup time', earliest:'Earliest available', change:'Change', done:'Done',
+        today:'Today', tomorrow:'Tomorrow', noSlots:'No slots left on this day.', leadNote:'Slots start 8 hours from now.',
+        address:'Pickup address', addAddress:'Add address', newAddress:'New address', addrLabel:'Address type', addrDetails:'Address details',
+        addrPh:'District, street, building no., landmark', locateMe:'Use my location', locating:'Finding your location…', locFail:'Couldn’t get your location. Type the address instead.',
+        lbl_home:'Home', lbl_work:'Work', lbl_other:'Other', saveAddr:'Save address', errAddr:'Enter the address details.', makeDefault:'Make default', deflt:'Default',
+        payment:'Payment method', pay_card:'mada, Visa or Mastercard', pay_applepay:'Apple Pay', pay_stcpay:'STC Pay', pay_note:'You pay now, when you send the order.',
+        pay_card_s:'Verified by your bank with a code', pay_applepay_s:'Pay with one touch on your device', pay_stcpay_s:'Pay from your wallet with your phone number',
+        newCard:'New card', cardNum:'Card number', cardExp:'Expiry date', cardCvv:'Security code (CVV)', cardName:'Name on card', cardNamePh:'As shown on the card', saveCard:'Save this card for next time',
+        savedCvv:'Security code (CVV) for this card', expShort:'Expires', errCardNum:'That card number isn’t valid.', errCardExp:'The expiry date is invalid or has passed.', errCardCvv:'The security code is 3 digits.', errCardName:'Enter the name on the card.',
+        testCards:'Test cards:', testOk:'succeeds', testNo:'declined by bank', secure:'Payments are encrypted. We never store your full card number or security code.',
+        payBtn:'Pay {amount}', payApple:'Pay with Apple Pay', payStc:'Pay with STC Pay', termsLine:'By sending the order you agree to the terms and cancellation policy: free cancellation before pickup.',
+        tdsTitle:'Secure bank verification', tdsLead:'Your bank sent a code to your registered phone. Enter it to finish paying.', merchant:'Merchant', amount:'Amount', card:'Card', confirmPay:'Confirm payment', cancelPay:'Cancel',
+        demoOtp:'Demo version. The code is', errOtp:'That code is wrong.', processing:'Processing payment…', processingSub:'Please don’t close this page.',
+        declined:'Your bank declined the payment. Try another card or payment method.', payCancelled:'Payment cancelled.',
+        apTitle:'Apple Pay', apPayTo:'Pay', apCard:'Card', apCardVal:'Your card in Apple Wallet', apConfirm:'Confirm with Face ID', apNote:'Demo. In the real app, your device’s Apple Pay sheet appears.',
+        stcTitle:'Pay with STC Pay', stcLead:'Enter the phone number registered with STC Pay.', stcSend:'Send verification code', stcCodeLead:'STC Pay sent a code to', errStcPhone:'Enter a valid number starting with 05.',
+        paid:'Paid', paidAt:'Paid at', txn:'Transaction no.', receipt:'Receipt',
+        cancelOrder:'Cancel order', cancelQ:'Cancel this order? You’ll get the full {amount} back.', cancelYes:'Yes, cancel it', cancelNo:'No, keep it',
+        cancelledTitle:'Order cancelled', refundNote:'{amount} was refunded to {method}. It shows up within 5–7 business days depending on your bank.', refundStc:'{amount} was refunded to your STC Pay wallet.',
+        cancelLocked:'Orders can’t be cancelled after pickup. Message us on WhatsApp about any problem.', stCancel:'Cancelled', orderCancelled:'Order cancelled and refunded',
+        myCards:'My cards', noCards:'No saved cards. You can save a card when you pay.', cardRemoved:'Card removed',
+        notes:'Notes for the driver', notesPh:'e.g. Call when you arrive', optional:'Optional',
+        promo:'Have a promo code?', promoPh:'Enter code', apply:'Apply', promoOk:'10% off items applied', promoBad:'That code isn’t valid', remove:'Remove',
+        items:'Items', subtotal:'Items', fee:'Pickup & delivery', discount:'Discount', total:'Total',
+        placeOrder:'Send order', loginToOrder:'Sign in to send your order',
+        doneTitle:'Your order is in', doneBody:'The driver will contact you before the pickup time.', track:'Track order', home:'Home',
+        ordersTitle:'Orders', noOrders:'No orders yet', noOrdersBody:'Place your first order and let us handle it.', browse:'Browse laundries',
+        guestOrders:'Sign in to see your orders', login:'Sign in',
+        order:'Order', st0:'Order received', st1:'Clothes picked up', st2:'Washing & ironing', st3:'On the way to you', st4:'Delivered',
+        st0d:'The laundry has your order', st2d:'Your clothes are being cared for', st3d:'The driver is on the way', st4d:'Enjoy!',
+        demoNext:'Simulate next step (demo)', reorder:'Order the same again', chatAbout:'Ask us about this order', returnBy:'Expected delivery', paidBy:'Payment',
+        accountTitle:'Account', guestTitle:'Sign in with your phone number', guestBody:'Save your addresses and track your orders.',
+        addresses:'My addresses', noAddr:'No saved addresses.', language:'Language', langName:'English', logout:'Sign out', loggedOut:'Signed out',
+        loginTitle:'Sign in', loginLead:'We’ll text a verification code to your phone.', phone:'Phone number', phonePh:'5X XXX XXXX', sendCode:'Send code',
+        errPhone:'Enter a valid Saudi mobile number starting with 05.', codeTitle:'Enter the code', codeLead:'We sent a 4-digit code to', demoCode:'Demo version, no SMS is sent. Your code is',
+        verify:'Verify', errCode:'That code is wrong.', editPhone:'Change number', nameTitle:'What should we call you?', nameLead:'The driver will see your name.', namePh:'Your name', errName:'Enter your name.', save:'Save', welcome:'Welcome, {name}',
+        helpTitle:'Help', waTitle:'Chat with us on WhatsApp', waBody:'Our customer service team will reply as soon as possible.', openWa:'Open WhatsApp chat',
+        faq:'Common questions',
+        q1:'How much is an item?', a1:'Iron only is 2 riyals an item and wash & iron is 3 riyals an item, at every laundry. Dry cleaning and bedding & rugs are coming soon.',
+        q5:'Can I cancel my order?', a5:'Yes. Cancelling is free until the driver picks up your clothes, and you get a full refund. After pickup, orders can’t be cancelled.',
+        q2:'How much is delivery?', a2:'6 riyals per order, covering pickup from your home and delivery back.',
+        q3:'When does the driver come?', a3:'You choose the pickup time. The earliest slot is 8 hours after you order.',
+        q4:'How do I pay?', a4:'You pay when you send the order, with mada, Visa, Mastercard, Apple Pay or STC Pay.',
+        waMsg:'Hello Washla, I need some help', waMsgOrder:'Hello Washla, I have a question about order #{id}',
+        pcs:'{n} items'
+      }
+    };
+
+    /* ============ Storage (best effort) ============ */
+    const mem = {};   // fallback when browser storage is blocked
+    const store = {
+      get(k, d) { try { const v = localStorage.getItem(k); if (v != null) return JSON.parse(v); } catch {} return k in mem ? JSON.parse(mem[k]) : d; },
+      set(k, v) { mem[k] = JSON.stringify(v); try { localStorage.setItem(k, mem[k]); } catch {} },
+      del(k) { delete mem[k]; try { localStorage.removeItem(k); } catch {} }
+    };
+
+    /* ============ State ============ */
+    const S = {
+      lang: store.get(K.lang, 'ar') === 'en' ? 'en' : 'ar',
+      view: 'home', params: {},
+      service: 'wash', sort: 'near', openOnly: false, q: '',
+      shopId: 'main', tab: 'wash', cart: {},
+      dayIdx: 0, slot: null, pickSlot: false,
+      addrId: null, draftAddr: { label:'home', text:'' }, pay: 'card', cardSel: 'new', card: { num:'', exp:'', cvv:'', name:'', save:true }, savedCvv: '', payErr: null, notes: '', confirmCancel: null,
+      promoIn: '', promoOn: false, promoErr: false, errs: {},
+      phone: store.get(K.session, null),
+      lastOrder: null,
+      pending: null     // action to resume after login
+    };
+    const users = () => store.get(K.users, {});
+    const me = () => S.phone ? users()[S.phone] || null : null;
+    function saveMe(u) { const all = users(); all[S.phone] = u; store.set(K.users, all); }
+    const myOrders = () => S.phone ? store.get(K.orders + S.phone, []) : [];
+    const saveOrders = list => store.set(K.orders + S.phone, list);
+
+    /* ============ Helpers ============ */
+    const $ = s => document.querySelector(s);
+    const $$ = s => [...document.querySelectorAll(s)];
+    const t = (k, vars) => { let s = T[S.lang][k] ?? T.ar[k] ?? k; if (vars) for (const v in vars) s = s.replace(`{${v}}`, vars[v]); return s; };
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+    const ic = (id, cls = '') => `<svg class="icon ${cls}"><use href="#${id}"/></svg>`;
+    const nm = o => S.lang === 'ar' ? o.ar : o.en;
+    const shop = () => SHOP;
+    const item = id => ITEMS.find(i => i.id === id);
+    const loc = () => S.lang === 'ar' ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-GB';
+    // Official riyal sign: after the number in Arabic (reading right to left), before it in English.
+    const SAR = '<svg aria-hidden="true"><use href="#i-sar"/></svg>';
+    const money = n => {
+      const v = Number.isInteger(n) ? n : n.toFixed(2);
+      const label = S.lang === 'ar' ? `${v} ريال` : `${v} riyals`;
+      return S.lang === 'ar'
+        ? `<span class="sar" dir="rtl" role="text" aria-label="${label}"><span>${v}</span>${SAR}</span>`
+        : `<span class="sar" dir="ltr" role="text" aria-label="${label}">${SAR}<span>${v}</span></span>`;
+    };
+    const fmtPhone = p => p ? `${p.slice(0,3)} ${p.slice(3,6)} ${p.slice(6)}` : '';
+    const waLink = text => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+
+    function km(a, b) {
+      const R = 6371, r = Math.PI / 180, dLa = (b.lat - a.lat) * r, dLo = (b.lng - a.lng) * r;
+      const h = Math.sin(dLa/2)**2 + Math.cos(a.lat*r) * Math.cos(b.lat*r) * Math.sin(dLo/2)**2;
+      return 2 * R * Math.asin(Math.sqrt(h));
+    }
+
+    let toastT;
+    function toast(msg, icon = 'i-check') {
+      const el = $('#toast'); el.innerHTML = `${ic(icon, 'sm')}<span>${esc(msg)}</span>`; el.classList.add('on');
+      clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('on'), 2600);
+    }
+
+    /* cart */
+    const cartList = () => Object.entries(S.cart).filter(([k, q]) => q > 0 && !isSoon(k.split('|')[0])).map(([k, q]) => { const [svc, it] = k.split('|'); return { key:k, svc, item:item(it), q }; });
+    function totals() {
+      const list = cartList(), count = list.reduce((a, e) => a + e.q, 0), sub = list.reduce((a, e) => a + e.q * price(e.svc), 0);
+      const disc = S.promoOn ? Math.round(sub * PROMO.pct) / 100 : 0, fee = count ? DELIVERY_FEE : 0;
+      return { list, count, sub, disc, fee, total: Math.max(0, sub - disc + fee) };
+    }
+
+    /* slots */
+    const dayAt = i => { const d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() + i); return d; };
+    const minTime = () => Date.now() + MIN_LEAD_H * 3600e3;
+    const slotsOf = i => SLOT_HOURS.map(h => { const d = dayAt(i); d.setHours(h); return { iso:d.toISOString(), h, ok:d.getTime() >= minTime() }; });
+    function earliestSlot() { for (let i = 0; i < DAYS; i++) { const s = slotsOf(i).find(x => x.ok); if (s) return { i, iso:s.iso }; } return null; }
+    const hourLabel = h => new Date(2000,0,1,h).toLocaleTimeString(S.lang === 'ar' ? 'ar-SA-u-nu-latn' : 'en-US', { hour:'numeric' });
+    const dayLabel = d => new Date(d).toLocaleDateString(loc(), { weekday:'long', day:'numeric', month:'long' });
+    const slotLabel = iso => { const d = new Date(iso), h = d.getHours(); return `${dayLabel(d)} · ${hourLabel(h)} – ${hourLabel(h + 2)}`; };
+
+    /* ============ Top bar & chrome ============ */
+    function renderTop() {
+      const flow = ['checkout', 'order'].includes(S.view);
+      const titles = { checkout: t('checkout'), order: S.params.id ? `${t('order')} #${S.params.id}` : '' };
+      $('#topbar').innerHTML = flow
+        ? `<div class="view-head" style="width:100%">
+             <button class="icon-btn" type="button" data-back aria-label="${t('back')}">${ic('i-back', 'flip')}</button>
+             <h1>${esc(titles[S.view])}</h1>
+           </div>`
+        : `<button class="brand" type="button" data-go="home"><span class="mark">${ic('i-drop')}</span><span>غسله <small>Wash</small></span></button>
+           <span class="spacer"></span>
+           <button class="pill-btn" type="button" data-lang>${ic('i-globe', 'sm')}${t('langBtn')}</button>`;
+    }
+    function renderChrome() {
+      const flow = ['checkout', 'done'].includes(S.view);
+      $('#tabbar').hidden = flow;
+      $('#main').classList.toggle('flow', flow);
+      const cur = S.view === 'order' ? 'orders' : S.view;
+      $$('#tabbar [data-go]').forEach(b => b.dataset.go === cur ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current'));
+      $$('[data-t]').forEach(el => { el.textContent = t(el.dataset.t); });
+      const active = myOrders().filter(o => (o.step || 0) < 4 && o.status !== 'cancelled').length;
+      $('#ordersN').hidden = !active; $('#ordersN').textContent = active;
+    }
+    function setAction(html) { $('#actionbar').hidden = !html; $('#actionbarIn').innerHTML = html || ''; }
+
+    /* ============ Views ============ */
+    const views = {
+      home() {
+        const u = me(), counts = {};
+        cartList().forEach(e => { counts[e.svc] = (counts[e.svc] || 0) + e.q; });
+        const rows = ITEMS.filter(i => i.svc.includes(S.tab)).map(i => {
+          const k = `${S.tab}|${i.id}`, q = S.cart[k] || 0;
+          return `<div class="item"><span class="ic">${ic(i.icon)}</span>
+            <div class="info"><strong>${t('item_' + i.id)}</strong><span>${money(price(S.tab))} ${t('each')}</span></div>
+            <div class="stepper">
+              ${q ? `<button type="button" data-q="${k}" data-d="-1" aria-label="−">${ic('i-minus', 'sm')}</button><output class="num">${q}</output>` : ''}
+              <button type="button" class="plus ${q ? '' : 'solo'}" data-q="${k}" data-d="1" aria-label="+">${ic('i-plus', 'sm')}</button>
+            </div></div>`;
+        }).join('');
+        const tot = totals();
+        setAction(tot.count ? `<button type="button" class="btn full" data-go="checkout">
+          <span class="qty num">${tot.count}</span><span class="grow">${t('next')}</span><span class="num">${money(tot.total)}</span></button>` : '');
+        return `
+          <div class="loc">${ic('i-pin', 'sm')}<span>${t('coverage')}</span></div>
+          <h1 class="hello">${esc(u ? t('hiUser', { name:u.name.split(' ')[0] }) : t('hiGuest'))}</h1>
+          <p class="sub">${t('sub')}</p>
+
+          <div class="deal">
+            <div><div class="big"><small class="from">${t('from')}</small>${money(PRICES.iron)}</div></div>
+            <div class="bubbles" aria-hidden="true"><i style="width:34px;height:34px;top:4px;inset-inline-start:8px"></i><i style="width:20px;height:20px;top:40px;inset-inline-start:40px"></i><i style="width:12px;height:12px;top:12px;inset-inline-start:50px"></i></div>
+            <div><strong>${t('dealTitle')}</strong><p>${t('dealBody', { wash:money(PRICES.wash), fee:money(DELIVERY_FEE) })}</p></div>
+          </div>
+
+          <div class="label">${t('chooseService')}</div>
+          <div class="services" role="radiogroup" aria-label="${t('chooseService')}">
+            ${SERVICES.map(v => `<button type="button" class="svc ${isSoon(v.id) ? 'soon' : ''}" role="radio" aria-checked="${S.tab === v.id}" ${isSoon(v.id) ? 'aria-disabled="true"' : ''} data-svc="${v.id}">
+              <span class="ic">${ic(v.icon)}${counts[v.id] ? `<span class="svc-count num">${counts[v.id]}</span>` : ''}</span>${t('svc_' + v.id)}
+              <span class="svc-sub">${isSoon(v.id) ? `<span class="soon-tag">${t('soon')}</span>` : `${money(price(v.id))} ${t('each')}`}</span></button>`).join('')}
+          </div>
+
+          <div class="row-head"><h2>${t('chooseItems')}</h2><span class="count">${t('svc_' + S.tab)}</span></div>
+          <div class="items" style="margin-top:0">${rows}</div>
+          <div class="hint">${ic('i-truck')}<span>${t('feeHint', { fee:money(DELIVERY_FEE) })}</span></div>`;
+      },
+
+      checkout() {
+        const u = me(), tot = totals(), s = shop(S.shopId);
+        if (!S.slot || new Date(S.slot).getTime() < minTime()) { const e = earliestSlot(); S.slot = e?.iso || null; S.dayIdx = e?.i || 0; }
+        const addrs = u?.addresses || [];
+        if (addrs.length && !addrs.some(a => a.id === S.addrId)) S.addrId = (addrs.find(a => a.def) || addrs[0]).id;
+        const days = Array.from({ length:DAYS }, (_, i) => {
+          const d = dayAt(i), any = slotsOf(i).some(x => x.ok);
+          const top = i === 0 ? t('today') : i === 1 ? t('tomorrow') : d.toLocaleDateString(loc(), { weekday:'short' });
+          return `<button type="button" class="day" aria-pressed="${S.dayIdx === i}" data-day="${i}" ${any ? '' : 'disabled'}><small>${top}</small><b class="num">${d.getDate()}</b><small>${d.toLocaleDateString(loc(), { month:'short' })}</small></button>`;
+        }).join('');
+        const slots = slotsOf(S.dayIdx);
+        const slotHtml = slots.some(x => x.ok)
+          ? slots.map(x => `<button type="button" class="slot" aria-pressed="${S.slot === x.iso}" data-slot="${x.iso}" ${x.ok ? '' : 'disabled'}>${hourLabel(x.h)} – ${hourLabel(x.h + 2)}</button>`).join('')
+          : `<div style="grid-column:1/-1;color:var(--muted);font-size:.85rem">${t('noSlots')}</div>`;
+        const isEarliest = S.slot === earliestSlot()?.iso;
+
+        const payLbl = !u ? t('loginToOrder') : S.pay === 'applepay' ? t('payApple') : S.pay === 'stcpay' ? t('payStc') : t('payBtn', { amount:'' }).trim();
+        const payCls = u && S.pay === 'applepay' ? 'apple' : u && S.pay === 'stcpay' ? 'stc' : '';
+        setAction(`<button type="button" class="btn full ${payCls}" data-place><span class="grow">${payLbl}</span><span class="num">${money(tot.total)}</span></button>`);
+
+        return `
+          <section class="block">
+            <div class="block-head"><span class="ic">${ic('i-cal')}</span>
+              <div class="t"><small>${t('pickup')}${isEarliest ? ` · ${t('earliest')}` : ''}</small><b>${S.slot ? esc(slotLabel(S.slot)) : t('noSlots')}</b></div>
+              <button type="button" class="link-btn" data-pickslot>${S.pickSlot ? t('done') : t('change')}</button></div>
+            ${S.pickSlot ? `<div class="days">${days}</div><div class="slots">${slotHtml}</div><p style="margin:10px 0 0;font-size:.78rem;color:var(--muted)">${t('leadNote')}</p>` : ''}
+          </section>
+
+          <section class="block">
+            <div class="block-head"><span class="ic">${ic('i-pin')}</span><div class="t"><b>${t('address')}</b></div>
+              ${addrs.length ? `<button type="button" class="link-btn" data-addaddr>${t('addAddress')}</button>` : ''}</div>
+            ${addrs.length ? `<div class="opts">${addrs.map(a => `
+                <label class="opt"><input type="radio" name="addr" value="${a.id}" ${S.addrId === a.id ? 'checked' : ''} />
+                  <span class="tx"><b>${t('lbl_' + a.label)}</b><small>${esc(a.text)}</small></span>${ic(a.label === 'work' ? 'i-work' : 'i-home')}</label>`).join('')}</div>`
+              : addrForm(S.draftAddr, 'draft')}
+          </section>
+
+          <section class="block">
+            <div class="block-head"><span class="ic">${ic('i-card')}</span><div class="t"><b>${t('payment')}</b><small>${t('pay_note')}</small></div></div>
+            ${payBlock(u)}
+          </section>
+
+          <section class="block">
+            <label class="field" style="margin-top:0"><span>${t('notes')} <small style="color:var(--muted)">· ${t('optional')}</small></span>
+              <textarea class="input" id="notes" rows="2" placeholder="${t('notesPh')}">${esc(S.notes)}</textarea></label>
+          </section>
+
+          <section class="block">
+            <div class="block-head" style="margin-bottom:8px"><span class="avatar" style="width:38px;height:38px;font-size:.95rem;border-radius:12px">${ic('i-drop')}</span><div class="t"><small>${t('items')}</small><b>${esc(nm(s))}</b></div></div>
+            ${tot.list.map(e => `<div class="kv"><span>${e.q} × ${t('item_' + e.item.id)} <small style="color:var(--muted)">· ${t('svc_' + e.svc)}</small></span><span class="num">${money(e.q * price(e.svc))}</span></div>`).join('')}
+            <div style="border-top:1px solid var(--line);margin:8px 0 4px"></div>
+            <div class="kv"><span>${t('subtotal')}</span><span class="num">${money(tot.sub)}</span></div>
+            ${tot.disc ? `<div class="kv disc"><span>${t('discount')} · ${PROMO.code}</span><span class="num">−${money(tot.disc)}</span></div>` : ''}
+            <div class="kv"><span>${t('fee')}</span><span class="num">${money(tot.fee)}</span></div>
+            <div class="kv total"><span>${t('total')}</span><span class="num">${money(tot.total)}</span></div>
+            <details class="promo" style="margin-top:10px" ${S.promoOn || S.promoErr || S.promoIn ? 'open' : ''}>
+              <summary>${ic('i-tag', 'sm')}${t('promo')}</summary>
+              ${S.promoOn
+                ? `<div class="inline" style="margin-top:10px;align-items:center"><span class="okmsg" style="flex:1">${t('promoOk')}</span><button type="button" class="btn line sm" data-unpromo>${t('remove')}</button></div>`
+                : `<div class="inline" style="margin-top:10px"><input class="input ${S.promoErr ? 'bad' : ''}" id="promo" value="${esc(S.promoIn)}" placeholder="${t('promoPh')}" autocapitalize="characters" /><button type="button" class="btn line sm" style="height:48px" data-promo>${t('apply')}</button></div>
+                   ${S.promoErr ? `<div class="err" style="margin-top:6px">${t('promoBad')}</div>` : ''}`}
+            </details>
+          </section>
+          <p class="terms">${t('termsLine')}</p>`;
+      },
+
+      done() {
+        const o = myOrders().find(x => x.id === S.lastOrder);
+        setAction(`<div style="display:grid;gap:8px"><button type="button" class="btn full" data-open-order="${o.id}">${ic('i-truck')}${t('track')}</button><button type="button" class="btn soft full" data-go="home">${t('home')}</button></div>`);
+        return `<div class="done"><div class="ring">${ic('i-check', 'lg')}</div><h2>${t('doneTitle')}</h2><p>${t('doneBody')}</p></div>
+          <section class="block">
+            <div class="kv"><span>${t('order')}</span><b class="num">#${o.id}</b></div>
+            <div class="kv"><span>${t('pickup')}</span><span style="text-align:end">${esc(slotLabel(o.slot))}</span></div>
+            <div class="kv"><span>${t('items')}</span><span>${t('pcs', { n:o.count })}</span></div>
+            <div class="kv"><span>${t('paidBy')}</span><span dir="auto">${o.payment.method === 'card' ? `${brandName(o.payment.brand)} •••• ${o.payment.last4}` : t('pay_' + o.payment.method)}</span></div>
+            <div class="kv"><span>${t('txn')}</span><span class="num" dir="ltr">${o.payment.txn}</span></div>
+            <div class="kv total"><span>${t('total')} · ${t('paid')}</span><span class="num">${money(o.total)}</span></div>
+          </section>`;
+      },
+
+      orders() {
+        setAction('');
+        if (!me()) return `<h1 class="page-title">${t('ordersTitle')}</h1>${guestCard(t('guestOrders'))}`;
+        const list = myOrders().slice().reverse();
+        return `<h1 class="page-title">${t('ordersTitle')}</h1>` + (list.length ? list.map(o => {
+          const s = shop(o.shopId), st = o.step || 0, off = o.status === 'cancelled';
+          return `<button type="button" class="order" data-open-order="${o.id}">
+            <div class="top-row"><span class="avatar">${ic('i-drop')}</span>
+              <div style="flex:1;min-width:0"><b style="display:block;font-weight:600">${esc(nm(s))}</b><small style="color:var(--muted)">#${o.id} · ${t('pcs', { n:o.count })} · <span class="num">${money(o.total)}</span></small></div>
+              <span class="badge ${off ? 'off' : st === 4 ? 'ok' : ''}">${off ? t('stCancel') : t('st' + st)}</span></div>
+            ${off ? '' : `<div class="bar"><i style="width:${(st + 1) * 20}%"></i></div>`}
+            <small style="color:var(--ink-2)">${ic('i-cal', 'sm')} ${esc(slotLabel(o.slot))}</small>
+          </button>`;
+        }).join('') : `<div class="empty"><div class="ic">${ic('i-bag', 'lg')}</div><strong>${t('noOrders')}</strong>${t('noOrdersBody')}
+          <div style="margin-top:14px"><button class="btn sm" type="button" data-go="home">${t('browse')}</button></div></div>`);
+      },
+
+      order() {
+        const o = myOrders().find(x => x.id === S.params.id);
+        setAction('');
+        if (!o) return '';
+        const s = shop(o.shopId), st = o.step || 0, off = o.status === 'cancelled';
+        const ret = new Date(new Date(o.slot).getTime() + 48 * 3600e3);
+        const pm = o.payment || {};
+        const methodName = pm.method === 'card' ? `${brandName(pm.brand)} •••• ${pm.last4}` : t('pay_' + (pm.method || 'card'));
+        const steps = [0, 1, 2, 3, 4].map(i => {
+          const cls = i < st || st === 4 ? 'done' : i === st ? 'now' : 'later';
+          const sub = i === 1 ? slotLabel(o.slot) : i === 4 && st < 4 ? dayLabel(ret) : t('st' + i + 'd');
+          return `<li class="${cls}"><span class="dot">${cls === 'later' ? '' : ic('i-check', 'sm')}</span><div><b>${t('st' + i)}</b><span>${esc(sub)}</span></div></li>`;
+        }).join('');
+        return `
+          <section class="block" style="margin-top:4px">
+            <div class="block-head" style="margin-bottom:14px"><span class="avatar" style="width:44px;height:44px;font-size:1rem;border-radius:13px">${ic('i-drop')}</span>
+              <div class="t"><b>${esc(nm(s))}</b><small>${t('pcs', { n:o.count })} · ${money(o.total)}</small></div><span class="badge ${off ? 'off' : st === 4 ? 'ok' : ''}">${off ? t('stCancel') : t('st' + st)}</span></div>
+            ${off
+              ? `<div class="cancelled">${ic('i-x')}<div><b style="display:block;color:var(--ink)">${t('cancelledTitle')}</b>${pm.method === 'stcpay' ? t('refundStc', { amount:money(o.total) }) : t('refundNote', { amount:money(o.total), method:esc(methodName) })}</div></div>`
+              : `<ol class="tl">${steps}</ol>
+                 ${st < 4 ? `<button type="button" class="btn line sm" style="width:100%;margin-top:16px" data-step="${o.id}">${t('demoNext')}</button>` : ''}
+                 ${st === 0 ? (S.confirmCancel === o.id
+                    ? `<div class="cancel-box"><p>${t('cancelQ', { amount:money(o.total) })}</p><div class="inline"><button type="button" class="btn sm" style="flex:1;background:var(--red)" data-cancel-yes="${o.id}">${t('cancelYes')}</button><button type="button" class="btn line sm" style="flex:1" data-cancel-no>${t('cancelNo')}</button></div></div>`
+                    : `<button type="button" class="btn danger sm" style="width:100%;margin-top:8px" data-cancel="${o.id}">${ic('i-x', 'sm')}${t('cancelOrder')}</button>`)
+                   : st < 4 ? `<p style="margin:10px 0 0;font-size:.78rem;color:var(--muted)">${t('cancelLocked')}</p>` : ''}`}
+          </section>
+          <section class="block">
+            <div class="kv"><span>${t('pickup')}</span><span style="text-align:end">${esc(slotLabel(o.slot))}</span></div>
+            <div class="kv"><span>${t('returnBy')}</span><span>${esc(dayLabel(ret))}</span></div>
+            <div class="kv"><span>${t('address')}</span><span style="text-align:end;overflow-wrap:anywhere">${esc(o.address)}</span></div>
+          </section>
+          <section class="block receipt">
+            <div class="block-head" style="margin-bottom:8px"><span class="ic">${ic('i-card')}</span><div class="t"><b>${t('receipt')}</b></div><span class="badge ${off ? 'off' : 'ok'}">${off ? t('stCancel') : t('paid')}</span></div>
+            <div class="kv"><span>${t('paidBy')}</span><span dir="auto">${esc(methodName)}</span></div>
+            ${pm.txn ? `<div class="kv"><span>${t('txn')}</span><span class="num" dir="ltr">${pm.txn}</span></div>` : ''}
+            ${pm.at ? `<div class="kv"><span>${t('paidAt')}</span><span>${new Date(pm.at).toLocaleString(loc(), { day:'numeric', month:'short', hour:'numeric', minute:'2-digit' })}</span></div>` : ''}
+          </section>
+          <section class="block">
+            ${o.lines.map(l => `<div class="kv"><span>${l.q} × ${t('item_' + l.item)} <small style="color:var(--muted)">· ${t('svc_' + l.svc)}</small></span><span class="num">${money(l.q * (l.p ?? 2))}</span></div>`).join('')}
+            <div style="border-top:1px solid var(--line);margin:8px 0 4px"></div>
+            <div class="kv"><span>${t('subtotal')}</span><span class="num">${money(o.sub)}</span></div>
+            ${o.disc ? `<div class="kv disc"><span>${t('discount')}</span><span class="num">−${money(o.disc)}</span></div>` : ''}
+            <div class="kv"><span>${t('fee')}</span><span class="num">${money(o.fee)}</span></div>
+            <div class="kv total"><span>${t('total')}</span><span class="num">${money(o.total)}</span></div>
+          </section>
+          <div class="stack" style="margin-top:12px">
+            <a class="btn wa full" href="${waLink(t('waMsgOrder', { id:o.id }))}" target="_blank" rel="noopener">${ic('i-wa')}${t('chatAbout')}</a>
+            <button type="button" class="btn soft full" data-reorder="${o.id}">${t('reorder')}</button>
+          </div>`;
+      },
+
+      account() {
+        setAction('');
+        const u = me();
+        const langRow = `<button type="button" class="list-row" data-lang><span class="ic">${ic('i-globe')}</span><span class="tx"><b>${t('language')}</b><small>${t('langName')}</small></span>${ic('i-chev', 'sm')}</button>`;
+        if (!u) return `<h1 class="page-title">${t('accountTitle')}</h1>${guestCard(t('guestBody'))}<div class="list">${langRow}</div>`;
+        const addrs = u.addresses || [];
+        return `<h1 class="page-title">${t('accountTitle')}</h1>
+          <div class="profile"><span class="avatar">${esc(u.name.charAt(0))}</span><div><b>${esc(u.name)}</b><span>${fmtPhone(S.phone)}</span></div></div>
+          <div class="row-head" style="margin-top:22px"><h2>${t('addresses')}</h2><button type="button" class="link-btn" data-addaddr>${ic('i-plus', 'sm')} ${t('addAddress')}</button></div>
+          <div class="list" style="margin-top:0">${addrs.length ? addrs.map(a => `
+            <div class="list-row"><span class="ic">${ic(a.label === 'work' ? 'i-work' : 'i-home')}</span>
+              <span class="tx"><b>${t('lbl_' + a.label)}${a.def ? `<span class="def">${t('deflt')}</span>` : ''}</b><small>${esc(a.text)}</small>
+                ${a.def ? '' : `<br><button type="button" class="link-btn" style="padding:4px 0" data-defaddr="${a.id}">${t('makeDefault')}</button>`}</span>
+              <button type="button" class="mini" data-deladdr="${a.id}" aria-label="delete">${ic('i-trash', 'sm')}</button></div>`).join('')
+            : `<div class="list-row"><span class="tx"><small>${t('noAddr')}</small></span></div>`}</div>
+          <div class="row-head" style="margin-top:22px"><h2>${t('myCards')}</h2></div>
+          <div class="list" style="margin-top:0">${(u.cards || []).length ? u.cards.map(c => `
+            <div class="list-row"><span class="ic">${ic('i-card')}</span>
+              <span class="tx"><b dir="ltr" style="text-align:start">${brandName(c.brand)} •••• ${c.last4}</b><small>${t('expShort')} <span dir="ltr">${c.exp}</span></small></span>
+              <button type="button" class="mini" data-delcard="${c.id}" aria-label="delete">${ic('i-trash', 'sm')}</button></div>`).join('')
+            : `<div class="list-row"><span class="tx"><small>${t('noCards')}</small></span></div>`}</div>
+          <div class="list">${langRow}<button type="button" class="list-row" data-logout><span class="ic">${ic('i-logout')}</span><span class="tx"><b>${t('logout')}</b></span></button></div>`;
+      },
+
+      help() {
+        setAction('');
+        return `<h1 class="page-title">${t('helpTitle')}</h1>
+          <div class="wa-card">
+            <div class="ic">${ic('i-wa', 'lg')}</div>
+            <h2>${t('waTitle')}</h2><p>${t('waBody')}</p>
+            <a class="btn wa full" href="${waLink(t('waMsg'))}" target="_blank" rel="noopener">${ic('i-wa')}${t('openWa')}</a>
+          </div>
+          <div class="row-head"><h2>${t('faq')}</h2></div>
+          <div class="faq" style="margin-top:0">${[1,2,3,4,5].map(i => `<details><summary>${t('q' + i)}${ic('i-down', 'sm')}</summary><p>${t('a' + i)}</p></details>`).join('')}</div>`;
+      }
+    };
+
+    function guestCard(body) {
+      return `<div class="empty"><div class="ic">${ic('i-user', 'lg')}</div><strong>${t('guestTitle')}</strong>${body}
+        <div style="margin-top:14px"><button class="btn sm" type="button" data-login>${t('login')}</button></div></div>`;
+    }
+    function addrForm(a, mode) {
+      return `<div class="field"><span>${t('addrLabel')}</span><div class="tags">
+          ${['home', 'work', 'other'].map(l => `<button type="button" class="tag" aria-pressed="${a.label === l}" data-albl="${l}" data-amode="${mode}">${ic(l === 'work' ? 'i-work' : 'i-home', 'sm')}${t('lbl_' + l)}</button>`).join('')}</div></div>
+        <label class="field"><span>${t('addrDetails')}</span>
+          <textarea class="input ${S.errs.addr ? 'bad' : ''}" id="addrText-${mode}" rows="2" placeholder="${t('addrPh')}">${esc(a.text)}</textarea></label>
+        ${S.errs.addr ? `<div class="err" style="margin-top:6px">${t('errAddr')}</div>` : ''}
+        <button type="button" class="link-btn" style="margin-top:6px" data-locate="${mode}">${ic('i-locate', 'sm')} ${t('locateMe')}</button>`;
+    }
+
+    /* ============ Router ============ */
+    const history_ = [];
+    function go(view, params = {}, push = true) {
+      if (push && S.view !== view) history_.push({ view:S.view, params:S.params });
+      if (view === 'checkout' && !totals().count) view = 'home';
+      S.view = view; S.params = params;
+      if (view !== 'checkout') S.pickSlot = false;
+      render();
+      window.scrollTo({ top:0 });
+    }
+    function back() {
+      const prev = history_.pop();
+      captureInputs();
+      if (prev && prev.view !== 'done') go(prev.view, prev.params, false); else go('home', {}, false);
+    }
+    function render() {
+      document.documentElement.lang = S.lang;
+      document.documentElement.dir = S.lang === 'ar' ? 'rtl' : 'ltr';
+      document.title = S.lang === 'ar' ? 'غسله Wash' : 'Washla';
+      renderTop();
+      $('#view').innerHTML = views[S.view]();
+      renderChrome();
+      const over = !$('#tabbar').hidden && !$('#actionbar').hidden;
+      $('#actionbar').classList.toggle('over-tabs', over);
+      $('#main').classList.toggle('cart', over);
+    }
+    function captureInputs() {
+      if (typeof captureCard === 'function') captureCard();
+      if ($('#notes')) S.notes = $('#notes').value;
+      if ($('#promo')) S.promoIn = $('#promo').value;
+      if ($('#addrText-draft')) S.draftAddr.text = $('#addrText-draft').value;
+    }
+
+    /* ============ Sheet ============ */
+    function openSheet(html, label) {
+      $('#sheetIn').innerHTML = html; $('#sheet').setAttribute('aria-label', label || '');
+      $('#sheet').classList.add('on'); $('#scrim').classList.add('on'); document.body.classList.add('lock');
+      setTimeout(() => $('#sheet input, #sheet textarea')?.focus({ preventScroll:true }), 120);
+    }
+    function closeSheet() {
+      $('#sheet').classList.remove('on'); $('#scrim').classList.remove('on'); document.body.classList.remove('lock');
+      S.errs = {};
+    }
+
+    /* login flow (simulated SMS) */
+    const L = { phone:'', code:'', step:'phone', err:false };
+    function loginSheet() {
+      if (L.step === 'phone') return openSheet(`
+        <h2>${t('loginTitle')}</h2><p class="lead">${t('loginLead')}</p>
+        <label class="field" style="margin-top:0"><span>${t('phone')}</span>
+          <span class="phone-in"><span>+966</span><input id="phoneIn" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="${t('phonePh')}" value="${esc(L.phone.replace(/^0/, ''))}" maxlength="12" /></span></label>
+        ${L.err ? `<div class="err" style="margin-top:6px">${t('errPhone')}</div>` : ''}
+        <div class="stack"><button type="button" class="btn full" data-sendcode>${t('sendCode')}</button></div>`, t('loginTitle'));
+      if (L.step === 'code') return openSheet(`
+        <h2>${t('codeTitle')}</h2><p class="lead">${t('codeLead')} <b class="num" style="direction:ltr;display:inline-block">${fmtPhone(L.phone)}</b></p>
+        <div class="otp">${[0,1,2,3].map(i => `<input id="otp${i}" inputmode="numeric" maxlength="1" aria-label="${i + 1}" autocomplete="${i ? 'off' : 'one-time-code'}" />`).join('')}</div>
+        ${L.err ? `<div class="err" style="text-align:center">${t('errCode')}</div>` : ''}
+        <div class="demo-code">${t('demoCode')} <b>${L.code}</b></div>
+        <div class="stack"><button type="button" class="btn full" data-verify>${t('verify')}</button>
+          <button type="button" class="btn line full" data-editphone>${t('editPhone')}</button></div>`, t('codeTitle'));
+      return openSheet(`
+        <h2>${t('nameTitle')}</h2><p class="lead">${t('nameLead')}</p>
+        <input class="input ${L.err ? 'bad' : ''}" id="nameIn" autocomplete="name" placeholder="${t('namePh')}" />
+        ${L.err ? `<div class="err" style="margin-top:6px">${t('errName')}</div>` : ''}
+        <div class="stack"><button type="button" class="btn full" data-savename>${t('save')}</button></div>`, t('nameTitle'));
+    }
+    function startLogin(then) { S.pending = then || null; Object.assign(L, { phone:'', code:'', step:'phone', err:false }); loginSheet(); }
+    function finishLogin() {
+      store.set(K.session, S.phone);
+      closeSheet();
+      toast(t('welcome', { name:me().name.split(' ')[0] }), 'i-user');
+      const p = S.pending; S.pending = null;
+      render();
+      if (p) p();
+    }
+
+    /* address sheet */
+    const A = { label:'home', text:'' };
+    function addrSheet() {
+      openSheet(`<h2>${t('newAddress')}</h2>${addrForm(A, 'sheet')}
+        <div class="stack"><button type="button" class="btn full" data-saveaddr>${t('saveAddr')}</button></div>`, t('newAddress'));
+    }
+    function addAddress(a) {
+      const u = me(); const list = u.addresses || [];
+      const rec = { id:'a' + Date.now().toString(36), label:a.label, text:a.text.trim(), def: !list.length };
+      u.addresses = [...list, rec]; saveMe(u); return rec;
+    }
+
+    /* ============ Payments (simulated gateway) ============ */
+    const TEST_DECLINE = '4000000000000002';
+    const digits = v => String(v || '').replace(/\D/g, '');
+    function brandOf(n) {
+      n = digits(n);
+      if (/^4/.test(n)) return 'visa';
+      if (/^(5[1-5]|2(2[2-9]|[3-6]\d|7[01]|720))/.test(n)) return 'mc';
+      return n.length >= 1 ? 'card' : '';
+    }
+    const brandName = b => ({ visa:'Visa', mc:'Mastercard', mada:'mada' }[b] || (S.lang === 'ar' ? 'بطاقة' : 'Card'));
+    function luhn(n) {
+      let sum = 0, alt = false;
+      for (let i = n.length - 1; i >= 0; i--) { let x = +n[i]; if (alt) { x *= 2; if (x > 9) x -= 9; } sum += x; alt = !alt; }
+      return n.length >= 13 && sum % 10 === 0;
+    }
+    function expOk(v) {
+      const m = /^(\d{2})\s*\/\s*(\d{2})$/.exec(v || ''); if (!m) return false;
+      const mo = +m[1], yr = 2000 + +m[2]; if (mo < 1 || mo > 12) return false;
+      const end = new Date(yr, mo, 1); return end > new Date();
+    }
+    const fmtCard = v => digits(v).slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 ');
+    const fmtExp = v => { const x = digits(v).slice(0, 4); return x.length > 2 ? `${x.slice(0, 2)}/${x.slice(2)}` : x; };
+    const newTxn = () => 'TX' + Date.now().toString().slice(-6) + Math.floor(100000 + Math.random() * 900000);
+
+    function payBlock(u) {
+      const cards = u?.cards || [];
+      if (S.cardSel !== 'new' && !cards.some(c => c.id === S.cardSel)) S.cardSel = cards[0]?.id || 'new';
+      const e = S.errs, c = S.card, br = brandOf(c.num);
+      const logo = { visa:'<span class="logo visa">VISA</span>', mc:'<span class="logo mc">MC</span>' }[br] || '';
+      const methods = [
+        ['card', `<span class="logos"><span class="logo mada">mada</span><span class="logo visa">VISA</span><span class="logo mc">MC</span></span>`],
+        ['applepay', `<span class="logos"><span class="logo apple">Apple Pay</span></span>`],
+        ['stcpay', `<span class="logos"><span class="logo stc">stc pay</span></span>`]
+      ];
+      const cardForm = S.pay !== 'card' ? '' : `<div class="cardbox">
+          ${cards.length ? `<div class="opts" style="margin:0">${cards.map(k => `
+            <label class="pm"><input type="radio" name="cardSel" value="${k.id}" ${S.cardSel === k.id ? 'checked' : ''} />
+              <span class="tx"><b dir="ltr" style="text-align:start">${brandName(k.brand)} •••• ${k.last4}</b><small>${t('expShort')} <span dir="ltr">${k.exp}</span></small></span></label>`).join('')}
+            <label class="pm"><input type="radio" name="cardSel" value="new" ${S.cardSel === 'new' ? 'checked' : ''} /><span class="tx"><b>${t('newCard')}</b></span>${ic('i-plus', 'sm')}</label></div>` : ''}
+          ${S.cardSel !== 'new' ? `
+            <label class="field" style="margin:0"><span>${t('savedCvv')}</span><input class="input ${e.cvv ? 'bad' : ''}" id="sCvv" inputmode="numeric" autocomplete="cc-csc" maxlength="3" placeholder="•••" value="${esc(S.savedCvv)}" style="max-width:140px" /></label>
+            ${e.cvv ? `<div class="err" id="err-cvv">${t('errCardCvv')}</div>` : ''}` : `
+            <label class="field" style="margin:0"><span>${t('cardNum')}</span><span class="numwrap"><input class="input ${e.num ? 'bad' : ''}" id="cNum" inputmode="numeric" autocomplete="cc-number" placeholder="0000 0000 0000 0000" value="${esc(fmtCard(c.num))}" />${logo}</span></label>
+            ${e.num ? `<div class="err" id="err-num">${t('errCardNum')}</div>` : ''}
+            <div class="two">
+              <label class="field" style="margin:0"><span>${t('cardExp')}</span><input class="input ${e.exp ? 'bad' : ''}" id="cExp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" value="${esc(c.exp)}" /></label>
+              <label class="field" style="margin:0"><span>${t('cardCvv')}</span><input class="input ${e.cvv ? 'bad' : ''}" id="cCvv" inputmode="numeric" autocomplete="cc-csc" maxlength="3" placeholder="•••" value="${esc(c.cvv)}" /></label>
+            </div>
+            ${e.exp ? `<div class="err" id="err-exp">${t('errCardExp')}</div>` : ''}${e.cvv ? `<div class="err" id="err-cvv">${t('errCardCvv')}</div>` : ''}
+            <label class="field" style="margin:0"><span>${t('cardName')}</span><input class="input ${e.name ? 'bad' : ''}" id="cName" autocomplete="cc-name" placeholder="${t('cardNamePh')}" value="${esc(c.name)}" /></label>
+            ${e.name ? `<div class="err" id="err-name">${t('errCardName')}</div>` : ''}
+            <label class="check"><input type="checkbox" id="cSave" ${c.save ? 'checked' : ''} />${t('saveCard')}</label>
+            <div class="testcards">${t('testCards')} <code>4111 1111 1111 1111</code> ${t('testOk')} · <code>4000 0000 0000 0002</code> ${t('testNo')}</div>`}
+        </div>`;
+      return `<div class="opts">${methods.map(([m, logos]) => `
+          <label class="pm"><input type="radio" name="pay" value="${m}" ${S.pay === m ? 'checked' : ''} />
+            <span class="tx"><b>${t('pay_' + m)}</b><small>${t('pay_' + m + '_s')}</small></span>${logos}</label>
+          ${m === 'card' ? cardForm : ''}`).join('')}</div>
+        ${S.payErr ? `<div class="pay-err">${ic('i-x', 'sm')}<span>${t(S.payErr)}</span></div>` : ''}
+        <div class="secure">${ic('i-shield', 'sm')}${t('secure')}</div>`;
+    }
+
+    function captureCard() {
+      if ($('#cNum')) S.card.num = digits($('#cNum').value);
+      if ($('#cExp')) S.card.exp = $('#cExp').value.trim();
+      if ($('#cCvv')) S.card.cvv = digits($('#cCvv').value);
+      if ($('#cName')) S.card.name = $('#cName').value;
+      if ($('#cSave')) S.card.save = $('#cSave').checked;
+      if ($('#sCvv')) S.savedCvv = digits($('#sCvv').value);
+    }
+    function validatePayment() {
+      if (S.pay !== 'card') return true;
+      const e = {};
+      if (S.cardSel !== 'new') { if (!/^\d{3}$/.test(S.savedCvv)) e.cvv = true; }
+      else {
+        if (!luhn(S.card.num) || !['visa', 'mc'].includes(brandOf(S.card.num))) e.num = true;
+        if (!expOk(S.card.exp)) e.exp = true;
+        if (!/^\d{3}$/.test(S.card.cvv)) e.cvv = true;
+        if (!S.card.name.trim()) e.name = true;
+      }
+      Object.assign(S.errs, e);
+      return !Object.keys(e).length;
+    }
+
+    const P = { code:'', err:false, phone:'', step:'' };
+    const sixDigits = () => String(Math.floor(100000 + Math.random() * 900000));
+    function payInfo() {
+      const u = me();
+      if (S.cardSel !== 'new') { const k = u.cards.find(c => c.id === S.cardSel); return { brand:k.brand, last4:k.last4, number:null }; }
+      return { brand:brandOf(S.card.num), last4:S.card.num.slice(-4), number:S.card.num };
+    }
+    function startPayment(order) {
+      P.err = false;
+      if (S.pay === 'card') { P.code = sixDigits(); return tdsSheet(order); }
+      if (S.pay === 'applepay') return applePaySheet(order);
+      P.step = 'phone'; P.phone = S.phone; return stcSheet(order);
+    }
+    function tdsSheet(order) {
+      const pi = payInfo();
+      openSheet(`<div class="bank">
+          <div class="bank-head"><b>${ic('i-shield')}${t('tdsTitle')}</b><span class="logo ${pi.brand}">${pi.brand === 'mc' ? 'MC' : 'VISA'}</span></div>
+          <div class="kv"><span>${t('merchant')}</span><span>Washla غسله</span></div>
+          <div class="kv"><span>${t('amount')}</span><b class="num">${money(order.total)}</b></div>
+          <div class="kv"><span>${t('card')}</span><span dir="ltr">•••• ${pi.last4}</span></div>
+          <p style="margin:12px 0 0;font-size:.88rem;color:var(--ink-2)">${t('tdsLead')}</p>
+          <input class="code-in ${P.err ? 'bad' : ''}" id="tdsCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••" />
+          ${P.err ? `<div class="err" style="text-align:center;margin-top:6px">${t('errOtp')}</div>` : ''}
+          <div class="demo-code">${t('demoOtp')} <b>${P.code}</b></div>
+        </div>
+        <div class="stack"><button type="button" class="btn full" data-tds-ok>${t('confirmPay')}</button><button type="button" class="btn line full" data-pay-cancel>${t('cancelPay')}</button></div>`, t('tdsTitle'));
+      S.payOrder = order;
+    }
+    function applePaySheet(order) {
+      openSheet(`<div class="apsheet">
+          <div class="ap-top"><b style="font-size:1.1rem">Apple Pay</b><button type="button" class="link-btn" style="color:#0a84ff" data-pay-cancel>${t('cancelPay')}</button></div>
+          <div class="ap-row"><span>${t('apCard')}</span><span>${t('apCardVal')}</span></div>
+          <div class="ap-row"><span>${t('apPayTo')}</span><span>WASHLA</span></div>
+          <div class="ap-row" style="font-weight:600"><span>${t('total')}</span><span class="num">${money(order.total)}</span></div>
+          <div class="faceid">${ic('i-user')}${t('apConfirm')}</div>
+        </div>
+        <div class="stack"><button type="button" class="btn full apple" data-ap-ok>${t('apConfirm')}</button></div>
+        <p class="terms">${t('apNote')}</p>`, t('apTitle'));
+      S.payOrder = order;
+    }
+    function stcSheet(order) {
+      S.payOrder = order;
+      if (P.step === 'phone') return openSheet(`<h2>${t('stcTitle')}</h2><p class="lead">${t('stcLead')}</p>
+          <span class="phone-in"><span>+966</span><input id="stcPhone" type="tel" inputmode="numeric" value="${esc((P.phone || '').replace(/^0/, ''))}" maxlength="12" /></span>
+          ${P.err ? `<div class="err" style="margin-top:6px">${t('errStcPhone')}</div>` : ''}
+          <div class="kv" style="margin-top:12px"><span>${t('amount')}</span><b class="num">${money(order.total)}</b></div>
+          <div class="stack"><button type="button" class="btn full stc" data-stc-send>${t('stcSend')}</button><button type="button" class="btn line full" data-pay-cancel>${t('cancelPay')}</button></div>`, t('stcTitle'));
+      openSheet(`<h2>${t('stcTitle')}</h2><p class="lead">${t('stcCodeLead')} <b dir="ltr" style="display:inline-block">${fmtPhone(P.phone)}</b></p>
+          <input class="code-in ${P.err ? 'bad' : ''}" id="stcCode" inputmode="numeric" maxlength="6" placeholder="••••••" />
+          ${P.err ? `<div class="err" style="text-align:center;margin-top:6px">${t('errOtp')}</div>` : ''}
+          <div class="demo-code">${t('demoOtp')} <b>${P.code}</b></div>
+          <div class="stack"><button type="button" class="btn full stc" data-stc-ok>${t('confirmPay')} · ${money(order.total)}</button><button type="button" class="btn line full" data-pay-cancel>${t('cancelPay')}</button></div>`, t('stcTitle'));
+    }
+    function processPayment(order, declined) {
+      openSheet(`<div style="text-align:center;padding-bottom:20px"><div class="spin"></div><b style="display:block;font-size:1.05rem">${t('processing')}</b><span style="color:var(--muted);font-size:.85rem">${t('processingSub')}</span></div>`, t('processing'));
+      setTimeout(() => {
+        closeSheet();
+        if (declined) { S.payErr = 'declined'; render(); document.querySelector('.pay-err')?.scrollIntoView({ block:'center', behavior:'smooth' }); return; }
+        const payment = { method:S.pay, txn:newTxn(), at:Date.now(), status:'paid' };
+        if (S.pay === 'card') {
+          const pi = payInfo(); payment.brand = pi.brand; payment.last4 = pi.last4;
+          if (pi.number && S.card.save) {
+            const u = me(); u.cards = u.cards || [];
+            if (!u.cards.some(c => c.last4 === pi.last4 && c.exp === S.card.exp)) u.cards.push({ id:'c' + Date.now().toString(36), brand:pi.brand, last4:pi.last4, exp:S.card.exp });
+            saveMe(u);
+          }
+        }
+        finishOrder(order, payment);
+      }, 1400);
+    }
+
+    /* place order */
+    function place() {
+      captureInputs(); captureCard();
+      S.payErr = null; S.errs = {};
+      const u = me();
+      if (!u) { startLogin(() => { if (S.view === 'checkout') place(); }); return; }
+      let addr = (u.addresses || []).find(a => a.id === S.addrId);
+      if (!addr) {
+        if (!S.draftAddr.text.trim()) { S.errs.addr = true; render(); $('#addrText-draft')?.focus(); return; }
+        addr = addAddress(S.draftAddr); S.addrId = addr.id; S.draftAddr = { label:'home', text:'' };
+      }
+      if (!S.slot || new Date(S.slot).getTime() < minTime()) { S.slot = null; render(); toast(t('noSlots'), 'i-clock'); return; }
+      if (!validatePayment()) { render(); document.querySelector('.cardbox .err')?.scrollIntoView({ block:'center', behavior:'smooth' }); return; }
+      const tot = totals();
+      const o = {
+        id: String(Date.now()).slice(-6), shopId:SHOP.id, slot:S.slot, address:`${t('lbl_' + addr.label)} — ${addr.text}`,
+        lines: tot.list.map(e => ({ svc:e.svc, item:e.item.id, q:e.q, p:price(e.svc) })), count:tot.count, sub:tot.sub, disc:tot.disc, fee:tot.fee, total:tot.total,
+        notes:S.notes, createdAt:Date.now(), step:0, status:'active'
+      };
+      startPayment(o);
+    }
+    function finishOrder(o, payment) {
+      o.payment = payment;
+      saveOrders([...myOrders(), o]);
+      S.lastOrder = o.id;
+      S.cart = {}; S.promoOn = false; S.promoIn = ''; S.promoErr = false; S.notes = ''; S.slot = null; S.errs = {}; S.savedCvv = ''; S.card = { num:'', exp:'', cvv:'', name:'', save:true }; S.payErr = null;
+      history_.length = 0;
+      go('done', {}, false);
+    }
+
+    function locateInto(mode) {
+      const set = txt => {
+        if (mode === 'sheet') { A.text = txt; addrSheet(); }
+        else { S.draftAddr.text = txt; render(); }
+      };
+      if (mode === 'sheet') A.text = $('#addrText-sheet')?.value || A.text; else captureInputs();
+      if (!navigator.geolocation) { toast(t('locFail'), 'i-pin'); return; }
+      toast(t('locating'), 'i-locate');
+      navigator.geolocation.getCurrentPosition(
+        p => {
+          const here = { lat:p.coords.latitude, lng:p.coords.longitude };
+          if (km(AREA, here) > AREA.radiusKm) { toast(t('outOfArea'), 'i-pin'); return; }
+          set(`${here.lat.toFixed(5)}, ${here.lng.toFixed(5)}`);
+        },
+        () => toast(t('locFail'), 'i-pin'), { timeout:8000 });
+    }
+
+    /* ============ Events ============ */
+    document.addEventListener('click', e => {
+      const b = e.target.closest('button, a'); if (!b) return;
+      const d = b.dataset;
+      if (b.tagName === 'A') return;                       // real links (WhatsApp, Maps) open normally
+
+      if (d.go) return go(d.go);
+      if ('back' in d) return back();
+      if ('lang' in d) { S.lang = S.lang === 'ar' ? 'en' : 'ar'; store.set(K.lang, S.lang); captureInputs(); render(); if ($('#sheet').classList.contains('on')) closeSheet(); return; }
+      if (d.svc) { if (isSoon(d.svc)) { toast(t('soonToast'), 'i-clock'); return; } S.service = S.tab = d.svc; render(); return; }
+      if (d.sort) { S.sort = d.sort; render(); return; }
+      if ('open' in d) { S.openOnly = !S.openOnly; render(); return; }
+      if ('clear' in d) { S.q = ''; S.openOnly = false; render(); return; }
+      if (d.tab) { S.tab = d.tab; render(); return; }
+      if (d.q) {
+        const n = Math.max(0, Math.min(99, (S.cart[d.q] || 0) + Number(d.d)));
+        if (n) S.cart[d.q] = n; else delete S.cart[d.q];
+        render(); return;
+      }
+      if ('pickslot' in d) { captureInputs(); S.pickSlot = !S.pickSlot; render(); return; }
+      if (d.day) { captureInputs(); S.dayIdx = Number(d.day); render(); return; }
+      if (d.slot) { captureInputs(); S.slot = d.slot; render(); return; }
+      if (d.albl) {
+        if (d.amode === 'sheet') { A.text = $('#addrText-sheet').value; A.label = d.albl; addrSheet(); }
+        else { captureInputs(); S.draftAddr.label = d.albl; render(); }
+        return;
+      }
+      if (d.locate) return locateInto(d.locate);
+      if ('addaddr' in d) { captureInputs(); A.label = 'home'; A.text = ''; S.errs = {}; return addrSheet(); }
+      if ('saveaddr' in d) {
+        A.text = $('#addrText-sheet').value;
+        if (!A.text.trim()) { S.errs.addr = true; return addrSheet(); }
+        const rec = addAddress(A); S.addrId = rec.id; S.errs = {}; closeSheet(); render(); return;
+      }
+      if (d.defaddr) { const u = me(); u.addresses.forEach(a => { a.def = a.id === d.defaddr; }); saveMe(u); render(); return; }
+      if (d.deladdr) {
+        const u = me(); u.addresses = u.addresses.filter(a => a.id !== d.deladdr);
+        if (u.addresses.length && !u.addresses.some(a => a.def)) u.addresses[0].def = true;
+        saveMe(u); render(); return;
+      }
+      if ('promo' in d) {
+        captureInputs();
+        if (S.promoIn.trim().toUpperCase() === PROMO.code) { S.promoOn = true; S.promoErr = false; toast(t('promoOk'), 'i-tag'); }
+        else S.promoErr = true;
+        render(); return;
+      }
+      if ('unpromo' in d) { captureInputs(); S.promoOn = false; S.promoIn = ''; render(); return; }
+      if ('place' in d) return place();
+      if ('payCancel' in d) { closeSheet(); toast(t('payCancelled'), 'i-x'); return; }
+      if ('tdsOk' in d) {
+        const code = digits($('#tdsCode').value);
+        if (code !== P.code) { P.err = true; return tdsSheet(S.payOrder); }
+        const pi = payInfo();
+        return processPayment(S.payOrder, pi.number === TEST_DECLINE);
+      }
+      if ('apOk' in d) return processPayment(S.payOrder, false);
+      if ('stcSend' in d) {
+        let raw = digits($('#stcPhone').value).replace(/^(00966|966)/, '').replace(/^0/, '');
+        if (!/^5\d{8}$/.test(raw)) { P.err = true; return stcSheet(S.payOrder); }
+        P.phone = '0' + raw; P.err = false; P.step = 'code'; P.code = sixDigits(); return stcSheet(S.payOrder);
+      }
+      if ('stcOk' in d) {
+        if (digits($('#stcCode').value) !== P.code) { P.err = true; return stcSheet(S.payOrder); }
+        return processPayment(S.payOrder, false);
+      }
+      if (d.cancel) { S.confirmCancel = d.cancel; render(); return; }
+      if ('cancelNo' in d) { S.confirmCancel = null; render(); return; }
+      if (d.cancelYes) {
+        const list = myOrders(), o = list.find(x => x.id === d.cancelYes);
+        if (o && (o.step || 0) === 0) { o.status = 'cancelled'; o.payment.status = 'refunded'; o.payment.refundedAt = Date.now(); saveOrders(list); toast(t('orderCancelled'), 'i-check'); }
+        S.confirmCancel = null; render(); return;
+      }
+      if (d.delcard) { const u = me(); u.cards = (u.cards || []).filter(c => c.id !== d.delcard); saveMe(u); toast(t('cardRemoved'), 'i-trash'); render(); return; }
+      if (d.openOrder) { history_.length = 0; history_.push({ view:'orders', params:{} }); return go('order', { id:d.openOrder }, false); }
+      if (d.step) { const list = myOrders(); const o = list.find(x => x.id === d.step); if (o.status !== 'cancelled') o.step = Math.min(4, (o.step || 0) + 1); S.confirmCancel = null; saveOrders(list); render(); return; }
+      if (d.reorder) {
+        const o = myOrders().find(x => x.id === d.reorder);
+        S.cart = {}; o.lines.filter(l => !isSoon(l.svc)).forEach(l => { S.cart[`${l.svc}|${l.item}`] = l.q; }); S.tab = cartList()[0]?.svc || 'wash';
+        history_.length = 0; return go('home', {}, false);
+      }
+      if ('login' in d) return startLogin();
+      if ('logout' in d) { store.del(K.session); S.phone = null; S.addrId = null; toast(t('loggedOut'), 'i-logout'); render(); return; }
+
+      /* login sheet */
+      if ('sendcode' in d) {
+        let raw = ($('#phoneIn').value || '').replace(/[^\d]/g, '');
+        raw = raw.replace(/^(00966|966)/, '').replace(/^0/, '');
+        const ok = /^5\d{8}$/.test(raw);
+        L.phone = ok ? '0' + raw : $('#phoneIn').value; L.err = !ok;
+        if (ok) { L.code = String(Math.floor(1000 + Math.random() * 9000)); L.step = 'code'; }
+        return loginSheet();
+      }
+      if ('editphone' in d) { L.step = 'phone'; L.err = false; return loginSheet(); }
+      if ('verify' in d) {
+        const code = [0,1,2,3].map(i => $('#otp' + i).value).join('');
+        if (code !== L.code) { L.err = true; return loginSheet(); }
+        S.phone = L.phone; L.err = false;
+        if (me()) return finishLogin();
+        L.step = 'name'; return loginSheet();
+      }
+      if ('savename' in d) {
+        const name = $('#nameIn').value.trim();
+        if (!name) { L.err = true; return loginSheet(); }
+        saveMe({ name, addresses: [] }); return finishLogin();
+      }
+    });
+
+
+    document.addEventListener('change', e => {
+      if (e.target.name === 'pay') { captureInputs(); captureCard(); S.pay = e.target.value; S.payErr = null; S.errs = {}; render(); }
+      if (e.target.name === 'cardSel') { captureInputs(); captureCard(); S.cardSel = e.target.value; S.errs = {}; render(); }
+      if (e.target.id === 'cSave') S.card.save = e.target.checked;
+      if (e.target.name === 'addr') S.addrId = e.target.value;
+    });
+    document.addEventListener('input', e => {
+      const el = e.target;
+      if (el.id && el.id.startsWith('addrText') && S.errs.addr && el.value.trim()) {
+        S.errs.addr = false; el.classList.remove('bad'); el.closest('.field').nextElementSibling?.classList.contains('err') && el.closest('.field').nextElementSibling.remove();
+      }
+      if (el.id === 'cNum') {
+        const before = el.value.slice(0, el.selectionStart).replace(/\D/g, '').length;
+        el.value = fmtCard(el.value); S.card.num = digits(el.value);
+        let pos = 0, seen = 0; while (pos < el.value.length && seen < before) { if (/\d/.test(el.value[pos])) seen++; pos++; }
+        el.setSelectionRange(pos, pos);
+        const br = brandOf(el.value), wrap = el.parentElement, old = wrap.querySelector('.logo');
+        const html = { visa:'<span class="logo visa">VISA</span>', mc:'<span class="logo mc">MC</span>' }[br] || '';
+        if (old) old.remove(); if (html) wrap.insertAdjacentHTML('beforeend', html);
+      }
+      if (el.id === 'cExp') { el.value = fmtExp(el.value); }
+      const errKey = { cNum:'num', cExp:'exp', cCvv:'cvv', sCvv:'cvv', cName:'name' }[el.id];
+      if (errKey && S.errs[errKey]) { S.errs[errKey] = false; el.classList.remove('bad'); $('#err-' + errKey)?.remove(); }
+      if (el.id === 'cCvv' || el.id === 'sCvv' || el.id === 'tdsCode' || el.id === 'stcCode') { el.value = digits(el.value); }
+      if (el.id === 'q') {
+        S.q = el.value;
+        const pos = el.selectionStart; render(); const n = $('#q'); n.focus(); n.setSelectionRange(pos, pos);
+      }
+      if (el.id && el.id.startsWith('otp')) {
+        el.value = el.value.replace(/\D/g, '').slice(-1);
+        const i = Number(el.id.slice(3));
+        if (el.value && i < 3) $('#otp' + (i + 1)).focus();
+        if (i === 3 && el.value) $('[data-verify]')?.click();
+      }
+    });
+    document.addEventListener('paste', e => {
+      if (!e.target.id?.startsWith('otp')) return;
+      const digits = (e.clipboardData?.getData('text') || '').replace(/\D/g, '').slice(0, 4);
+      if (digits.length === 4) { e.preventDefault(); digits.split('').forEach((c, i) => { $('#otp' + i).value = c; }); $('[data-verify]')?.click(); }
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && $('#sheet').classList.contains('on')) closeSheet();
+      if (e.key === 'Backspace' && e.target.id?.startsWith('otp') && !e.target.value) { const i = Number(e.target.id.slice(3)); if (i) $('#otp' + (i - 1)).focus(); }
+      if (e.key === 'Enter') {
+        const map = { phoneIn:'[data-sendcode]', nameIn:'[data-savename]', promo:'[data-promo]', tdsCode:'[data-tds-ok]', stcPhone:'[data-stc-send]', stcCode:'[data-stc-ok]' };
+        if (map[e.target.id]) { e.preventDefault(); $(map[e.target.id])?.click(); }
+      }
+    });
+    $('#scrim').addEventListener('click', closeSheet);
+
+    /* item names live in the dictionaries */
+    Object.assign(T.ar, { item_thobe:'ثوب', item_shemagh:'شماغ / غترة', item_shirt:'قميص', item_tshirt:'تيشيرت', item_pants:'بنطلون', item_abaya:'عباية', item_suit:'بدلة', item_blanket:'بطانية', item_duvet:'لحاف', item_carpet:'سجادة', item_curtain:'ستارة' });
+    Object.assign(T.en, { item_thobe:'Thobe', item_shemagh:'Shemagh / Ghutra', item_shirt:'Shirt', item_tshirt:'T-shirt', item_pants:'Trousers', item_abaya:'Abaya', item_suit:'Suit', item_blanket:'Blanket', item_duvet:'Duvet', item_carpet:'Rug', item_curtain:'Curtain' });
+
+    if (S.phone && !me()) { S.phone = null; store.del(K.session); }
+    render();
+  })();
+  </script>
+</body>
+</html>
